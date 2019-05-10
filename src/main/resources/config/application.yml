@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: shopapp
+  http:
+    encoding:
+      force: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  resources:
+    static-locations: classpath:/public/
+
+server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
+
+logging:
+  config: classpath:config/logback-shopapp.xml
+
+---
+spring:
+  profiles: local
+---
+spring:
+  profiles: dev
+---
+spring:
+  profiles: test
+---
+spring:
+  profiles: beta
+---
+spring:
+  profiles: stage
+---
+spring:
+  profiles: production
