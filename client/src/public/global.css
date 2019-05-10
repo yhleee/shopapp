@@ -1,0 +1,15 @@
+.global-class {
+  color: #fff;
+  background-color: #333;
+}
+
+.global-big-font {
+  font-size: 24px;
+}
+
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

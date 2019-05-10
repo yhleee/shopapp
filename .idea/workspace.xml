@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6d31d7a4-f53c-4230-9da5-7f3cf29ecc85" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_samskivert_jmustache_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_messaging_saaj_saaj_impl_1_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_soap_javax_xml_soap_api_1_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_ws_jaxws_api_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_16_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_mimepull_mimepull_1_9_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mustache_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_services_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_ws_spring_ws_core_3_0_7_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_ws_spring_xml_3_0_7_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shop-app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.npmrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.nvmrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.prettierrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.yarnrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/build.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/env.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/jest/cssTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/jest/fileTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/jest/typescriptTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/paths.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/polyfills.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/polyfills/setPrototypeOf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/scripts/build-client.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/scripts/start-ci.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/scripts/start.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/webpack.config.base.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/webpack.config.client.dev.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/config/webpack.config.client.prod.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/generateTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/jest.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/runTsGenerator.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/client.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/client/registerServiceWorker.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/components/Img.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/configureStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/logger.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/reducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/brand.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/channel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/collectionSearch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/inspectionCount.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/menu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/product.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/productAttributeValue.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/productCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/productScoreStats.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/productScoreWeight.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/storeCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/storeMenu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/tag.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/tagPick.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/template.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/services/templateInstance.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/typeChecker.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/PhotoInfra.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/brand.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/category.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/channel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/errorResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/brand.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/channel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/channelAdditionalAttribute.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/image.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/imageClassType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/menuAttribute.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/menuType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/myBusinessMap.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/product.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/productAttribute.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/productAttributeValue.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/productFlagType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/relationProductImageType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/relationProductView.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/salesTime.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/shoppingCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/storeCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/storeCategoryRelation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/storeMenu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/subVerticalType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/tag.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/tagType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/templateManager.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/verticalType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/generated/weekType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/image.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/imageType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/menu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/menuEnv.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/pageResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/pageable.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/product.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productAttribute.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productAttributeValue.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productScoreAttributeWeight.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productScoreStats.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/productScoreWeight.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/storeCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/storeMenu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/tag.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/entities/tagPick.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/errors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/router.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/types/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/ajax/apiErrorHandler.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/ajax/axios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/ajax/urlUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/alertUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/arrayUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/createCx/createEnhancedCx.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/createCx/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/insertCss.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/scriptLoader/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/scriptLoader/utils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/component/styling.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/convert.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/category.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/format.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/ifElse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/isBrowser.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/isDev.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/isProd.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/logic/isTest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/utils/stringUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Error/PageNotFound.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/CommonAlert.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/Example.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/ExampleCategoryPicker.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/ExampleCategorySelector.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/ExamplePhotoUploader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/ExampleSearch.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/ExampleThumbnailPhotoUploader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Example/Excel.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/index.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/routes.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config/development.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config/production.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config/stage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config/test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/config/paths.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/config/tsconfig.client.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/config/webpack.config.client.dev.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/config/webpack.config.client.prod.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/scripts/build-client.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/scripts/start-ci.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/scripts/start-with-redux-log.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/internal/scripts/start.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/public/antd.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/public/global.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/tsconfig.base.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/tsconfig.test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/tslint.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/typings.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/logs/application.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/api/CommonApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/shop-app.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/META-INF/shop-app.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/server/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/client/.prettierignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/server/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/server/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/ShopAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/ShopAppApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/api/CommonApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/CustomRequestMappingHandlerMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/CustomRequestMappingHandlerMapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/MySqlDataSourceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mybatis/MySqlMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mybatis/MybatisConfigurationSupport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/spring/EnvironmentPostYamlProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/spring/EnvironmentPostYamlProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProduct.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductCriteria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/config/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/datasource.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/logback-base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/config/logback-base.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/logback-shopapp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/config/logback-shopapp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/test/ClassicModelsProduct.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kr/co/oliveyoung/shopapp/ShopAppApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/kr/co/oliveyoung/shopapp/ShopAppApplicationTests.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/classes/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/server/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/Example/ExampleCategoryPicker.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="45" column="1" lean-forward="true" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/build.gradle">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/typings.d.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/generateTypes.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-683" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/config/webpack.config.base.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/config/webpack.config.client.dev.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/runTsGenerator.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="54" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/config/stage.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/config/test.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>session</find>
+      <find>starter-se</find>
+      <find>spring-security</find>
+      <find>com.naver.shopping</find>
+      <find>private Long</find>
+      <find>mybatis</find>
+      <find>my</find>
+      <find>kr.co.oliveyoung.shopapp.feature</find>
+      <find>admin</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>kr.co.oliveyoung.shopapp</replace>
+      <replace>mysql</replace>
+      <replace>shoapp</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\DevSpaces\spring\old\shop-app</dir>
+      <dir>C:\DevSpaces\spring\old\shop-app\client</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/test/model/Product.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/test/model/ClassicModelProduct.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/app-admin.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/logback.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/WebConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/SecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/DataSourceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/application.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/logback-shopapp.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/MyDataSourceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mysql/MyMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mysql/MySqlMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/spring/EnvironmentPostYamlProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ProductCriteria.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/Product.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProduct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductCriteria.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mybatis/mapper/ClassicModelsProduct.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/datasource.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/MySqlDataSourceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/ShopAppApplication.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/api/CommonApi.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/client/src/config/production.ts" />
+        <option value="$PROJECT_DIR$/client/src/config/stage.ts" />
+        <option value="$PROJECT_DIR$/client/src/config/test.ts" />
+        <option value="$PROJECT_DIR$/client/src/config/index.ts" />
+        <option value="$PROJECT_DIR$/client/src/config/development.ts" />
+        <option value="$PROJECT_DIR$/client/src/components/routes.tsx" />
+        <option value="$PROJECT_DIR$/client/runTsGenerator.ts" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="57" />
+    <option name="y" value="2" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="shop-app" type="58d84e3e:PackageViewProjectNode" />
+              <item name="shop-app" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="shop-app" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\DevSpaces\spring\old\shop-app" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="shop-app" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\DevSpaces\spring\old\shop-app" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="client" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shop-app" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\DevSpaces\spring\old\shop-app" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="client" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="config" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shop-app" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="shop-app" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="shop-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\DevSpaces\spring\old\shop-app\client" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\resources\mybatis\mapper" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\java\kr\co\oliveyoung\shopapp\feature\test" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\java\kr\co\oliveyoung\shopapp\common\config" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\java\kr\co\oliveyoung\shopapp\common\config\mysql" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\DevSpaces\spring\old\shop-app\server" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\resources\mybatis\mapper\test" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\resources\mybatis\mapper" />
+      <recent name="C:\DevSpaces\spring\old\shop-app\src\main\java\kr\co\oliveyoung\shopapp\feature\test" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="ShopAppApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="spring.profiles.active" value="local" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="kr.co.oliveyoung.shopapp.ShopAppApplication" />
+      <module name="shop-app" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kr.co.oliveyoung.shopapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ShopAppApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6d31d7a4-f53c-4230-9da5-7f3cf29ecc85" name="Default Changelist" comment="" />
+      <created>1557218961716</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557218961716</updated>
+    </task>
+    <task id="LOCAL-00001" summary="initialize commit">
+      <created>1557463322927</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1557463322927</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Storybook" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24832214" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.37393767" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28611898" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32907802" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initialize commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initialize commit" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductRepository.java" />
+    <entry file="file://$PROJECT_DIR$/target/classes/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductMapper.class" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductCriteria.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" />
+    <entry file="file://$PROJECT_DIR$/server/src/main/resources/config/logback-shopapp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.4.RELEASE/spring-boot-2.1.4.RELEASE.jar!/org/springframework/boot/jdbc/DataSourceBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.4.RELEASE/spring-boot-2.1.4.RELEASE.jar!/org/springframework/boot/context/properties/ConfigurationProperties.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.sql/javax/sql/DataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1205">
+          <caret line="78" column="17" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProduct.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mybatis/MySqlMapper.java" />
+    <entry file="file://$PROJECT_DIR$/server/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/mybatis/MybatisConfigurationSupport.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductService.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/feature/test/ClassicModelsProductMapper.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mybatis/mapper/test/ClassicModelsProduct.xml" />
+    <entry file="file://$PROJECT_DIR$/server/src/main/resources/config/logback-base.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/datasource.yml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/kr/co/oliveyoung/shopapp/common/config/MySqlDataSourceConfig.java" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/maven/lib/maven.jar!/schemas/maven-4.0.0.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="749" column="6" selection-start-line="749" selection-start-column="6" selection-end-line="749" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/api/CommonApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/resources/config/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/ShopAppApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/SecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="40" column="14" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/WebConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/CustomRequestMappingHandlerMapping.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="30" column="76" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/application.log" />
+    <entry file="file://$PROJECT_DIR$/server/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="57" column="27" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/kr/co/oliveyoung/shopapp/common/config/spring/EnvironmentPostYamlProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/config/jest/cssTransform.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/tslint.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/tsconfig.base.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/jest.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-448" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/index.ts" />
+    <entry file="file://$PROJECT_DIR$/client/src/config/development.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/index.test.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/index.tsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/routes.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Example/Example.tsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/config/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/config/production.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/config/stage.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/config/test.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Example/ExampleCategoryPicker.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="45" column="1" lean-forward="true" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/typings.d.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/generateTypes.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-683" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/config/webpack.config.base.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/config/webpack.config.client.dev.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/runTsGenerator.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="54" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
