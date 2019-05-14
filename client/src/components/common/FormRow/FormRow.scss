@@ -1,0 +1,10 @@
+.form-row {
+  .row {
+    vertical-align: middle;
+    margin: 5px 0px;
+  }
+
+  :global(.ant-form-item) {
+    margin: 0px;
+  }
+}

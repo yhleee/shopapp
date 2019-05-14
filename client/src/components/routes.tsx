@@ -31,8 +31,8 @@ const Routes = () => {
   return (
     <>
       <Switch>
-        <Redirect exact={true} from="/" to="/" />
-        <Route path="/app/example/category-selector" component={Example} />
+        <Redirect exact={true} from="/" to="/example" />
+        <Route path="/example" component={Example} />
 
         <Route component={PageNotFound} />
       </Switch>

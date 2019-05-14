@@ -12,6 +12,12 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="shop-app" target="12" />
+      <module name="shop-app-server.main" target="1.10" />
+      <module name="shop-app-server.test" target="1.10" />
+      <module name="shop-app.main" target="1.10" />
+      <module name="shop-app.test" target="1.10" />
+      <module name="shopping-server.main" target="1.10" />
+      <module name="shopping-server.test" target="1.10" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

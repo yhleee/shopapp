@@ -1,6 +1,6 @@
 export default {
   protocol: 'http',
   host: 'localhost',
-  port: 8080,
+  port: 9090,
   clientPort: 5000,
 }

@@ -19,15 +19,6 @@ export { createCx } from './component/createCx'
 export { insertCss } from './component/insertCss'
 
 export { alertPopup, errorPopup } from './alertUtils'
-export {
-  findCategory,
-  getAncestorCategories,
-  getDescendantCategories,
-  convertHierarchyToFlatList,
-  convertFlatListToHierarchy,
-  mergeCategories,
-  subtractCategories,
-} from './logic/category'
 
 export { ArrayUtils } from './arrayUtils'
 

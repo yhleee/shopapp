@@ -1,29 +1,49 @@
-HELP.md
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+# Compiled Class
+.class
 
-### STS ###
+# Package Files
+*.jar
+*.war
+*.ear
+*.tar.gz
+
+# Build Path
+build/
+out/
+**/src/main/resources/public/
+
+# Log
+*.log
+hs_err_pid*
+
+# Gradle
+.gradle
+gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# STS
 .apt_generated
 .classpath
 .factorypath
 .project
 .settings
 .springBeans
-.sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-/build/
-
-### VS Code ###
-.vscode/
+# Misc
+.java-version
+shopping-admin/node_modules/.yarn-integrity
+.vscode/launch.json
+node_modules/.yarn-integrity

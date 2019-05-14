@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shopapp
+    name: shop-app
   http:
     encoding:
       force: true
@@ -17,12 +17,12 @@ spring:
     static-locations: classpath:/public/
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:9090}
   compression:
     enabled: true
 
 logging:
-  config: classpath:config/logback-shopapp.xml
+  config: classpath:config/logback-config.xml
 
 ---
 spring:

@@ -1,12 +1,8 @@
 import * as React from 'react'
 
-export const enum THUMB_TYPE {
-  W336 = 'w336',
-  F750_1000 = 'f750_1000',
-  W720 = 'w720',
-}
+export const enum THUMB_TYPE {}
 
-const noImage = 'http://static.checkout.naver.net/cnsv/p/im/hotdeal/no_image_244_v1.png'
+const noImage = '' // add default no-image
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string

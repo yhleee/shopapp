@@ -1,7 +1,6 @@
 import originalAxios, { AxiosRequestConfig } from 'axios'
 import handleError from './apiErrorHandler'
 import { getBaseUrl } from './urlUtils'
-import ExcelDownloadLayer from '../../../components/common/Excel/ExcelDownloadLayer'
 
 export const axios = originalAxios.create({
   baseURL: getBaseUrl(),
