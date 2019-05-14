@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class TypeShareFormat {
 
-  protected String entityPackage = "com.naver.shopping.feature";
+  protected String entityPackage = "kr.co.oliveyoung.feature";
   protected Map<String, List<String>> filePathMap = new HashMap<>();
   protected Map<String, List<String>> unionImportMap = new HashMap<>();
 
