@@ -50,3 +50,5 @@ node_modules/.yarn-integrity
 
 */.cache
 */node_modules
+*/.idea
+*/target
