@@ -1,6 +1,4 @@
 import * as React from 'react'
-import SearchForm from './SearchForm'
-import SearchList from './SearchList'
 
 interface OwnProps {}
 
@@ -16,10 +14,7 @@ class Menu extends React.Component<OwnProps, OwnState> {
     return (
       <>
         <h1 style={dividingStyle}>메뉴관리</h1>
-        <div style={dividingStyle}>
-          <SearchForm />
-        </div>
-        <SearchList />
+        <div style={dividingStyle} />
       </>
     )
   }
