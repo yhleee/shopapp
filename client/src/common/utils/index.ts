@@ -12,7 +12,7 @@ export { scriptLoader } from './component/scriptLoader'
 export { axios, axiosFileDownload, CustomAxiosRequestConfig } from './ajax/axios'
 export { getBaseUrl } from './ajax/urlUtils'
 
-export { dateFormat, dateFormatByMoment } from './logic/format'
+export { dateFormatByMoment } from './logic/format'
 
 /// minor utils
 export { createCx } from './component/createCx'

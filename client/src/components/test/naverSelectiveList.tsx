@@ -33,7 +33,7 @@ class NaverSelective extends React.Component<Props, OwnState> {
   }
 
   async componentDidUpdate() {
-    await this.setData()
+    // await this.setData()
   }
 
   setData = async () => {
@@ -45,7 +45,7 @@ class NaverSelective extends React.Component<Props, OwnState> {
 
   handleCountUp = () => {
     const { fetch, testCount } = this.props
-    let count = testCount.count
+    const count = testCount.count
     fetch(count + 1)
   }
 
@@ -63,7 +63,7 @@ class NaverSelective extends React.Component<Props, OwnState> {
             if (!data.representImagePathForWest) return
             return (
               <Card
-                hoverable
+                hoverable={true}
                 style={{ width: '90%', marginBottom: '10px' }}
                 cover={<img alt={data.urlId} src={data.representImagePathForWest} />}
                 key={`selective_data_${index}`}

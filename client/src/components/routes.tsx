@@ -24,7 +24,7 @@ function createLoadable(componentImport) {
 }
 
 export const Example = createLoadable(() => import('./Example/Example'))
-export const TestAxios = createLoadable(() => import('./test/naverSelectiveList'))
+export const TestAxios = createLoadable(() => import('./Test/naverSelectiveList'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -32,9 +32,10 @@ const Routes = () => {
   return (
     <>
       <Switch>
-        <Redirect exact={true} from="/" to="/example" />
-        <Route path="/example" component={Example} />
-        <Route path="/test/axios" component={TestAxios} />
+        <Redirect exact={true} from="/" to="/app/example" />
+
+        <Route path="/app/example" component={Example} />
+        <Route path="/app/test/axios" component={TestAxios} />
 
         <Route component={PageNotFound} />
       </Switch>
