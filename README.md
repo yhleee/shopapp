@@ -19,7 +19,7 @@
   In the project root as follows are performed through the .nvmrc
   ```bash
   $ nvm use
-  Found '/Users/user/Github/shopping-web/.nvmrc' with version <8.9.0>
+  Found '.nvmrc' with version <8.9.0>
   Now using node v8.9.0 (npm v5.5.1)
   ```
 - Configure Git core.autocrlf ( [Link](https://git-scm.com/book/ko/v1/Git%EB%A7%9E%EC%B6%A4-Git-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0#%EC%86%8C%EC%8A%A4-%ED%8F%AC%EB%A7%B7%EA%B3%BC-%EA%B3%B5%EB%B0%B1) )
