@@ -1,7 +1,7 @@
-package com.naver.shopping.config.mongo;
+package kr.co.oliveyoung.shopapp.config.mongo;
 
-import com.naver.shopping.repository.MongoQueryRepositoryImpl;
-import com.naver.shopping.repository.MongoReactiveQueryRepositoryImpl;
+import kr.co.oliveyoung.shopapp.repository.MongoQueryRepositoryImpl;
+import kr.co.oliveyoung.shopapp.repository.MongoReactiveQueryRepositoryImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -17,13 +17,13 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @Configuration
 @EnableMongoRepositories(
     mongoTemplateRef = "mongoTemplateUsingPrimary",
-    basePackages = "com.naver.shopping",
+    basePackages = "kr.co.oliveyoung.shopapp",
     repositoryBaseClass = MongoQueryRepositoryImpl.class,
     includeFilters = @Filter(UsingPrimaryNode.class)
 )
 @EnableReactiveMongoRepositories(
     reactiveMongoTemplateRef = "reactiveMongoTemplateUsingPrimary",
-    basePackages = "com.naver.shopping",
+    basePackages = "kr.co.oliveyoung.shopapp",
     repositoryBaseClass = MongoReactiveQueryRepositoryImpl.class,
     includeFilters = @Filter(UsingPrimaryNode.class)
 )

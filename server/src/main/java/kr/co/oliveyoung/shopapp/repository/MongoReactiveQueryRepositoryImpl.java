@@ -1,9 +1,10 @@
-package com.naver.shopping.repository;
+package kr.co.oliveyoung.shopapp.repository;
 
 import com.mongodb.client.result.UpdateResult;
-import com.naver.shopping.common.MongoSequence;
 import java.io.Serializable;
 import java.util.Optional;
+
+import kr.co.oliveyoung.shopapp.common.MongoSequence;
 import org.bson.Document;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

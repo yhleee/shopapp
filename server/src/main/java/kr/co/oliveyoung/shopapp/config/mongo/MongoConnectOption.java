@@ -1,4 +1,4 @@
-package com.naver.shopping.config.mongo;
+package kr.co.oliveyoung.shopapp.config.mongo;
 
 
 import java.util.HashMap;

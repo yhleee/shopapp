@@ -1,7 +1,5 @@
-package com.naver.shopping.config.mongo;
+package kr.co.oliveyoung.shopapp.config.mongo;
 
-import com.naver.shopping.feature.zzim.MemberZzimReaderConverter;
-import com.naver.shopping.feature.zzim.MemberZzimWriterConverter;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -56,8 +54,6 @@ public class MongoConverterConfig {
     List<Converter<?, ?>> converters = new ArrayList<>();
     converters.add(DateToZonedDateTimeConverter.INSTANCE);
     converters.add(ZonedDateTimeToDateConverter.INSTANCE);
-    converters.add(new MemberZzimReaderConverter());
-    converters.add(new MemberZzimWriterConverter());
     return new MongoCustomConversions(converters);
   }
 

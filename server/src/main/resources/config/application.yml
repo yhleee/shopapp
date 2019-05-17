@@ -43,6 +43,10 @@ spring:
     username: test
     password: test
     maximumPoolSize: 20
+  datasource-mongo:
+    uri: 116.121.31.99:27017/?authSource=storeApp
+    username: test
+    password: test
 ---
 spring:
   profiles: dev

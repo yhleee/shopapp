@@ -1,4 +1,4 @@
-package com.naver.shopping.repository;
+package kr.co.oliveyoung.shopapp.repository;
 
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;

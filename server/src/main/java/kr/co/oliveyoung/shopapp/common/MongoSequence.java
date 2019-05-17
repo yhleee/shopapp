@@ -1,4 +1,4 @@
-package com.naver.shopping.common;
+package kr.co.oliveyoung.shopapp.common;
 
 import lombok.Getter;
 import lombok.Setter;

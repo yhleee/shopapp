@@ -30,7 +30,7 @@ public class OracleDataSourceConfig {
   }
 
   @Bean(name = "oracleSessionFactory")
-  public SqlSessionFactory mySqlSessionFactory(
+  public SqlSessionFactory oracleSessionFactory(
       @Qualifier("oracleDataSource") DataSource dataSource) throws Exception {
     return myBatisConfigurationSupport.build(dataSource);
   }

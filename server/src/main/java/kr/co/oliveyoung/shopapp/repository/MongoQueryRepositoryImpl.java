@@ -1,4 +1,4 @@
-package com.naver.shopping.repository;
+package kr.co.oliveyoung.shopapp.repository;
 
 import java.io.Serializable;
 import java.util.List;

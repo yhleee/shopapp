@@ -118,6 +118,9 @@ dependencies {
 
     // oracle
     compile 'com.oracle:ojdbc7:12.1.0.2'
+    
+    // mongo db
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
 //
 //    // mysql

@@ -1,15 +1,12 @@
-package com.naver.shopping.config.mongo;
+package kr.co.oliveyoung.shopapp.config.mongo;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientURI;
-import com.naver.shopping.config.nclavis.NClavisEnvoy;
-import com.naver.shopping.config.nclavis.RepositoryAccessInfo;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -19,14 +16,16 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
 
 @Configuration
-@EnableConfigurationProperties(MongoNClavisProperty.class)
 public class MongoDbFactoryConfig {
 
   @Autowired
-  private MongoNClavisProperty mongoNClavisProperty;
-
-  @Autowired
   private MongoConnectOption mongoConnectOption;
+
+  @Bean
+  public MongoAccessInfo mongoAccessInfo() {
+    return new MongoAccessInfo();
+  }
+
 
   @Primary
   @Bean
@@ -35,15 +34,14 @@ public class MongoDbFactoryConfig {
   }
 
   private String connectUrlSecondaryPreferred() {
-    return uriFromNClavis() + mongoConnectOption.getSecondaryPreferred();
+    return uriFrom() + mongoConnectOption.getSecondaryPreferred();
   }
 
-  private String uriFromNClavis() {
-    RepositoryAccessInfo accessInfo = NClavisEnvoy.getAccessInfo(mongoNClavisProperty);
+  private String uriFrom() {
     try {
       String encodedPw = URLEncoder
-          .encode(accessInfo.getPassword(), StandardCharsets.UTF_8.toString());
-      return "mongodb://" + accessInfo.getUserName() + ":" + encodedPw + "@" + accessInfo.getUri();
+          .encode(mongoAccessInfo().getPassword(), StandardCharsets.UTF_8.toString());
+      return "mongodb://" + mongoAccessInfo().getUsername() + ":" + encodedPw + "@" + mongoAccessInfo().getUri();
     } catch (UnsupportedEncodingException e) {
       throw new RuntimeException(e);
     }
@@ -55,7 +53,7 @@ public class MongoDbFactoryConfig {
   }
 
   private String connectUrl() {
-    return uriFromNClavis() + mongoConnectOption.getDefault();
+    return uriFrom() + mongoConnectOption.getDefault();
   }
 
   @Primary
