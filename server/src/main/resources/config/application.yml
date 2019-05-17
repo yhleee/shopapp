@@ -16,6 +16,15 @@ spring:
   resources:
     static-locations: classpath:/public/
 
+mybatis:
+  mapper-locations: classpath:mybatis/**/*.xml
+  type-aliases-package: kr.co.oliveyoung.feature
+  configuration:
+    cacheEnabled: false
+    useGeneratedKeys: true
+    defaultExecutorType: REUSE
+    aggressiveLazyLoading: false
+
 server:
   port: ${PORT:9090}
   compression:
@@ -27,6 +36,13 @@ logging:
 ---
 spring:
   profiles: local
+  datasource-oracle:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    connectionTestQuery: SELECT 1 FROM DUAL
+    jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+    username: test
+    password: test
+    maximumPoolSize: 20
 ---
 spring:
   profiles: dev

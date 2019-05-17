@@ -1,4 +1,4 @@
-package kr.co.oliveyoung.shopapp.common;
+package kr.co.oliveyoung.shopapp.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
