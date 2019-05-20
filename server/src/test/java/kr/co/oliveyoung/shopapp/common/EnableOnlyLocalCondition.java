@@ -1,5 +1,6 @@
 package kr.co.oliveyoung.shopapp.common;
 
+import kr.co.oliveyoung.shopapp.common.utils.EnvUtils;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
