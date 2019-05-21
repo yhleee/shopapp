@@ -2,8 +2,8 @@ package kr.co.oliveyoung.shopapp.config;
 
 import javax.sql.DataSource;
 
-import kr.co.oliveyoung.shopapp.config.mybatis.MybatisConfigurationSupport;
 import kr.co.oliveyoung.shopapp.config.mybatis.OracleMapper;
+import kr.co.oliveyoung.shopapp.config.mybatis.MybatisOracleConfigurationSupport;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ import org.springframework.context.annotation.Configuration;
 public class OracleDataSourceConfig {
 
   @Autowired
-  private MybatisConfigurationSupport myBatisConfigurationSupport;
+  private MybatisOracleConfigurationSupport myBatisConfigurationSupport;
 
   @Bean(name = "oracleDataSource")
-  @ConfigurationProperties(prefix = "spring.datasource-oracle")
+  @ConfigurationProperties(prefix = "spring.oracle.datasource")
   public DataSource oracleDataSource() {
     return DataSourceBuilder.create().build();
   }

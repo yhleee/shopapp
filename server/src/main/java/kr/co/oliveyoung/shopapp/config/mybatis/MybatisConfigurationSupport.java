@@ -1,6 +1,9 @@
 package kr.co.oliveyoung.shopapp.config.mybatis;
 
 import javax.sql.DataSource;
+
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.Configuration;
@@ -11,11 +14,11 @@ import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-@Component
+@Slf4j
+@Getter
 public class MybatisConfigurationSupport {
 
   private final MybatisProperties mybatisProperties;
@@ -32,6 +35,7 @@ public class MybatisConfigurationSupport {
     this.interceptors = interceptorsProvider.getIfAvailable();
     this.resourceLoader = resourceLoader;
     this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+    log.info("=============================== mybatis ===============================");
   }
 
   public SqlSessionFactory build(DataSource dataSource) throws Exception {

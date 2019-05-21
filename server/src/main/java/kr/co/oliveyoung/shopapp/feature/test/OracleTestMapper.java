@@ -5,7 +5,7 @@ import kr.co.oliveyoung.shopapp.config.mybatis.OracleMapper;
 import java.util.List;
 
 @OracleMapper
-public interface TestMapper {
+public interface OracleTestMapper {
 
-    List<Test> selectTest();
+    List<OracleTest> selectTest();
 }

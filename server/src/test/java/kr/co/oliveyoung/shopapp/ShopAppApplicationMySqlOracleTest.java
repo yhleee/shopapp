@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ShopAppApplicationTest {
+public class ShopAppApplicationMySqlOracleTest {
 
   @Test
   public void contextLoads() {

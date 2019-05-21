@@ -17,9 +17,14 @@ spring:
     static-locations: classpath:/public/
 
   profiles.active: ${env:local}
-  datasource-oracle:
-    driverClassName: oracle.jdbc.driver.OracleDriver
-    connectionTestQuery: SELECT 1 FROM DUAL
+  oracle:
+    datasource:
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      connectionTestQuery: SELECT 1 FROM DUAL
+  mysql:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      connectionTestQuery: SELECT 1 FROM DUAL
 
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
@@ -41,18 +46,29 @@ logging:
 ---
 spring:
   profiles: local
-  datasource-oracle:
-    jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
-    username: test
-    password: test
-    maximumPoolSize: 20
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+      username: test
+      password: test
+      maximumPoolSize: 20
   datasource-mongo:
     uri: 116.121.31.99:27017/?authSource=storeApp
     username: test
     password: test
+  mysql:
+    datasource:
+      url: jdbc:mysql://127.0.0.1:3306/test
+      username: root
+      password: root
 ---
 spring:
   profiles: dev
+  datasource-oracle:
+    jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+    username: OOMAPP
+    password: TAblet52()
+    maximumPoolSize: 20
 ---
 spring:
   profiles: test
