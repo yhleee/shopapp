@@ -1,5 +1,6 @@
 package kr.co.oliveyoung.shopapp.test;
 
+import kr.co.oliveyoung.shopapp.common.utils.EnvUtils;
 import kr.co.oliveyoung.shopapp.common.utils.JsonUtils;
 import kr.co.oliveyoung.shopapp.feature.test.Test;
 import kr.co.oliveyoung.shopapp.feature.test.TestMapper;
@@ -28,6 +29,7 @@ public class TestController {
     @GetMapping("/db/oracle")
     public String getDbOracleTest() {
         List<Test> testList = oracleTestMapper.selectTest();
+        log.info("======= ENV : {} ======", EnvUtils.getEnv());
         return JsonUtils.objectToJson(testList);
     }
 }

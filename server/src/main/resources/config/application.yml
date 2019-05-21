@@ -16,6 +16,11 @@ spring:
   resources:
     static-locations: classpath:/public/
 
+  profiles.active: ${env:local}
+  datasource-oracle:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    connectionTestQuery: SELECT 1 FROM DUAL
+
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
   type-aliases-package: kr.co.oliveyoung.feature
@@ -37,8 +42,6 @@ logging:
 spring:
   profiles: local
   datasource-oracle:
-    driverClassName: oracle.jdbc.driver.OracleDriver
-    connectionTestQuery: SELECT 1 FROM DUAL
     jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
     username: test
     password: test
