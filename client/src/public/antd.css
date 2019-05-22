@@ -4570,9 +4570,9 @@ a.ant-btn-sm {
   position: relative;
   overflow: hidden;
   vertical-align: middle;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 150px;
+  height: 80px;
+  line-height: 60px;
   border-radius: 50%;
 }
 .ant-avatar-image {
@@ -5524,6 +5524,7 @@ span.ant-radio + * {
 }
 .ant-card-bordered {
   border: 1px solid #e8e8e8;
+  border-radius: 20px
 }
 .ant-card-head {
   background: transparent;
@@ -5628,6 +5629,7 @@ span.ant-radio + * {
 .ant-card-cover > * {
   width: 100%;
   display: block;
+  border-radius: 20px;
 }
 .ant-card-cover img {
   border-radius: 2px 2px 0 0;
@@ -5731,7 +5733,7 @@ span.ant-radio + * {
   margin-bottom: 8px;
 }
 .ant-card-meta-title {
-  font-size: 16px;
+  font-size: 38px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -5739,6 +5741,7 @@ span.ant-radio + * {
   font-weight: 500;
 }
 .ant-card-meta-description {
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.45);
 }
 .ant-card-loading .ant-card-body {
@@ -6353,6 +6356,18 @@ span.ant-radio + * {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
+  height: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 80px;
+  background: rgb(240, 240, 240);
+  overflow: hidden;
+  border-radius: 20px;
+}
+.ant-carousel .slick-slide h3 {
+  color: #000;
+  font-size: 30px;
+  padding-left: 20px;
 }
 .ant-carousel .slick-list {
   position: relative;
@@ -7006,6 +7021,10 @@ span.ant-radio + * {
   position: relative;
   margin-left: 0;
   margin-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   height: auto;
   zoom: 1;
   display: block;
@@ -14619,7 +14638,7 @@ textarea.ant-input-number {
   -webkit-flex: auto;
       -ms-flex: auto;
           flex: auto;
-  background: #f0f2f5;
+  background: #ffffff;
   /* fix firefox can't set height smaller than content on flex item */
   min-height: 0;
 }
@@ -14647,13 +14666,13 @@ textarea.ant-input-number {
           flex: 0 0 auto;
 }
 .ant-layout-header {
-  background: #001529;
+  background: #FFFFFF;
   padding: 0 50px;
-  height: 64px;
+  height: 100px;
   line-height: 64px;
 }
 .ant-layout-footer {
-  background: #f0f2f5;
+  background: #ffffff;
   padding: 24px 50px;
   color: rgba(0, 0, 0, 0.65);
   font-size: 14px;
@@ -14670,7 +14689,8 @@ textarea.ant-input-number {
   -webkit-transition: all .2s;
   transition: all .2s;
   position: relative;
-  background: #001529;
+  height: 100px;
+  background: #acd300;
   /* fix firefox can't set width smaller than content on flex item */
   min-width: 0;
 }
@@ -14746,8 +14766,6 @@ textarea.ant-input-number {
   color: rgba(0, 0, 0, 0.65);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   list-style: none;
   position: relative;
 }
@@ -14785,7 +14803,6 @@ textarea.ant-input-number {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 12px 0;
 }
 .ant-list-item-meta {
   -webkit-box-align: start;
@@ -14801,6 +14818,8 @@ textarea.ant-input-number {
       -ms-flex: 1;
           flex: 1;
   font-size: 0;
+  background: #c8ff00;
+  border-radius: 20px;
 }
 .ant-list-item-meta-avatar {
   margin-right: 16px;
@@ -14814,8 +14833,10 @@ textarea.ant-input-number {
 .ant-list-item-meta-title {
   color: rgba(0, 0, 0, 0.65);
   margin-bottom: 4px;
-  font-size: 14px;
-  line-height: 22px;
+  margin-right: 30px;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: right;
 }
 .ant-list-item-meta-title > a {
   color: rgba(0, 0, 0, 0.65);
@@ -14827,8 +14848,10 @@ textarea.ant-input-number {
 }
 .ant-list-item-meta-description {
   color: rgba(0, 0, 0, 0.45);
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 25px;
+  line-height: 30px;
+  margin-right: 30px;
+  text-align: right;
 }
 .ant-list-item-content {
   display: -webkit-box;
@@ -17998,7 +18021,7 @@ a.ant-notification-notice-close:focus {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 20px;
   list-style: none;
   font-size: 0;
   width: 100%;
@@ -18069,7 +18092,7 @@ a.ant-notification-notice-close:focus {
   transition: background .3s;
 }
 .ant-steps-item-title {
-  font-size: 16px;
+  font-size: 35px;
   color: rgba(0, 0, 0, 0.65);
   display: inline-block;
   padding-right: 16px;
@@ -18113,14 +18136,14 @@ a.ant-notification-notice-close:focus {
   background-color: #e8e8e8;
 }
 .ant-steps-item-process .ant-steps-item-icon {
-  border-color: #1890ff;
+  border-color: #c8ff00;
   background-color: #fff;
 }
 .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
-  color: #1890ff;
+  color: #c8ff00;
 }
 .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
-  background: #1890ff;
+  background: #c8ff00;
 }
 .ant-steps-item-process > .ant-steps-item-content > .ant-steps-item-title {
   color: rgba(0, 0, 0, 0.85);
@@ -18135,7 +18158,7 @@ a.ant-notification-notice-close:focus {
   background-color: #e8e8e8;
 }
 .ant-steps-item-process .ant-steps-item-icon {
-  background: #1890ff;
+  background: #c8ff00;
 }
 .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
   color: #fff;
@@ -18144,30 +18167,30 @@ a.ant-notification-notice-close:focus {
   font-weight: 500;
 }
 .ant-steps-item-finish .ant-steps-item-icon {
-  border-color: #1890ff;
+  border-color: #c8ff00;
   background-color: #fff;
 }
 .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
-  color: #1890ff;
+  color: #c8ff00;
 }
 .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
-  background: #1890ff;
+  background: #c8ff00;
 }
 .ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-title {
   color: rgba(0, 0, 0, 0.65);
 }
 .ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-title:after {
-  background-color: #1890ff;
+  background-color: #c8ff00;
 }
 .ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-description {
   color: rgba(0, 0, 0, 0.45);
 }
 .ant-steps-item-finish > .ant-steps-item-tail:after {
-  background-color: #1890ff;
+  background-color: #c8ff00;
 }
 .ant-steps-item-error .ant-steps-item-icon {
   border-color: #f5222d;
-  background-color: #fff;
+  background-color: #c8ff00;
 }
 .ant-steps-item-error .ant-steps-item-icon > .ant-steps-icon {
   color: #f5222d;

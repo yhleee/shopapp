@@ -6,9 +6,6 @@ import Loadable from 'react-loadable'
 const Loading: React.SFC<any> = props => {
   return (
     <div>
-      <Row>
-        <Alert message="잠시만 기다려 주세요..." type="info" showIcon={true} />
-      </Row>
       <Row style={{ marginTop: 25 }}>
         <Spin />
       </Row>
@@ -24,7 +21,9 @@ function createLoadable(componentImport) {
 }
 
 export const Example = createLoadable(() => import('./Example/Example'))
-export const TestAxios = createLoadable(() => import('./Test/naverSelectiveList'))
+export const TestAxios = createLoadable(() => import('./test/naverSelectiveList'))
+export const Home = createLoadable(() => import('./Home/home'))
+export const Survey = createLoadable(() => import('./Survey/survey'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -32,9 +31,10 @@ const Routes = () => {
   return (
     <>
       <Switch>
-        <Redirect exact={true} from="/" to="/app/example" />
-
+        <Redirect exact={true} from="/" to="/app/home" />
         <Route path="/app/example" component={Example} />
+        <Route path="/app/home" component={Home} />
+        <Route path="/app/survey" component={Survey} />
         <Route path="/app/test/axios" component={TestAxios} />
 
         <Route component={PageNotFound} />
