@@ -1,48 +1,65 @@
 import * as React from 'react'
-import { Icon, Layout, Menu } from 'antd'
-import { SelectParam } from 'antd/lib/menu'
+import { Layout, Row, Col, Card } from 'antd'
+import { Link } from 'react-router-dom'
+const { Meta } = Card
 
-const { Content, Sider } = Layout
+interface OwnProps {}
 
-interface OwnState {
-  target: any
-}
+interface OwnState {}
 
-export default class Example extends React.Component<any, OwnState> {
-  notice = <>컴포넌트 예제</>
-
-  keys = {}
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      target: this.notice,
-    }
-  }
-
-  handleSelect = (param: SelectParam) => {
-    if (param.key === 'Notice') {
-      this.setState({
-        target: this.notice,
-      })
-      return
-    }
-    this.setState({
-      target: this.keys[param.key],
-    })
-  }
-
+const { Header, Content } = Layout
+class Olive extends React.Component<OwnProps, OwnState> {
   render() {
+    const imgTagStyle = {
+      marginLeft: 'auto',
+      display: 'block',
+      marginRight: 'auto',
+      marginBottom: 10,
+    }
+    const cardImgStyle = {
+      padding: 30,
+    }
     return (
       <Layout>
-        <Sider width={200} style={{ background: '#fff' }}>
-          <Menu mode="inline" onSelect={this.handleSelect} defaultSelectedKeys={['Notice']} />
-        </Sider>
-        <Layout style={{ padding: '5px' }}>
-          <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 600 }}>{this.state.target}</Content>
-        </Layout>
+        <Header>
+          <img
+            src="http://image.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png"
+            alt="logo"
+            style={imgTagStyle}
+          />
+        </Header>
+
+        <Content>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Link to="/app/home">
+                <Card
+                  style={cardImgStyle}
+                  cover={
+                    <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                  }
+                >
+                  <Meta title="Card title" description="This is the description" />
+                </Card>
+              </Link>
+            </Col>
+            <Col span={12}>
+              <Link to="/app/survey">
+                <Card
+                  style={cardImgStyle}
+                  cover={
+                    <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                  }
+                >
+                  <Meta title="Card title" description="This is the description" />
+                </Card>
+              </Link>
+            </Col>
+          </Row>
+        </Content>
       </Layout>
     )
   }
 }
+
+export default Olive
