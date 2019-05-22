@@ -2,8 +2,10 @@ package kr.co.oliveyoung.shopapp.test;
 
 import kr.co.oliveyoung.shopapp.common.utils.EnvUtils;
 import kr.co.oliveyoung.shopapp.common.utils.JsonUtils;
-import kr.co.oliveyoung.shopapp.feature.test.Test;
-import kr.co.oliveyoung.shopapp.feature.test.TestMapper;
+import kr.co.oliveyoung.shopapp.feature.test.MySqlTest;
+import kr.co.oliveyoung.shopapp.feature.test.MySqlTestMapper;
+import kr.co.oliveyoung.shopapp.feature.test.OracleTest;
+import kr.co.oliveyoung.shopapp.feature.test.OracleTestMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,10 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    private TestMapper oracleTestMapper;
+    private OracleTestMapper oracleTestMapper;
+
+    @Autowired
+    private MySqlTestMapper mySqlTestMapper;
 
     @GetMapping("/selective")
     public String getSelective() {
@@ -28,7 +33,14 @@ public class TestController {
 
     @GetMapping("/db/oracle")
     public String getDbOracleTest() {
-        List<Test> testList = oracleTestMapper.selectTest();
+        List<OracleTest> testList = oracleTestMapper.selectTest();
+        log.info("======= ENV : {} ======", EnvUtils.getEnv());
+        return JsonUtils.objectToJson(testList);
+    }
+
+    @GetMapping("/db/mysql")
+    public String getDbMySqlTest() {
+        List<MySqlTest> testList = mySqlTestMapper.selectTest();
         log.info("======= ENV : {} ======", EnvUtils.getEnv());
         return JsonUtils.objectToJson(testList);
     }

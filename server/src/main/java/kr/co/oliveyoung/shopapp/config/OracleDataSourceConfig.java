@@ -2,8 +2,8 @@ package kr.co.oliveyoung.shopapp.config;
 
 import javax.sql.DataSource;
 
-import kr.co.oliveyoung.shopapp.config.mybatis.MybatisConfigurationSupport;
 import kr.co.oliveyoung.shopapp.config.mybatis.OracleMapper;
+import kr.co.oliveyoung.shopapp.config.mybatis.MybatisOracleConfigurationSupport;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
+@Primary
 @Configuration
 @MapperScan(
     basePackages = "kr.co.oliveyoung.shopapp.feature",
@@ -21,14 +23,16 @@ import org.springframework.context.annotation.Configuration;
 public class OracleDataSourceConfig {
 
   @Autowired
-  private MybatisConfigurationSupport myBatisConfigurationSupport;
+  private MybatisOracleConfigurationSupport myBatisConfigurationSupport;
 
+  @Primary
   @Bean(name = "oracleDataSource")
-  @ConfigurationProperties(prefix = "spring.datasource-oracle")
+  @ConfigurationProperties(prefix = "spring.oracle.datasource")
   public DataSource oracleDataSource() {
     return DataSourceBuilder.create().build();
   }
 
+  @Primary
   @Bean(name = "oracleSessionFactory")
   public SqlSessionFactory oracleSessionFactory(
       @Qualifier("oracleDataSource") DataSource dataSource) throws Exception {
