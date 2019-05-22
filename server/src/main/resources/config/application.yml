@@ -52,23 +52,25 @@ spring:
       username: test
       password: test
       maximumPoolSize: 20
-  datasource-mongo:
-    uri: 116.121.31.99:27017/?authSource=storeApp
-    username: test
-    password: test
   mysql:
     datasource:
-      url: jdbc:mysql://127.0.0.1:3306/test
-      username: root
-      password: root
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T
 ---
 spring:
   profiles: dev
-  datasource-oracle:
-    jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
-    username: OOMAPP
-    password: TAblet52()
-    maximumPoolSize: 20
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+      username: test
+      password: test
+      maximumPoolSize: 20
+  mysql:
+    datasource:
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T
 ---
 spring:
   profiles: test
