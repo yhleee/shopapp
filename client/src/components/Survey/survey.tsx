@@ -84,7 +84,7 @@ class Survey extends React.Component<OwnProps, OwnState> {
     }
   }
 
-  next() {
+  next = () => {
     const current = this.state.current + 1
     this.setState({ current })
   }
@@ -140,24 +140,24 @@ class Survey extends React.Component<OwnProps, OwnState> {
             </div>
             <div className="steps-action">
               {current < steps.length - 1 && (
-                <Button type="primary" onClick={() => this.next()}>
+                <Button type="primary" href={'javascript:void(0)'} onClick={this.next}>
                   Next
                 </Button>
               )}
               {current === steps.length - 1 && (
-                <Button type="primary" onClick={() => message.success('Processing complete!')}>
+                <Button type="primary" href={'javascript:void(0)'} onClick={message.success('Processing complete!')}>
                   Done
                 </Button>
               )}
               {current > 0 && (
-                <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+                <Button style={{ marginLeft: 8 }} onClick={this.prev}>
                   Previous
                 </Button>
               )}
             </div>
           </div>
           <div>
-            <Button type="primary" onClick={() => window.history.back()}>
+            <Button type="primary" href={'javascript:void(0)'} onClick={window.history.back}>
               뒤로가기
             </Button>
           </div>

@@ -123,7 +123,7 @@ class Olive extends React.Component<OwnProps, OwnState> {
               <Link to={item.href}>
                 <List.Item>
                   <List.Item.Meta
-                    avatar={<Avatar width={50} height={50} src="/images/oylogo.png" />}
+                    avatar={<Avatar size={50} src="/images/oylogo.png" />}
                     title={item.title}
                     description={item.desc}
                   />
