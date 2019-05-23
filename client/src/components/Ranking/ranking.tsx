@@ -2,10 +2,10 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
 import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
+import { Row, Col } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './ranking.scss'
-import { render } from 'enzyme'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -31,7 +31,30 @@ class Ranking extends React.Component<Props, {}> {
   }
 
   render() {
-    return <>sssssss</>
+    const { cx } = this.props
+    return (
+      <div>
+        <div className={cx('top_menu_wrap')}>
+          <Row>
+            <Col span={8} style={{ textAlign: 'center' }}>
+              <img src="/images/cosmetic_icon.png" />
+              <br />
+              <span>카테고리 별</span>
+            </Col>
+            <Col span={8} style={{ textAlign: 'center' }}>
+              <img src="/images/beauty_face_icon.png" />
+              <br />
+              <span>연령대 별</span>
+            </Col>
+            <Col span={8} style={{ textAlign: 'center' }}>
+              <img src="/images/shop_icon.png" />
+              <br />
+              <span>브랜드 별</span>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    )
   }
 }
 

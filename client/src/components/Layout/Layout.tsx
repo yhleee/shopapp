@@ -64,11 +64,23 @@ class Layout extends React.Component<Props, OwnState> {
           </div>
           <div className={cx('menu')} onClick={this.toggleMenu} />
           <Drawer title="MENU" placement="left" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
-            <p>menu1</p>
-            <p>menu2</p>
-            <p>menu3</p>
-            <p>menu4</p>
-            <p>menu5</p>
+            <div className={cx('menu_list')}>
+              <p>
+                <a href={'/app/home'}>홈</a>
+              </p>
+              <p>
+                <a href={'/app/survey'}>셀프 문진</a>
+              </p>
+              <p>
+                <a href={'/app/ranking'}>랭킹</a>
+              </p>
+              <p>
+                <a href={'/app/search'}>상품 검색</a>
+              </p>
+              <p>
+                <a href={'/app/example'}>재고 조회</a>
+              </p>
+            </div>
           </Drawer>
           <div style={{ width: '20%' }} />
         </div>
