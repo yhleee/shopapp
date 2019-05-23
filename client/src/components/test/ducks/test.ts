@@ -6,8 +6,8 @@ const initialState: TestCountState = {
   count: 0,
 }
 
-const FETCH = 'count/test/FETCH'
-const RESET = 'count/test/reset'
+const FETCH = 'test/test/FETCH'
+const RESET = 'test/test/reset'
 
 export const fetch = (count: number) => dispatch => {
   if (!count) return
@@ -26,7 +26,7 @@ export const reset = () => {
   }
 }
 
-const reducer = (state = initialState, action) => {
+const testCountReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH:
       return {
@@ -40,4 +40,4 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export default reducer
+export default testCountReducer
