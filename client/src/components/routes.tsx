@@ -33,6 +33,7 @@ const Routes = () => {
     <>
       <Switch>
         <Redirect exact={true} from="/" to="/app/home" />
+        <Redirect exact={true} from="/app" to="/app/home" />
         <Route path="/app/example" component={Example} />
         <Route path="/app/home" component={Home} />
         <Route path="/app/survey" component={Survey} />
