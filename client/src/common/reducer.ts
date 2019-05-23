@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux'
+import testCount, { TestCountState } from 'components/test/ducks/test'
 
-export interface RootState {}
+export interface RootState {
+  testCount: TestCountState
+}
 
-export default combineReducers({})
+export default combineReducers({
+  testCount,
+})
