@@ -1,8 +1,10 @@
 import * as React from 'react'
-
+import { connect } from 'react-redux'
+import { RootState } from 'common/reducer'
+import { fetchLayoutTitle, LayoutTitleState, updateLayoutTile } from './ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import { Icon, Button, Drawer } from 'antd'
+import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
 
@@ -11,11 +13,22 @@ interface OwnProps {
   children?: any
 }
 
+interface StateProps {
+  layoutTitle: LayoutTitleState
+}
+
+interface DispatchProps {
+  fetchLayoutTitle: typeof fetchLayoutTitle
+  updateLayoutTile: typeof updateLayoutTile
+}
+
 interface OwnState {
   visible: boolean
 }
 
-class Layout extends React.Component<OwnProps, OwnState> {
+type Props = StateProps & OwnProps & DispatchProps
+
+class Layout extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -38,12 +51,16 @@ class Layout extends React.Component<OwnProps, OwnState> {
   }
 
   render() {
-    const { cx, children } = this.props
+    const { cx, children, layoutTitle } = this.props
     return (
       <>
         <div className={cx('header_wrap')}>
           <div className={cx('logo_wrap')}>
-            <img src="/images/logo_title.png" alt="logo" />
+            {layoutTitle && layoutTitle.title ? (
+              <span className={cx('text_title')}>{layoutTitle.title}</span>
+            ) : (
+              <img src="/images/logo_title.png" alt="logo" />
+            )}
           </div>
           <div className={cx('menu')} onClick={this.toggleMenu} />
           <Drawer title="MENU" placement="left" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
@@ -61,4 +78,12 @@ class Layout extends React.Component<OwnProps, OwnState> {
   }
 }
 
-export default styling(s)(Layout)
+export default connect<StateProps, DispatchProps, OwnProps>(
+  (state: RootState) => ({
+    layoutTitle: state.layoutTitle,
+  }),
+  {
+    fetchLayoutTitle,
+    updateLayoutTile,
+  },
+)(styling(s)(Layout))

@@ -24,6 +24,7 @@ export const Example = createLoadable(() => import('./Example/Example'))
 export const TestAxios = createLoadable(() => import('./test/naverSelectiveList'))
 export const Home = createLoadable(() => import('./Home/home'))
 export const Survey = createLoadable(() => import('./Survey/survey'))
+export const Ranking = createLoadable(() => import('./Ranking'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -36,6 +37,7 @@ const Routes = () => {
         <Route path="/app/home" component={Home} />
         <Route path="/app/survey" component={Survey} />
         <Route path="/app/test/axios" component={TestAxios} />
+        <Route path="/app/ranking" component={Ranking} />
 
         <Route component={PageNotFound} />
       </Switch>
