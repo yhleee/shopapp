@@ -14,13 +14,13 @@ const listDataSample = [
     title: '내 피부에 꼭 맞는 상품은?',
     icon: 'Home',
     desc: '문진을 통해 내 피부를 알아보세요',
-    href: '/app/example',
+    href: '/app/survey',
   },
   {
     title: 'Best 상품',
     icon: 'Home',
     desc: '핵인싸의 길, 핵인싸템, 인싸 명소, 매장 Best 상품',
-    href: '/app/survey',
+    href: '/app/ranking',
   },
   {
     title: '상품 검색',
