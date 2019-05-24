@@ -50,8 +50,13 @@ class Layout extends React.Component<Props, OwnState> {
     this.openMenu()
   }
 
+  backButtonHandler = () => {
+    window && window.history.back()
+  }
+
   render() {
     const { cx, children, layoutTitle } = this.props
+    console.log(layoutTitle)
     return (
       <>
         <div className={cx('header_wrap')}>
@@ -62,15 +67,27 @@ class Layout extends React.Component<Props, OwnState> {
               <img src="/images/logo_title.png" alt="logo" />
             )}
           </div>
+          {layoutTitle && layoutTitle.title && <div className={cx('back_button')} onClick={this.backButtonHandler} />}
           <div className={cx('menu')} onClick={this.toggleMenu} />
-          <Drawer title="MENU" placement="left" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
-            <p>menu1</p>
-            <p>menu2</p>
-            <p>menu3</p>
-            <p>menu4</p>
-            <p>menu5</p>
+          <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
+            <div className={cx('menu_list')}>
+              <p>
+                <a href={'/app/home'}>홈</a>
+              </p>
+              <p>
+                <a href={'/app/survey'}>셀프 문진</a>
+              </p>
+              <p>
+                <a href={'/app/ranking'}>랭킹</a>
+              </p>
+              <p>
+                <a href={'/app/search'}>상품 검색</a>
+              </p>
+              <p>
+                <a href={'/app/example'}>재고 조회</a>
+              </p>
+            </div>
           </Drawer>
-          <div style={{ width: '20%' }} />
         </div>
         <div className={cx('content_wrap')}>{children ? children : <PageNotFound />}</div>
       </>

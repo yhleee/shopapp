@@ -18,23 +18,32 @@
   z-index: 200;
 }
 
-.header_wrap .menu_wrap {
+.header_wrap .back_button {
   position: fixed;
-  top: 8px;
-  left: 10px;
-  width: 20%;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
   padding: 8px 5px;
+  background-image: url('/images/back_icon.png');
+  background-size: 60px;
+  background-repeat: no-repeat;
 }
 
 .header_wrap .menu {
   position: fixed;
   top: 15px;
-  left: 15px;
+  right: 15px;
   width: 80px;
   height: 80px;
   padding: 8px 5px;
   background-image: url('/images/menu.png');
   background-size: 80px;
+  background-repeat: no-repeat;
+}
+
+.menu_list a {
+  font-size: xx-large;
 }
 
 .header_wrap .logo_wrap {
