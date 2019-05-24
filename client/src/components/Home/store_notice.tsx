@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash-es'
 import { styling } from 'common/utils'
 import * as s from './home.scss'
 
-const apiUrl = 'http://localhost:9090/api/test/db/noticeList55'
+const apiUrl = 'http://localhost:9090/api/test/db/noticeList'
 
 interface OwnProps {}
 interface OwnState {
