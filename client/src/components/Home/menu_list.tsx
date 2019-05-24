@@ -26,13 +26,13 @@ const listDataSample = [
     title: '상품 검색',
     icon: 'Home',
     desc: '올리브영에서 가장 먼저 만나는 신상!고객님 찾는 상품을 쉽고 빠르게 검색하자!',
-    href: '/app/example',
+    href: '/app/search',
   },
   {
     title: '타매장 재고 조회',
     icon: 'Home',
     desc: '<p>고객님이 찾는 재고가 없다구요? 걱정 노노~</p><p>근처매장에서 재고를 찾아보세요 :)</p>',
-    href: '/app/survey',
+    href: '/app/example',
   },
 ]
 
