@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
-import { List, Avatar } from 'antd'
+import { connect } from 'react-redux'
+import { RootState } from 'common/reducer'
+import { LayoutTitleState, resetLayoutTitle } from '../Layout/ducks/LayoutTitle'
 import Notice from './notice'
 import MenuList from './menu_list'
 import { DynamicCx } from 'common/types'
@@ -11,7 +12,18 @@ interface OwnProps {
   cx?: DynamicCx
 }
 
-const Home: React.FC<OwnProps> = ({ cx }) => {
+interface StateProps {
+  layoutTitle: LayoutTitleState
+}
+
+interface DispatchProps {
+  resetLayoutTitle: typeof resetLayoutTitle
+}
+
+type Props = OwnProps & StateProps & DispatchProps
+
+const Home: React.FC<Props> = ({ cx, resetLayoutTitle }) => {
+  resetLayoutTitle()
   return (
     <>
       <Notice />
@@ -20,4 +32,11 @@ const Home: React.FC<OwnProps> = ({ cx }) => {
   )
 }
 
-export default styling(s)(Home)
+export default connect<StateProps, DispatchProps, OwnProps>(
+  (state: RootState) => ({
+    layoutTitle: state.layoutTitle,
+  }),
+  {
+    resetLayoutTitle,
+  },
+)(styling(s)(Home))
