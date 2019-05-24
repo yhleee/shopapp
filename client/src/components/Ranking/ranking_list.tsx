@@ -25,7 +25,7 @@ class RankingList extends React.Component<Props, {}> {
     return (
       <div className={cx('list_wrap')}>
         {listContents.map((content, index) => (
-          <div className={cx('list_row')}>
+          <div className={cx('list_row')} key={index}>
             <div className={cx('rank_icon')}>{`rank${index + 1}`}</div>
             <div className={cx('product_image')}>
               <Img src={content.imageUrl} />
@@ -36,7 +36,8 @@ class RankingList extends React.Component<Props, {}> {
               {content.productName}
             </div>
             <div className={cx('product_price')}>
-              {content.volume && content.volume} / {content.price}
+              {content.volume && content.volume + ' / '}
+              {content.price}
             </div>
           </div>
         ))}

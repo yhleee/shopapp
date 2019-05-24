@@ -50,8 +50,13 @@ class Layout extends React.Component<Props, OwnState> {
     this.openMenu()
   }
 
+  backButtonHandler = () => {
+    window && window.history.back()
+  }
+
   render() {
     const { cx, children, layoutTitle } = this.props
+    console.log(layoutTitle)
     return (
       <>
         <div className={cx('header_wrap')}>
@@ -62,8 +67,9 @@ class Layout extends React.Component<Props, OwnState> {
               <img src="/images/logo_title.png" alt="logo" />
             )}
           </div>
+          {layoutTitle && layoutTitle.title && <div className={cx('back_button')} onClick={this.backButtonHandler} />}
           <div className={cx('menu')} onClick={this.toggleMenu} />
-          <Drawer title="MENU" placement="left" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
+          <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
             <div className={cx('menu_list')}>
               <p>
                 <a href={'/app/home'}>홈</a>
@@ -82,7 +88,6 @@ class Layout extends React.Component<Props, OwnState> {
               </p>
             </div>
           </Drawer>
-          <div style={{ width: '20%' }} />
         </div>
         <div className={cx('content_wrap')}>{children ? children : <PageNotFound />}</div>
       </>
