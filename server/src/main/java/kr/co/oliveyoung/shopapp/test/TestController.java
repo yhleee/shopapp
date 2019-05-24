@@ -44,4 +44,11 @@ public class TestController {
         log.info("======= ENV : {} ======", EnvUtils.getEnv());
         return JsonUtils.objectToJson(testList);
     }
+
+    @GetMapping("/db/noticeList")
+    public String getNoticeList() {
+        List<MySqlTest> testList = mySqlTestMapper.selectStrNoticeList();
+        log.info("======= ENV : {} ======", EnvUtils.getEnv());
+        return JsonUtils.objectToJson(testList);
+    }
 }

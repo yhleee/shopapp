@@ -4,4 +4,9 @@
     <select id="selectTest" resultType="kr.co.oliveyoung.shopapp.feature.test.MySqlTest">
         SELECT * FROM test
     </select>
+
+
+    <select id="selectStrNoticeList" resultType="kr.co.oliveyoung.shopapp.feature.test.MySqlTest">
+        SELECT STR_CD as strCd, TEXT as text FROM TB_STR_NOTICE;
+    </select>
 </mapper>

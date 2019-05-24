@@ -28,6 +28,7 @@ export const Ranking = createLoadable(() => import('./Ranking'))
 export const RankingCategory = createLoadable(() => import('./Ranking/ranking_category'))
 export const RankingAge = createLoadable(() => import('./Ranking/ranking_age'))
 export const RankingBrand = createLoadable(() => import('./Ranking/ranking_brand'))
+export const Search = createLoadable(() => import('./Search'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -45,6 +46,7 @@ const Routes = () => {
         <Route path="/app/ranking/age" component={RankingAge} />
         <Route path="/app/ranking/brand" component={RankingBrand} />
         <Route path="/app/ranking" component={Ranking} />
+        <Route path="/app/search" component={Search} />
 
         <Route component={PageNotFound} />
       </Switch>
