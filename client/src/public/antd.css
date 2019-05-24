@@ -12867,17 +12867,17 @@ textarea.ant-time-picker-input {
   border-color: transparent;
 }
 .ant-tag-checkable:not(.ant-tag-checkable-checked):hover {
-  color: #1890ff;
+  color: #c2dd8d;
 }
 .ant-tag-checkable:active,
 .ant-tag-checkable-checked {
   color: #fff;
 }
 .ant-tag-checkable-checked {
-  background-color: #1890ff;
+  background-color: #c2dd8d;
 }
 .ant-tag-checkable:active {
-  background-color: #096dd9;
+  background-color: #c2dd8d;
 }
 .ant-tag-close {
   width: 0 !important;
