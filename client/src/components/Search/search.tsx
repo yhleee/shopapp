@@ -1,13 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
-import { LayoutTitleState, resetLayoutTitle } from '../Layout/ducks/LayoutTitle'
-import Notice from './notice'
-import MenuList from './menu_list'
-import StoreNotice from './store_notice'
+import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import * as s from './home.scss'
+import SearchCond from './searchCond'
+import * as s from './search.scss'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -18,20 +16,27 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  resetLayoutTitle: typeof resetLayoutTitle
+  updateLayoutTile: typeof updateLayoutTile
 }
 
 type Props = OwnProps & StateProps & DispatchProps
 
-const Home: React.FC<Props> = ({ cx, resetLayoutTitle }) => {
-  resetLayoutTitle()
-  return (
-    <>
-      <StoreNotice />
-      <Notice />
-      <MenuList />
-    </>
-  )
+class Search extends React.Component<Props, {}> {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.updateLayoutTile('상품 검색')
+  }
+
+  render() {
+    return (
+      <>
+        <SearchCond />
+      </>
+    )
+  }
 }
 
 export default connect<StateProps, DispatchProps, OwnProps>(
@@ -39,6 +44,6 @@ export default connect<StateProps, DispatchProps, OwnProps>(
     layoutTitle: state.layoutTitle,
   }),
   {
-    resetLayoutTitle,
+    updateLayoutTile,
   },
-)(styling(s)(Home))
+)(styling(s)(Search))
