@@ -6,10 +6,11 @@ import { Row, Col } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './ranking.scss'
-import RankingList from './ranking_list'
-import { RankingProduct } from 'common/types/entities/product'
+import { Product } from 'common/types/entities/product'
+import ProductList from 'components/common/ProductList'
+import { ListType } from 'common/types/enum/exposeType'
 
-const rankingProducts: RankingProduct[] = [
+const rankingProducts: Product[] = [
   {
     id: 'A000000125206',
     brandName: '삼성',
@@ -84,11 +85,11 @@ class Ranking extends React.Component<Props, {}> {
         </div>
         <div>
           <div className={cx('product_list_title')}>카테고리 별 RANKING</div>
-          <RankingList {...{ listContents: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
           <div className={cx('product_list_title')}>연령대 & 성 별 RANKING</div>
-          <RankingList {...{ listContents: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
           <div className={cx('product_list_title')}>브랜드 별 RANKING</div>
-          <RankingList {...{ listContents: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
         </div>
       </div>
     )

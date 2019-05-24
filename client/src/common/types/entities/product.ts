@@ -1,6 +1,6 @@
-export interface RankingProduct {
+export interface Product {
   id: string
-  rank: number
+  rank?: number
   productName: string
   brandName: string
   imageUrl: string
