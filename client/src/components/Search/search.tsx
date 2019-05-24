@@ -31,7 +31,7 @@ class Search extends React.Component<Props, {}> {
 
   componentDidMount() {
     this.props.updateLayoutTile('상품 검색')
-    this.props.updateLayoutButton('조회', '/app/ranking')
+    this.props.updateLayoutButton('조회', '/app/search/result/TEST&기초화장품')
   }
 
   render() {

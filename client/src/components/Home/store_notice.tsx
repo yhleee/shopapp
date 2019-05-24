@@ -9,10 +9,10 @@ const apiUrl = 'http://localhost:9090/api/test/db/noticeList'
 
 interface OwnProps {}
 interface OwnState {
-  noticeList: []
+  noticeList: string[]
 }
 
-class getStoreNoticeList extends React.Component<OwnProps, OwnState> {
+class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,7 +21,7 @@ class getStoreNoticeList extends React.Component<OwnProps, OwnState> {
   }
 
   async componentDidMount() {
-    let { data: noticeList } = await axios.get(apiUrl)
+    const { data: noticeList } = await axios.get(apiUrl)
     this.setState({ noticeList })
   }
 
@@ -31,7 +31,7 @@ class getStoreNoticeList extends React.Component<OwnProps, OwnState> {
     if (!isEmpty(noticeList)) {
       return (
         <Carousel autoplay dots={false}>
-          {this.state.noticeList.map(noticeList => <p>{noticeList.text}</p>)}
+          {this.state.noticeList.map(noticeList => <p key="storeNoti">1{noticeList.text}</p>)}
         </Carousel>
       )
     } else {
@@ -40,4 +40,4 @@ class getStoreNoticeList extends React.Component<OwnProps, OwnState> {
   }
 }
 
-export default styling(s)(getStoreNoticeList)
+export default styling(s)(GetStoreNoticeList)
