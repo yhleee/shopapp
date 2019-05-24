@@ -19,24 +19,3 @@
     background-color: tan;
     text-align: center;
 }
-
-.list_wrap {
-    display: table;
-}
-
-.list_wrap .list_row {
-    display: table-row;
-}
-
-.list_wrap .rank_icon,.product_image,.product_desc,.product_price {
-    display: table-cell;
-    font-size: 25px;
-}
-
-.list_wrap .rank_icon {}
-
-.list_wrap .product_image {
-}
-.list_wrap .product_image img{
-    width: 200px;
-}
