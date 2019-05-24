@@ -26,7 +26,9 @@ class RankingList extends React.Component<Props, {}> {
       <div className={cx('list_wrap')}>
         {listContents.map((content, index) => (
           <div className={cx('list_row')} key={index}>
-            <div className={cx('rank_icon')}>{`rank${index + 1}`}</div>
+            <div
+              className={cx('rank_icon', `${content.rank === 1 ? 'gold' : content.rank === 2 ? 'silver' : 'bronze'}`)}
+            />
             <div className={cx('product_image')}>
               <Img src={content.imageUrl} />
             </div>

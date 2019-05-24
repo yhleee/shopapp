@@ -26,7 +26,7 @@ const rankingProducts: RankingProduct[] = [
     linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125267',
     price: 17000,
     productName: '웰라쥬리얼히알루로닉 원데이키트 6개입 한정기획',
-    rank: 1,
+    rank: 2,
   },
 ]
 

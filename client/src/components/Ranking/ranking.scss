@@ -33,7 +33,23 @@
     font-size: 25px;
 }
 
-.list_wrap .rank_icon {}
+.list_wrap .rank_icon {
+    width: 120px;
+}
+
+.list_wrap .rank_icon.gold {
+    background-image: url('/images/medal_gold_icon.png');
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: 20px 50px;
+}
+
+.list_wrap .rank_icon.silver {
+    background-image: url('/images/medal_silver_icon.png');
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: 20px 50px;
+}
 
 .list_wrap .product_image {
 }
