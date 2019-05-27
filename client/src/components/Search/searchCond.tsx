@@ -256,18 +256,6 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             </Menu.Item>
           </SubMenu>
         </Menu>
-        <Button
-          style={{
-            width: '100%',
-            fontSize: 40,
-            position: 'fixed',
-            bottom: '0',
-            height: '10%',
-            backgroundColor: '#c2dd8d',
-          }}
-        >
-          조회
-        </Button>
       </div>
     )
   }

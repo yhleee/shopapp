@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
 import { fetchLayoutTitle, LayoutTitleState, updateLayoutTile } from './ducks/LayoutTitle'
+import { fetchLayoutButton, LayoutButtonState, updateLayoutButton } from './ducks/LayoutButton'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Drawer } from 'antd'
@@ -15,11 +16,14 @@ interface OwnProps {
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  layoutButton: LayoutButtonState
 }
 
 interface DispatchProps {
   fetchLayoutTitle: typeof fetchLayoutTitle
   updateLayoutTile: typeof updateLayoutTile
+  fetchLayoutButton: typeof fetchLayoutButton
+  updateLayoutButton: typeof updateLayoutButton
 }
 
 interface OwnState {
@@ -55,7 +59,7 @@ class Layout extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx, children, layoutTitle } = this.props
+    const { cx, children, layoutTitle, layoutButton } = this.props
     console.log(layoutTitle)
     return (
       <>
@@ -88,6 +92,15 @@ class Layout extends React.Component<Props, OwnState> {
               </p>
             </div>
           </Drawer>
+          {layoutButton && layoutButton.title ? (
+            <div className={cx('footer_wrap')}>
+              <div onClick={() => (location.href = layoutButton.url)} className={cx('bottom_btn')}>
+                <strong>{layoutButton.title}</strong>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className={cx('content_wrap')}>{children ? children : <PageNotFound />}</div>
       </>
@@ -98,9 +111,12 @@ class Layout extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    layoutButton: state.layoutButton,
   }),
   {
     fetchLayoutTitle,
     updateLayoutTile,
+    fetchLayoutButton,
+    updateLayoutButton,
   },
 )(styling(s)(Layout))
