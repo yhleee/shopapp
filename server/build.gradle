@@ -131,6 +131,7 @@ dependencies {
     // swagger
     compile 'io.springfox:springfox-swagger2:2.8.0'
     compile 'io.springfox:springfox-swagger-ui:2.8.0'
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
 
 //    // spring amqp
 //    compile 'org.springframework.boot:spring-boot-starter-amqp:2.0.2.RELEASE'
