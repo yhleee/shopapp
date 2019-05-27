@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Carousel } from 'antd'
-import axios from 'axios'
+import { axios } from '../../common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
 import { styling } from 'common/utils'
 import * as s from './home.scss'
 
-const apiUrl = 'http://localhost:9090/api/test/db/noticeList'
+const apiUrl = '/api/test/db/noticeList'
 
 interface OwnProps {}
 interface OwnState {

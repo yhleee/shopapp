@@ -1,26 +1,18 @@
 import * as React from 'react'
-import { Icon, Row, Col, Input, message, Button, Menu, Slider, Tag, Carousel } from 'antd'
+import { Icon, Row, Col, Input, message, Menu, Slider, Tag, Carousel } from 'antd'
 import { DynamicCx } from 'common/types'
-import { styling, createCx } from 'common/utils'
+import { styling } from 'common/utils'
 import { Link } from 'react-router-dom'
 import * as s from './search.scss'
 
-const ButtonGroup = Button.Group
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
-
-const buttonStyle = {
-  marginLeft: 5,
-  marginRight: 5,
-  height: 'auto',
-  width: 'auto',
-}
 
 const iconTextStyle = {
   fontSize: 20,
 }
 
-const marks = {
+const priceMarks = {
   10000: { style: { fontSize: 14 }, label: '1만원' },
   20000: { style: { fontSize: 14 }, label: '2만원' },
   30000: { style: { fontSize: 14 }, label: '3만원' },
@@ -33,6 +25,34 @@ const marks = {
   100000: { style: { fontSize: 14 }, label: '10만원 이상' },
 }
 
+const btnCate = [
+  {
+    id: '1',
+    name: '기초화장품',
+    iconUrl: '/images/oylogo_icon.png',
+  },
+  {
+    id: '2',
+    name: '색조화장품',
+    iconUrl: '/images/oylogo_icon.png',
+  },
+  {
+    id: '3',
+    name: '바디용품',
+    iconUrl: '/images/oylogo_icon.png',
+  },
+  {
+    id: '4',
+    name: '헤어용품',
+    iconUrl: '/images/oylogo_icon.png',
+  },
+  {
+    id: '5',
+    name: '프레그런스',
+    iconUrl: '/images/oylogo_icon.png',
+  },
+]
+
 interface OwnProps {
   cx?: DynamicCx
 }
@@ -41,6 +61,7 @@ interface OwnState {
   priceStrtVal: number
   priceEndVal: number
   checked: boolean
+  activeBtn: string
 }
 
 class MyTag extends React.Component {
@@ -79,6 +100,7 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
       priceStrtVal: 0,
       priceEndVal: 100000,
       checked: false,
+      activeBtn: '',
     }
   }
 
@@ -89,7 +111,29 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
     })
   }
 
+  setActiveBtn = id => {
+    this.state.activeBtn === id
+      ? this.setState({
+          activeBtn: '',
+        })
+      : this.setState({
+          activeBtn: id,
+        })
+  }
+
   render() {
+    const { cx } = this.props
+
+    const cateBtns = btnCate.map(item => (
+      <button
+        className={this.state.activeBtn === item.id ? cx('active') : cx('inactive')}
+        onClick={() => this.setActiveBtn(item.id)}
+      >
+        <img src={item.iconUrl} />
+        <p style={iconTextStyle}>{item.name}</p>
+      </button>
+    ))
+
     return (
       <div>
         <Input
@@ -106,34 +150,10 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             fontSize: 50,
             height: '80px',
             lineHeight: '80px',
-            marginBottom: '30px',
           }}
         />
-        <Row style={{ backgroundColor: '#e4ffaf' }}>
-          <Col span={24}>
-            <ButtonGroup>
-              <Button className="test" style={buttonStyle}>
-                <img src="/images/oylogo_icon.png" />
-                <p style={iconTextStyle}>기초화장품</p>
-              </Button>
-              <Button style={buttonStyle}>
-                <img src="/images/oylogo_icon.png" />
-                <p style={iconTextStyle}>색조화장품</p>
-              </Button>
-              <Button style={buttonStyle}>
-                <img src="/images/oylogo_icon.png" />
-                <p style={iconTextStyle}>바디용품</p>
-              </Button>
-              <Button style={buttonStyle}>
-                <img src="/images/oylogo_icon.png" />
-                <p style={iconTextStyle}>헤어용품</p>
-              </Button>
-              <Button style={buttonStyle}>
-                <img src="/images/oylogo_icon.png" />
-                <p style={iconTextStyle}>프레그런스</p>
-              </Button>
-            </ButtonGroup>
-          </Col>
+        <Row style={{ marginTop: 30, backgroundColor: '#e4ffaf' }}>
+          <Col span={24}>{cateBtns}</Col>
         </Row>
 
         <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
@@ -246,7 +266,7 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
               <Slider
                 range
-                marks={marks}
+                marks={priceMarks}
                 defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
                 onAfterChange={this.onChange}
                 max={100000}

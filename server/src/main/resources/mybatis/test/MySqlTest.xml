@@ -9,4 +9,15 @@
     <select id="selectStrNoticeList" resultType="kr.co.oliveyoung.shopapp.feature.test.MySqlTest">
         SELECT STR_CD as strCd, TEXT as text FROM TB_STR_NOTICE;
     </select>
+
+    <select id="selectHomeMenuList" resultType="kr.co.oliveyoung.shopapp.feature.test.MySqlTest">
+        SELECT MENU_NM as menuNm
+               ,MENU_ALIAS as menuDesc
+               ,NVL(MENU_IMAGE, '/images/oylogo_icon.png') as menuIcon
+               ,MENU_LINK_URL as menuLnk
+          FROM TB_CM_MENU
+         WHERE MENU_LEVEL = 1
+           AND USE_YN = 'Y'
+        ORDER BY MENU_ORDER
+    </select>
 </mapper>
