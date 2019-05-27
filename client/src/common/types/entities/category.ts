@@ -5,7 +5,7 @@ export interface Category {
   name: string
   imageUrl?: string
   defaut?: boolean
-  subCategory?: Category[]
+  subCategories?: Category[]
 }
 
 export interface CategoryFormResult {

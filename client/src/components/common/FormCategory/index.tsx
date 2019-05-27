@@ -2,10 +2,10 @@ import * as React from 'react'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Category, CategoryFormResult } from 'common/types/entities/category'
-import { Card, Radio, Divider } from 'antd'
+import { Tag, Card, Radio, Divider } from 'antd'
 import { SearchOptionRange, SearchOptionTerm } from 'common/types/enum/searchOptions'
 
-const { Meta } = Card
+const { CheckableTag } = Tag
 
 interface OwnProps {
   cx?: DynamicCx
@@ -17,17 +17,17 @@ interface OwnState {
 
 type Props = OwnProps
 
-const upperCategory: Category[] = [
+const categories: Category[] = [
   {
     id: '1',
     name: '기초화장품',
     imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0000/A00000000330801ko.jpg?l=ko',
     defaut: true,
-    subCategory: [
+    subCategories: [
       {
         id: '6',
         name: '스킨케어',
-        subCategory: [
+        subCategories: [
           {
             id: '12',
             name: '스킨',
@@ -99,59 +99,126 @@ class FormCategory extends React.Component<Props, OwnState> {
     super(props)
     this.state = {
       selectForm: {
-        range: null,
-        term: null,
-        firstCategoryId: null,
+        range: SearchOptionRange.COMPANY,
+        term: SearchOptionTerm.WEEK,
+        firstCategoryId: '1',
         secondCategoryId: null,
         thirdCategoryId: null,
       },
     }
   }
 
-  handleSearchRange = (selectRange: SearchOptionRange) => {
+  componentDidUpdate() {
+    console.log(this.state)
+  }
+
+  handleSearchRange = (event: any) => {
     const selectForm = this.state.selectForm
-    selectForm.range = selectRange
+    selectForm.range = event.target.value
     this.setState({ selectForm })
   }
 
-  handleSearchTerm = (selectTerm: SearchOptionTerm) => {
+  handleSearchTerm = (event: any) => {
     const selectForm = this.state.selectForm
-    selectForm.term = selectTerm
+    selectForm.term = event.target.value
+    this.setState({ selectForm })
+  }
+
+  handleFirstCategoryChange = (id: string) => () => {
+    const selectForm = this.state.selectForm
+    selectForm.firstCategoryId = id
+    selectForm.secondCategoryId = null
+    selectForm.thirdCategoryId = null
+    this.setState({ selectForm })
+  }
+
+  handleSecondCategoryChange = (id: string) => () => {
+    const selectForm = this.state.selectForm
+    selectForm.secondCategoryId = id
+    selectForm.thirdCategoryId = null
+    this.setState({ selectForm })
+  }
+
+  handleThirdCategoryChange = (id: string) => () => {
+    const selectForm = this.state.selectForm
+    selectForm.thirdCategoryId = id
+    this.setState({ selectForm })
   }
 
   render() {
     const { cx } = this.props
+    const { selectForm } = this.state
+    const { term, range, firstCategoryId, secondCategoryId, thirdCategoryId } = selectForm
+    let secondCategories: Category[] = null
+    categories.forEach(category => {
+      if (category.id === firstCategoryId) {
+        secondCategories = category['subCategories']
+      }
+    })
+    let thirdCategories: Category[] = null
+    secondCategories &&
+      secondCategories.forEach(category => {
+        if (category.id === secondCategoryId) {
+          thirdCategories = category['subCategories']
+        }
+      })
 
     return (
       <div style={{ zoom: 2 }}>
         <Divider>조회 범위</Divider>
         <div style={{ width: '100%', padding: '8px 10px', textAlign: 'center' }}>
-          <Radio.Group defaultValue={SearchOptionRange.COMPANY} buttonStyle="solid" size="large">
+          <Radio.Group defaultValue={range} buttonStyle="solid" size="large" onChange={this.handleSearchRange}>
             <Radio.Button value={SearchOptionRange.COMPANY}>전사</Radio.Button>
             <Radio.Button value={SearchOptionRange.SHOP}>매장</Radio.Button>
           </Radio.Group>
           &nbsp;|&nbsp;
-          <Radio.Group defaultValue={SearchOptionTerm.WEEK} buttonStyle="solid" size="large">
+          <Radio.Group defaultValue={term} buttonStyle="solid" size="large" onChange={this.handleSearchTerm}>
             <Radio.Button value={SearchOptionTerm.WEEK}>주간</Radio.Button>
             <Radio.Button value={SearchOptionTerm.MONTH}>월간</Radio.Button>
           </Radio.Group>
         </div>
+
         <Divider>대분류 카테고리</Divider>
         <div style={{ width: 'max-contents', overflowX: 'scroll', overflowY: 'hidden', display: 'flex' }}>
-          {upperCategory.map((category, index) => (
+          {categories.map((category, index) => (
             <Card
               hoverable
-              style={{ width: 120 }}
+              style={{ width: 120, backgroundColor: `${selectForm.firstCategoryId === category.id ? '#1890ff' : ''}` }}
               cover={<img alt={category.name} src={category.imageUrl} style={{ width: '100px' }} />}
               key={`${category.id}_${index}`}
+              onClick={this.handleFirstCategoryChange(category.id)}
             >
               <span style={{ fontSize: '10px' }}>{category.name}</span>
             </Card>
           ))}
         </div>
-        <Divider>중분류 카테고리</Divider>
+        {secondCategories && <Divider>중분류 카테고리</Divider>}
+        <div style={{ padding: '5px 8px', lineHeight: '30px' }}>
+          {secondCategories &&
+            secondCategories.map((category: Category, index: number) => (
+              <CheckableTag
+                key={`${category.id}_${index}`}
+                checked={secondCategoryId === category.id}
+                onChange={this.handleSecondCategoryChange(category.id)}
+              >
+                {category.name}
+              </CheckableTag>
+            ))}
+        </div>
 
-        <Divider>소분류 카테고리</Divider>
+        {thirdCategories && <Divider>소분류 카테고리</Divider>}
+        <div style={{ padding: '5px 8px', lineHeight: '30px' }}>
+          {thirdCategories &&
+            thirdCategories.map((category: Category, index: number) => (
+              <CheckableTag
+                key={`${category.id}_${index}`}
+                checked={thirdCategoryId === category.id}
+                onChange={this.handleThirdCategoryChange(category.id)}
+              >
+                {category.name}
+              </CheckableTag>
+            ))}
+        </div>
       </div>
     )
   }
