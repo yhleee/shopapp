@@ -5,6 +5,7 @@ import * as s from './productList.scss'
 import { Product } from 'common/types/entities/product'
 import Img from 'common/components/Img'
 import { ListType } from 'common/types/enum/exposeType'
+import { priceComma } from 'common/utils/logic/format'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -42,7 +43,7 @@ class ProductList extends React.Component<Props, {}> {
             </div>
             <div className={cx('product_price')}>
               {product.volume && product.volume + ' / '}
-              {product.price}
+              {priceComma(product.price)}원
             </div>
           </div>
         ))}
