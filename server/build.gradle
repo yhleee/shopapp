@@ -127,11 +127,11 @@ dependencies {
     // mysql
     compile 'mysql:mysql-connector-java:5.1.42'
 
-//
-//    // swagger
-//    compile 'io.springfox:springfox-swagger2:2.8.0'
-//    compile 'io.springfox:springfox-swagger-ui:2.8.0'
-//
+
+    // swagger
+    compile 'io.springfox:springfox-swagger2:2.8.0'
+    compile 'io.springfox:springfox-swagger-ui:2.8.0'
+
 //    // spring amqp
 //    compile 'org.springframework.boot:spring-boot-starter-amqp:2.0.2.RELEASE'
 //    compile 'org.springframework.amqp:spring-rabbit-junit:2.0.2.RELEASE'

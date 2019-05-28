@@ -4,11 +4,14 @@ import { RootState } from 'common/reducer'
 import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import * as s from './search.scss'
 import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
 import ProductList from 'components/common/ProductList'
 import { ListType } from 'common/types/enum/exposeType'
+
+import * as s from './search.scss'
+
+const apiUrl = '/api/search/searchList'
 
 const searchProducts: Product[] = [
   {
@@ -61,8 +64,10 @@ class SearchResult extends React.Component<Props, {}> {
     return (
       <div>
         <div style={{ backgroundColor: '#eee', fontSize: 25, paddingLeft: 15, paddingTop: 10, paddingBottom: 10 }}>
-          <span>검색어 : "{this.props.match.params.searchword}"</span>
-          {this.props.match.params.category ? (
+          <span>
+            검색어 : <strong>{this.props.match.params.searchword}</strong>
+          </span>
+          {this.props.match.params.category && this.props.match.params.category !== 'Nan' ? (
             <>
               <br />
               <span>카테고리 : {this.props.match.params.category}</span>
@@ -70,12 +75,39 @@ class SearchResult extends React.Component<Props, {}> {
           ) : (
             <></>
           )}
-          <br />
-          <span>브랜드 : 에이, 비, 씨, 디, 이, 에프, 지, 에이치, </span>
-          <br />
-          <span>혜택 : 오늘드림, 1 + 1 </span>
-          <br />
-          <span> 가격대 : 0 ~ 10만 이상</span>
+          {this.props.match.params.brand && this.props.match.params.brand !== 'Nan' ? (
+            <>
+              <br />
+              <span>브랜드 : {this.props.match.params.brand}</span>
+            </>
+          ) : (
+            <></>
+          )}
+          {this.props.match.params.benefit && this.props.match.params.benefit !== 'Nan' ? (
+            <>
+              <br />
+              <span>혜택 : {this.props.match.params.benefit}</span>
+            </>
+          ) : (
+            <></>
+          )}
+          {
+            <>
+              <br />
+              <span>
+                가격대 :
+                {this.props.match.params.priceStartVal === '0' && this.props.match.params.priceEndVal === '100000' ? (
+                  <> 전체</>
+                ) : (
+                  <>
+                    &nbsp;{this.props.match.params.priceStartVal}원 ~
+                    {this.props.match.params.priceEndVal}원
+                    {this.props.match.params.priceEndVal === '100000' ? <> 이상</> : <></>}
+                  </>
+                )}
+              </span>
+            </>
+          }
         </div>
         <ProductList {...{ listType: ListType.SEARCH, list: searchProducts }} />
       </div>

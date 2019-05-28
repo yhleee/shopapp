@@ -5,6 +5,7 @@ import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './ranking.scss'
+import FormCategory from 'components/common/FormCategory'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -31,7 +32,11 @@ class RankingCategory extends React.Component<Props, {}> {
 
   render() {
     const { cx } = this.props
-    return <div>카테고리 별 랭킹</div>
+    return (
+      <div>
+        <FormCategory />
+      </div>
+    )
   }
 }
 

@@ -105,13 +105,6 @@ class Survey extends React.Component<OwnProps, OwnState> {
     const { current } = this.state
     return (
       <Layout>
-        <Header>
-          <img
-            src="http://image.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo.png"
-            alt="logo"
-            style={imgTagStyle}
-          />
-        </Header>
         <Content>
           <div>
             <Steps current={current}>{steps.map(item => <Step key={item.title} title={item.title} />)}</Steps>

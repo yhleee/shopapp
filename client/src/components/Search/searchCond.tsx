@@ -4,6 +4,7 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Link } from 'react-router-dom'
 import * as s from './search.scss'
+import { isEmpty } from 'lodash-es'
 
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
@@ -64,7 +65,7 @@ interface OwnState {
   activeBtn: string
 }
 
-class MyTag extends React.Component {
+class MyTag extends React.Component<OwnProps> {
   state = { checked: false }
 
   handleChange = checked => {
@@ -72,19 +73,10 @@ class MyTag extends React.Component {
   }
 
   render() {
+    const { cx } = this.props
     return (
       <CheckableTag
-        style={{
-          marginTop: 10,
-          margintLeft: 15,
-          width: 'auto',
-          paddingLeft: 15,
-          paddingRight: 15,
-          height: '40px',
-          lineHeight: '40px',
-          fontSize: 30,
-          textAlign: 'center',
-        }}
+        className={cx('checkable-tag')}
         {...this.props}
         checked={this.state.checked}
         onChange={this.handleChange}
@@ -119,6 +111,50 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
       : this.setState({
           activeBtn: id,
         })
+  }
+
+  goSearchResultPage = (query, category, brand, benefit, priceStartValue, priceEndValue) => {
+    var destPageLinkUrl = '/app/search/result/'
+    var Query = query
+    var Category = category
+    var Brand = brand
+    var Benefit = benefit
+    var PriceStartValue = priceStartValue
+    var PriceEndValue = priceEndValue
+
+    if (isEmpty(Query) || Query === '') {
+      Query = 'Nan'
+    }
+    if (isEmpty(Category) || Category === '') {
+      Category = 'Nan'
+    }
+    if (isEmpty(Brand) || Brand === '') {
+      Brand = 'Nan'
+    }
+    if (isEmpty(Benefit) || Benefit === '') {
+      Benefit = 'Nan'
+    }
+
+    var params =
+      'query=' +
+      Query +
+      '&' +
+      'cate=' +
+      Category +
+      '&' +
+      'brnd=' +
+      Brand +
+      '&' +
+      'bnft=' +
+      Benefit +
+      '&' +
+      'prcStrtVal=' +
+      PriceStartValue +
+      '&' +
+      'prcEndVal=' +
+      PriceEndValue
+
+    window.location.href = destPageLinkUrl + params
   }
 
   render() {
@@ -158,7 +194,7 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
 
         <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
           <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
-            <Carousel autoplay>
+            <Carousel autoplay={true}>
               <div>
                 <li style={{ textAlign: 'center' }}>
                   <MyTag>아이소이</MyTag>
@@ -265,7 +301,7 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
           >
             <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
               <Slider
-                range
+                range={true}
                 marks={priceMarks}
                 defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
                 onAfterChange={this.onChange}
@@ -276,6 +312,16 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             </Menu.Item>
           </SubMenu>
         </Menu>
+        <div className={cx('footer-wrap')}>
+          <div
+            className={cx('search-button')}
+            onClick={() =>
+              this.goSearchResultPage('abc', 'def', 'ghe', '', this.state.priceStrtVal, this.state.priceEndVal)
+            }
+          >
+            조회
+          </div>
+        </div>
       </div>
     )
   }
