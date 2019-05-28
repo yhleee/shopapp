@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
 import { fetchLayoutTitle, LayoutTitleState, updateLayoutTile } from './ducks/LayoutTitle'
@@ -8,6 +9,7 @@ import { styling } from 'common/utils'
 import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
+import { clog, getDisplaySize, DisplayInfo } from 'common/clickLog'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -60,7 +62,6 @@ class Layout extends React.Component<Props, OwnState> {
 
   render() {
     const { cx, children, layoutTitle, layoutButton } = this.props
-    console.log(layoutTitle)
     return (
       <>
         <div className={cx('header_wrap')}>
@@ -76,19 +77,19 @@ class Layout extends React.Component<Props, OwnState> {
           <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
             <div className={cx('menu_list')}>
               <p>
-                <a href={'/app/home'}>홈</a>
+                <Link to='/app/home'>홈</Link>
               </p>
               <p>
-                <a href={'/app/survey'}>셀프 문진</a>
+                <Link to='/app/survey'>셀프 문진</Link>
               </p>
               <p>
-                <a href={'/app/ranking'}>랭킹</a>
+                <Link to='/app/ranking'>랭킹</Link>
               </p>
               <p>
-                <a href={'/app/search'}>상품 검색</a>
+                <Link to='/app/search'>상품 검색</Link>
               </p>
               <p>
-                <a href={'/app/example'}>재고 조회</a>
+                <Link to='/app/example'>재고 조회</Link>
               </p>
             </div>
           </Drawer>

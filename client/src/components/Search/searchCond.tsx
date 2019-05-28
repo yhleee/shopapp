@@ -53,17 +53,17 @@ class MyTag extends React.Component {
   render() {
     return (
       <CheckableTag
-        style={{
-          marginTop: 10,
-          margintLeft: 15,
-          width: 'auto',
-          paddingLeft: 15,
-          paddingRight: 15,
-          height: '40px',
-          lineHeight: '40px',
-          fontSize: 30,
-          textAlign: 'center',
-        }}
+        // style={{
+        //   marginTop: 10,
+        //   margintLeft: 15,
+        //   width: 'auto',
+        //   paddingLeft: 15,
+        //   paddingRight: 15,
+        //   height: '40px',
+        //   lineHeight: '40px',
+        //   fontSize: 30,
+        //   textAlign: 'center',
+        // }}
         {...this.props}
         checked={this.state.checked}
         onChange={this.handleChange}
