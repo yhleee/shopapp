@@ -9,7 +9,7 @@ import { styling } from 'common/utils'
 import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
-import { clog, getDisplaySize, DisplayInfo } from 'common/clickLog'
+import { sclog } from 'common/clickLog'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -69,7 +69,7 @@ class Layout extends React.Component<Props, OwnState> {
             {layoutTitle && layoutTitle.title ? (
               <span className={cx('text_title')}>{layoutTitle.title}</span>
             ) : (
-              <img src="/images/logo_title.png" alt="logo" />
+              <img src="/images/logo_title.png" alt="logo" onClick={sclog('layout.title')} />
             )}
           </div>
           {layoutTitle && layoutTitle.title && <div className={cx('back_button')} onClick={this.backButtonHandler} />}
@@ -77,19 +77,19 @@ class Layout extends React.Component<Props, OwnState> {
           <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
             <div className={cx('menu_list')}>
               <p>
-                <Link to='/app/home'>홈</Link>
+                <Link to="/app/home">홈</Link>
               </p>
               <p>
-                <Link to='/app/survey'>셀프 문진</Link>
+                <Link to="/app/survey">셀프 문진</Link>
               </p>
               <p>
-                <Link to='/app/ranking'>랭킹</Link>
+                <Link to="/app/ranking">랭킹</Link>
               </p>
               <p>
-                <Link to='/app/search'>상품 검색</Link>
+                <Link to="/app/search">상품 검색</Link>
               </p>
               <p>
-                <Link to='/app/example'>재고 조회</Link>
+                <Link to="/app/example">재고 조회</Link>
               </p>
             </div>
           </Drawer>
