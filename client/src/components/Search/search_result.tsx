@@ -9,6 +9,7 @@ import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
 import ProductList from 'components/common/ProductList'
 import { ListType } from 'common/types/enum/exposeType'
+import * as queryString from 'query-string'
 
 const searchProducts: Product[] = [
   {
@@ -33,6 +34,7 @@ const searchProducts: Product[] = [
 interface OwnProps {
   cx?: DynamicCx
   match?: match
+  location?: Location
 }
 
 interface StateProps {
@@ -55,15 +57,20 @@ class SearchResult extends React.Component<Props, {}> {
   }
 
   render() {
-    const { cx } = this.props
+    const { cx, match, location } = this.props
+    const { params } = match
+
+    const queryParams = queryString.parse(location.search)
+    console.log(queryParams)
+
     return (
       <div>
         <div style={{ backgroundColor: '#eee', fontSize: 25, paddingLeft: 15, paddingTop: 10, paddingBottom: 10 }}>
-          <span>검색어 : "{this.props.match.params.searchword}"</span>
-          {this.props.match.params.category ? (
+          <span>검색어 : "{queryParams['searchword']}"</span>
+          {params['category'] ? (
             <>
               <br />
-              <span>카테고리 : {this.props.match.params.category}</span>
+              <span>카테고리 : {queryParams['category']}</span>
             </>
           ) : (
             <></>

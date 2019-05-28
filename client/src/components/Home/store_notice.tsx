@@ -9,7 +9,7 @@ const apiUrl = 'http://localhost:9090/api/test/db/noticeList'
 
 interface OwnProps {}
 interface OwnState {
-  noticeList: string[]
+  noticeList: any[]
 }
 
 class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {

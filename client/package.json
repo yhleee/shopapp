@@ -41,6 +41,7 @@
     "multistream": "^2.1.0",
     "object-assign": "4.1.1",
     "promise": "8.0.1",
+    "query-string": "^6.5.0",
     "raf": "^3.4.0",
     "react": "^16.4.0",
     "react-color": "^2.14.1",
