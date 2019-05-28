@@ -47,10 +47,7 @@ const Routes = () => {
         <Route path="/app/ranking/age" component={RankingAge} />
         <Route path="/app/ranking/brand" component={RankingBrand} />
         <Route path="/app/ranking" component={Ranking} />
-        <Route
-          path="/app/search/result/query=:searchword&cate=:category&brnd=:brand&bnft=:benefit&prcStrtVal=:priceStartVal&prcEndVal=:priceEndVal"
-          component={SearchResult}
-        />
+        {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}
         <Route path="/app/search/result" component={SearchResult} />
         <Route path="/app/search" component={Search} />
 

@@ -1,12 +1,15 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
 import { fetchLayoutTitle, LayoutTitleState, updateLayoutTile } from './ducks/LayoutTitle'
+import { fetchLayoutButton, LayoutButtonState, updateLayoutButton } from './ducks/LayoutButton'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
+import { clog, getDisplaySize, DisplayInfo } from 'common/clickLog'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -15,11 +18,14 @@ interface OwnProps {
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  layoutButton: LayoutButtonState
 }
 
 interface DispatchProps {
   fetchLayoutTitle: typeof fetchLayoutTitle
   updateLayoutTile: typeof updateLayoutTile
+  fetchLayoutButton: typeof fetchLayoutButton
+  updateLayoutButton: typeof updateLayoutButton
 }
 
 interface OwnState {
@@ -55,8 +61,7 @@ class Layout extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx, children, layoutTitle } = this.props
-    console.log(layoutTitle)
+    const { cx, children, layoutTitle, layoutButton } = this.props
     return (
       <>
         <div className={cx('header_wrap')}>
@@ -72,22 +77,31 @@ class Layout extends React.Component<Props, OwnState> {
           <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
             <div className={cx('menu_list')}>
               <p>
-                <a href={'/app/home'}>홈</a>
+                <Link to="/app/home">홈</Link>
               </p>
               <p>
-                <a href={'/app/survey'}>셀프 문진</a>
+                <Link to="/app/survey">셀프 문진</Link>
               </p>
               <p>
-                <a href={'/app/ranking'}>랭킹</a>
+                <Link to="/app/ranking">랭킹</Link>
               </p>
               <p>
-                <a href={'/app/search'}>상품 검색</a>
+                <Link to="/app/search">상품 검색</Link>
               </p>
               <p>
-                <a href={'/app/example'}>재고 조회</a>
+                <Link to="/app/example">재고 조회</Link>
               </p>
             </div>
           </Drawer>
+          {layoutButton && layoutButton.title ? (
+            <div className={cx('footer_wrap')}>
+              <div onClick={() => (location.href = layoutButton.url)} className={cx('bottom_btn')}>
+                <strong>{layoutButton.title}</strong>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className={cx('content_wrap')}>{children ? children : <PageNotFound />}</div>
       </>
@@ -98,9 +112,12 @@ class Layout extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    layoutButton: state.layoutButton,
   }),
   {
     fetchLayoutTitle,
     updateLayoutTile,
+    fetchLayoutButton,
+    updateLayoutButton,
   },
 )(styling(s)(Layout))

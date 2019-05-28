@@ -4,6 +4,7 @@ import { Icon, Carousel, Row, Col } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './home.scss'
+import { identity } from 'lodash-es'
 
 interface OwnProps {
   cx?: DynamicCx

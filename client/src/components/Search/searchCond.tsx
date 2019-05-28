@@ -1,19 +1,26 @@
 import * as React from 'react'
-import { Icon, Row, Col, Input, message, Menu, Slider, Tag, Carousel } from 'antd'
+import { Icon, Row, Col, Input, message, Button, Menu, Slider, Tag, Carousel } from 'antd'
 import { DynamicCx } from 'common/types'
-import { styling } from 'common/utils'
+import { styling, createCx } from 'common/utils'
 import { Link } from 'react-router-dom'
 import * as s from './search.scss'
-import { isEmpty } from 'lodash-es'
 
+const ButtonGroup = Button.Group
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
+
+const buttonStyle = {
+  marginLeft: 5,
+  marginRight: 5,
+  height: 'auto',
+  width: 'auto',
+}
 
 const iconTextStyle = {
   fontSize: 20,
 }
 
-const priceMarks = {
+const marks = {
   10000: { style: { fontSize: 14 }, label: '1만원' },
   20000: { style: { fontSize: 14 }, label: '2만원' },
   30000: { style: { fontSize: 14 }, label: '3만원' },
@@ -26,34 +33,6 @@ const priceMarks = {
   100000: { style: { fontSize: 14 }, label: '10만원 이상' },
 }
 
-const btnCate = [
-  {
-    id: '1',
-    name: '기초화장품',
-    iconUrl: '/images/oylogo_icon.png',
-  },
-  {
-    id: '2',
-    name: '색조화장품',
-    iconUrl: '/images/oylogo_icon.png',
-  },
-  {
-    id: '3',
-    name: '바디용품',
-    iconUrl: '/images/oylogo_icon.png',
-  },
-  {
-    id: '4',
-    name: '헤어용품',
-    iconUrl: '/images/oylogo_icon.png',
-  },
-  {
-    id: '5',
-    name: '프레그런스',
-    iconUrl: '/images/oylogo_icon.png',
-  },
-]
-
 interface OwnProps {
   cx?: DynamicCx
 }
@@ -62,10 +41,9 @@ interface OwnState {
   priceStrtVal: number
   priceEndVal: number
   checked: boolean
-  activeBtn: string
 }
 
-class MyTag extends React.Component<OwnProps> {
+class MyTag extends React.Component {
   state = { checked: false }
 
   handleChange = checked => {
@@ -73,10 +51,19 @@ class MyTag extends React.Component<OwnProps> {
   }
 
   render() {
-    const { cx } = this.props
     return (
       <CheckableTag
-        className={cx('checkable-tag')}
+        // style={{
+        //   marginTop: 10,
+        //   margintLeft: 15,
+        //   width: 'auto',
+        //   paddingLeft: 15,
+        //   paddingRight: 15,
+        //   height: '40px',
+        //   lineHeight: '40px',
+        //   fontSize: 30,
+        //   textAlign: 'center',
+        // }}
         {...this.props}
         checked={this.state.checked}
         onChange={this.handleChange}
@@ -92,7 +79,6 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
       priceStrtVal: 0,
       priceEndVal: 100000,
       checked: false,
-      activeBtn: '',
     }
   }
 
@@ -103,73 +89,7 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
     })
   }
 
-  setActiveBtn = id => {
-    this.state.activeBtn === id
-      ? this.setState({
-          activeBtn: '',
-        })
-      : this.setState({
-          activeBtn: id,
-        })
-  }
-
-  goSearchResultPage = (query, category, brand, benefit, priceStartValue, priceEndValue) => {
-    var destPageLinkUrl = '/app/search/result/'
-    var Query = query
-    var Category = category
-    var Brand = brand
-    var Benefit = benefit
-    var PriceStartValue = priceStartValue
-    var PriceEndValue = priceEndValue
-
-    if (isEmpty(Query) || Query === '') {
-      Query = 'Nan'
-    }
-    if (isEmpty(Category) || Category === '') {
-      Category = 'Nan'
-    }
-    if (isEmpty(Brand) || Brand === '') {
-      Brand = 'Nan'
-    }
-    if (isEmpty(Benefit) || Benefit === '') {
-      Benefit = 'Nan'
-    }
-
-    var params =
-      'query=' +
-      Query +
-      '&' +
-      'cate=' +
-      Category +
-      '&' +
-      'brnd=' +
-      Brand +
-      '&' +
-      'bnft=' +
-      Benefit +
-      '&' +
-      'prcStrtVal=' +
-      PriceStartValue +
-      '&' +
-      'prcEndVal=' +
-      PriceEndValue
-
-    window.location.href = destPageLinkUrl + params
-  }
-
   render() {
-    const { cx } = this.props
-
-    const cateBtns = btnCate.map(item => (
-      <button
-        className={this.state.activeBtn === item.id ? cx('active') : cx('inactive')}
-        onClick={() => this.setActiveBtn(item.id)}
-      >
-        <img src={item.iconUrl} />
-        <p style={iconTextStyle}>{item.name}</p>
-      </button>
-    ))
-
     return (
       <div>
         <Input
@@ -186,15 +106,39 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             fontSize: 50,
             height: '80px',
             lineHeight: '80px',
+            marginBottom: '30px',
           }}
         />
-        <Row style={{ marginTop: 30, backgroundColor: '#e4ffaf' }}>
-          <Col span={24}>{cateBtns}</Col>
+        <Row style={{ backgroundColor: '#e4ffaf' }}>
+          <Col span={24}>
+            <ButtonGroup>
+              <Button className="test" style={buttonStyle}>
+                <img src="/images/oylogo_icon.png" />
+                <p style={iconTextStyle}>기초화장품</p>
+              </Button>
+              <Button style={buttonStyle}>
+                <img src="/images/oylogo_icon.png" />
+                <p style={iconTextStyle}>색조화장품</p>
+              </Button>
+              <Button style={buttonStyle}>
+                <img src="/images/oylogo_icon.png" />
+                <p style={iconTextStyle}>바디용품</p>
+              </Button>
+              <Button style={buttonStyle}>
+                <img src="/images/oylogo_icon.png" />
+                <p style={iconTextStyle}>헤어용품</p>
+              </Button>
+              <Button style={buttonStyle}>
+                <img src="/images/oylogo_icon.png" />
+                <p style={iconTextStyle}>프레그런스</p>
+              </Button>
+            </ButtonGroup>
+          </Col>
         </Row>
 
         <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
           <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
-            <Carousel autoplay={true}>
+            <Carousel autoplay>
               <div>
                 <li style={{ textAlign: 'center' }}>
                   <MyTag>아이소이</MyTag>
@@ -301,8 +245,8 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
           >
             <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
               <Slider
-                range={true}
-                marks={priceMarks}
+                range
+                marks={marks}
                 defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
                 onAfterChange={this.onChange}
                 max={100000}
@@ -312,16 +256,6 @@ class SearchCond extends React.Component<OwnProps, OwnState> {
             </Menu.Item>
           </SubMenu>
         </Menu>
-        <div className={cx('footer-wrap')}>
-          <div
-            className={cx('search-button')}
-            onClick={() =>
-              this.goSearchResultPage('abc', 'def', 'ghe', '', this.state.priceStrtVal, this.state.priceEndVal)
-            }
-          >
-            조회
-          </div>
-        </div>
       </div>
     )
   }
