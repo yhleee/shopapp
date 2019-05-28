@@ -9,7 +9,7 @@ import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
 import ProductList from 'components/common/ProductList'
 import { ListType } from 'common/types/enum/exposeType'
-import queryString from 'query-string'
+import * as queryString from 'query-string'
 
 const searchProducts: Product[] = [
   {
