@@ -79,6 +79,7 @@ public class ProductDetailParserController {
             String reviewHtml = getHTML(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
             reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
+            reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
             reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
 
@@ -177,6 +178,16 @@ public class ProductDetailParserController {
             "   window.location.href='#productInfo';\n" +
             " }\n" +
             "\n" +
+            "var mgoods = {};\nmgoods['detail'] = {};\n" +
+            "mgoods.detail.openGiftFullPop = function () {\n" +
+            " document.getElementById('giftFullPop').style.display = 'block';\n" +
+            " document.getElementById('mContents').style.display = 'none';\n" +
+            "}\n" +
+            "var common = {};\n" +
+            "common.popFullClose = function () {\n" +
+            "   document.getElementById('giftFullPop').style.display = 'none';  \n" +
+            "   document.getElementById('mContents').style.display = 'block';  \n" +
+            "}\n" +
             " window.onload = function () {\n" +
             "   tabMenu1.addEventListener('click', clickTab1);\n" +
             "   tabMenu2.addEventListener('click', clickTab2);\n" +
