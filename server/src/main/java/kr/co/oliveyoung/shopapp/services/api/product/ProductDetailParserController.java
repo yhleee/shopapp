@@ -29,6 +29,10 @@ public class ProductDetailParserController {
             String html = getHTML(productUrl);
             document = Jsoup.parse(html);
             document.head().children().last().after(style);
+//            document.head().getElementsByTag("meta").attr("name", "viewport")
+//                    .first().attr("content", "width=device-width,initial-scale=2.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=no");
+
+//            document.body().getElementById("mContainer").attr("style", "zoom: 2;");
             document.body().getElementById("webBanner_detail").remove();
             document.body().getElementById("mHeader").remove();
             document.body().getElementById("titConts").remove();
@@ -135,7 +139,7 @@ public class ProductDetailParserController {
     }
 
     private String style = "<style>\n" +
-            "@media (width > 500px) { zoom: 2; }\n" +
+            "@media screen and (min-width: 500px) { #mContainer {zoom: 2;} }\n" +
             "</style>";
 
     private String tabScript = "<script>\n" +
