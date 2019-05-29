@@ -1,10 +1,9 @@
-package kr.co.oliveyoung.shopapp.services.api;
+package kr.co.oliveyoung.shopapp.services.api.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -29,6 +28,11 @@ public class ProductDetailParserController {
         try {
             String html = getHTML(productUrl);
             document = Jsoup.parse(html);
+            document.head().children().last().after(style);
+//            document.head().getElementsByTag("meta").attr("name", "viewport")
+//                    .first().attr("content", "width=device-width,initial-scale=2.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=no");
+
+//            document.body().getElementById("mContainer").attr("style", "zoom: 2;");
             document.body().getElementById("webBanner_detail").remove();
             document.body().getElementById("mHeader").remove();
             document.body().getElementById("titConts").remove();
@@ -74,13 +78,20 @@ public class ProductDetailParserController {
             // append goods info
             String goodsInfoHtml = getHTML(goodsInfoUrl);
             tabCont.get(1).children().get(0).before(goodsInfoHtml);
+            document.body().getElementsByClass("listBuyInfo").get(0).remove();
 
             // append review
             String reviewHtml = getHTML(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
-            reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
-            reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
-            reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            try {
+                reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            } catch (Exception e) {}
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
 
             // append script
@@ -126,6 +137,10 @@ public class ProductDetailParserController {
             return null;
         }
     }
+
+    private String style = "<style>\n" +
+            "@media screen and (min-width: 500px) { #mContainer {zoom: 2;} }\n" +
+            "</style>";
 
     private String tabScript = "<script>\n" +
             " var tabMenu1 = document.getElementById('productInfo');\n" +
