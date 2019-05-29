@@ -74,6 +74,7 @@ public class ProductDetailParserController {
             // append goods info
             String goodsInfoHtml = getHTML(goodsInfoUrl);
             tabCont.get(1).children().get(0).before(goodsInfoHtml);
+            document.body().getElementsByClass("listBuyInfo").get(0).remove();
 
             // append review
             String reviewHtml = getHTML(reviewUrl);
