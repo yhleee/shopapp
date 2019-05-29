@@ -8,7 +8,7 @@ import { styling } from 'common/utils'
 import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
-import { clog, getDisplaySize, DisplayInfo } from 'common/clickLog'
+import { sclog } from 'common/clickLog'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -65,7 +65,7 @@ class Layout extends React.Component<Props, OwnState> {
             {layoutTitle && layoutTitle.title ? (
               <span className={cx('text_title')}>{layoutTitle.title}</span>
             ) : (
-              <img src="/images/logo_title.png" alt="logo" />
+              <img src="/images/logo_title.png" alt="logo" onClick={sclog('layout.title')} />
             )}
           </div>
           {layoutTitle && layoutTitle.title && <div className={cx('back_button')} onClick={this.backButtonHandler} />}

@@ -9,6 +9,7 @@ import * as s from './ranking.scss'
 import { Product } from 'common/types/entities/product'
 import ProductList from 'components/common/ProductList'
 import { ListType } from 'common/types/enum/exposeType'
+import { Link } from 'react-router-dom'
 
 const rankingProducts: Product[] = [
   {
@@ -61,25 +62,25 @@ class Ranking extends React.Component<Props, {}> {
         <div className={cx('top_menu_wrap')}>
           <Row>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <a href="/app/ranking/category">
+              <Link to="/app/ranking/category">
                 <img src="/images/cosmetic_icon.png" />
                 <br />
                 <span>카테고리 별</span>
-              </a>
+              </Link>
             </Col>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <a href="/app/ranking/age">
+              <Link to="/app/ranking/age">
                 <img src="/images/beauty_face_icon.png" />
                 <br />
                 <span>연령대 별</span>
-              </a>
+              </Link>
             </Col>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <a href="/app/ranking/brand">
+              <Link to="/app/ranking/brand">
                 <img src="/images/shop_icon.png" />
                 <br />
                 <span>브랜드 별</span>
-              </a>
+              </Link>
             </Col>
           </Row>
         </div>

@@ -74,8 +74,50 @@ export const getParamString = (params: Object) => {
   return result.join('')
 }
 
-export const clog = (params: clickLogParams) => (event: Event) => {
-  console.log(event)
+const devClickLogUrl = 'http://localhost:8800/logging/click.png'
+const prodClickLogUrl = ''
+const getClickLogUrl = () => {
+  const isDev = process.env.NODE_ENV === 'development'
+  if (isDev) return devClickLogUrl
+  return prodClickLogUrl
+}
+
+export const sclog = (code: string, userId?: string) => () => {
+  clog({ cd: code, uid: userId }, event)
+}
+
+export const kclog = (code: string, keyword: string, productId?: string, userId?: string) => () => {
+  clog(
+    {
+      cd: code,
+      kwd: keyword,
+      pid: productId,
+      uid: userId,
+    },
+    event,
+  )
+}
+
+export const pclog = (code: string, productId: string, userId?: string) => () => {
+  clog(
+    {
+      cd: code,
+      pid: productId,
+      uid: userId,
+    },
+    event,
+  )
+}
+
+export const dclog = (params: clickLogParams) => () => {
+  clog(params, event)
+}
+
+export const clog = (params: clickLogParams, event: Event) => {
+  if (event) {
+    params['cx'] = event['x']
+    params['cy'] = event['y']
+  }
   const cookies = getCookies()
   params['bu'] = cookies['PCID']
   const displayInfo: DisplayInfo = getDisplaySize()
@@ -83,6 +125,6 @@ export const clog = (params: clickLogParams) => (event: Event) => {
   params['ih'] = displayInfo.clientHeight
   params['dw'] = displayInfo.scrollWidth
   params['dh'] = displayInfo.scrollHeight
-  const targetUrl = 'http://localhost:8800/logging/click.png'
+  const targetUrl = getClickLogUrl()
   requestIFrame(targetUrl + getParamString(params))
 }
