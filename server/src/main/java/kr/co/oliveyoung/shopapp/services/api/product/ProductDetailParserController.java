@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -29,6 +28,7 @@ public class ProductDetailParserController {
         try {
             String html = getHTML(productUrl);
             document = Jsoup.parse(html);
+            document.head().children().last().after(style);
             document.body().getElementById("webBanner_detail").remove();
             document.body().getElementById("mHeader").remove();
             document.body().getElementById("titConts").remove();
@@ -133,6 +133,10 @@ public class ProductDetailParserController {
             return null;
         }
     }
+
+    private String style = "<style>\n" +
+            "@media (width > 500px) { zoom: 2; }\n" +
+            "</style>";
 
     private String tabScript = "<script>\n" +
             " var tabMenu1 = document.getElementById('productInfo');\n" +
