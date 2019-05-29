@@ -38,6 +38,8 @@ public class ProductDetailParserController {
             document.body().getElementById("curation_wrap").remove();
             document.body().getElementById("btnShare").remove();
 
+            document.body().getElementsByClass("price_area gubun_bar").get(0).remove();
+
             document.body().getElementsByClass("prd_buy_wrap").get(0).remove();
             Elements priceDetails = document.body().getElementsByClass("prd_detail_info").get(0).children();
             int priceDetailIndex = 0;
@@ -82,11 +84,11 @@ public class ProductDetailParserController {
             // append product detail
             String productDetailHtml = getHTML(productDetailUrl);
             Elements tabCont = document.body().getElementsByClass("line_tab_cont");
-            tabCont.get(0).children().before(productDetailHtml);
+            tabCont.get(0).children().get(0).before(productDetailHtml);
 
             // append goods info
             String goodsInfoHtml = getHTML(goodsInfoUrl);
-            tabCont.get(1).children().before(goodsInfoHtml);
+            tabCont.get(1).children().get(0).before(goodsInfoHtml);
 
             // append review
             String reviewHtml = getHTML(reviewUrl);
@@ -96,7 +98,7 @@ public class ProductDetailParserController {
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
 
             // append script
-            document.body().children().after(tabScript);
+            document.body().children().last().after(tabScript);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -205,6 +207,7 @@ public class ProductDetailParserController {
             "   }\n" +
             "   details[1].classList.remove('show');\n" +
             "   details[2].classList.remove('show');\n" +
+            "   window.location.href='#productInfo';\n" +
             " }\n" +
             "\n" +
             " var clickTab2 = function () {\n" +
@@ -219,6 +222,7 @@ public class ProductDetailParserController {
             "   }\n" +
             "   details[0].classList.remove('show');\n" +
             "   details[2].classList.remove('show');\n" +
+            "   window.location.href='#productInfo';\n" +
             " }\n" +
             "\n" +
             " var clickTab3 = function () {\n" +
@@ -233,6 +237,7 @@ public class ProductDetailParserController {
             "   }\n" +
             "   details[0].classList.remove('show');\n" +
             "   details[1].classList.remove('show');\n" +
+            "   window.location.href='#productInfo';\n" +
             " }\n" +
             "\n" +
             " window.onload = function () {\n" +
