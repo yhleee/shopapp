@@ -9,4 +9,5 @@ public interface MySqlTestMapper {
 
     List<MySqlTest> selectTest();
     List<MySqlTest> selectStrNoticeList();
+    List<MySqlTest> selectHomeMenuList();
 }

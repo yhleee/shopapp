@@ -34,7 +34,7 @@ class RankingCategory extends React.Component<Props, {}> {
     const { cx } = this.props
     return (
       <div>
-        <FormCategory />
+        <FormCategory type="RANKING" />
       </div>
     )
   }

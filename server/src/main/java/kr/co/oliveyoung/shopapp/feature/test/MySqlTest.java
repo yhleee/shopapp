@@ -12,5 +12,9 @@ public class MySqlTest implements Serializable {
     private String message;
     private String strCd;
     private String text;
+    private String menuNm;
+    private String menuDesc;
+    private String menuIcon;
+    private String menuLnk;
 
 }

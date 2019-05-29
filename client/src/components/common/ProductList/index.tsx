@@ -5,7 +5,6 @@ import * as s from './productList.scss'
 import { Product } from 'common/types/entities/product'
 import Img from 'common/components/Img'
 import { ListType } from 'common/types/enum/exposeType'
-import { priceComma } from 'common/utils/logic/format'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -28,23 +27,28 @@ class ProductList extends React.Component<Props, {}> {
       <div className={cx('list_wrap')}>
         {list.map((product, index) => (
           <div className={cx('list_row')} key={index}>
-            {listType === ListType.RANKING && (
-              <div
-                className={cx('rank_icon', `${product.rank === 1 ? 'gold' : product.rank === 2 ? 'silver' : 'bronze'}`)}
-              />
-            )}
-            <div className={cx('product_image')}>
-              <Img src={product.imageUrl} />
-            </div>
-            <div className={cx('product_desc')}>
-              {product.brandName}
-              <br />
-              {product.productName}
-            </div>
-            <div className={cx('product_price')}>
-              {product.volume && product.volume + ' / '}
-              {priceComma(product.price)}원
-            </div>
+            <a className={cx('list_text')} href={product.linkUrl}>
+              {listType === ListType.RANKING && (
+                <div
+                  className={cx(
+                    'rank_icon',
+                    `${product.rank === 1 ? 'gold' : product.rank === 2 ? 'silver' : 'bronze'}`,
+                  )}
+                />
+              )}
+              <div className={cx('product_image')}>
+                <Img src={product.imageUrl} />
+              </div>
+              <div className={cx('product_desc')}>
+                {product.brandName}
+                <br />
+                {product.productName}
+              </div>
+              <div className={cx('product_price')}>
+                {product.volume && product.volume + ' / '}
+                {product.price}
+              </div>
+            </a>
           </div>
         ))}
       </div>
