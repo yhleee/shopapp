@@ -4,7 +4,7 @@ import { RootState } from 'common/reducer'
 import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import SearchCond from './searchCond'
+import SearchCondition from './search_condition'
 import * as s from './search.scss'
 
 interface OwnProps {
@@ -33,7 +33,7 @@ class Search extends React.Component<Props, {}> {
   render() {
     return (
       <>
-        <SearchCond />
+        <SearchCondition />
       </>
     )
   }

@@ -66,21 +66,62 @@ class SearchResult extends React.Component<Props, {}> {
     return (
       <div>
         <div style={{ backgroundColor: '#eee', fontSize: 25, paddingLeft: 15, paddingTop: 10, paddingBottom: 10 }}>
-          <span>검색어 : "{queryParams['searchword']}"</span>
-          {params['category'] ? (
+          {queryParams['searchword'] !== '' || queryParams['searchword'] ? (
             <>
+              <span>
+                검색어 : <strong>{queryParams['searchword']}</strong>
+              </span>
               <br />
-              <span>카테고리 : {queryParams['category']}</span>
             </>
           ) : (
             <></>
           )}
-          <br />
-          <span>브랜드 : 에이, 비, 씨, 디, 이, 에프, 지, 에이치, </span>
-          <br />
-          <span>혜택 : 오늘드림, 1 + 1 </span>
-          <br />
-          <span> 가격대 : 0 ~ 10만 이상</span>
+          {queryParams['category'] !== '' || queryParams['category'] ? (
+            <>
+              <span>카테고리 : {queryParams['category']}</span>
+              <br />
+            </>
+          ) : (
+            <></>
+          )}
+          {queryParams['brand'] !== '' || queryParams['brand'] ? (
+            <>
+              <span>브랜드 : {queryParams['brand']}</span>
+              <br />
+            </>
+          ) : (
+            <></>
+          )}
+          {queryParams['benefit'] !== '' || queryParams['benefit'] ? (
+            <>
+              {console.log('11111' + queryParams['benefit'] + '222')}
+              <span>혜택1 : {queryParams['benefit']}</span>
+              <br />
+            </>
+          ) : (
+            <></>
+          )}
+          <span>
+            {' '}
+            가격대 :
+            {queryParams['startValue'] === '0' && queryParams['endValue'] === '100000' ? (
+              <>전체</>
+            ) : (
+              <>
+                {queryParams['startValue'] !== '0' ? <>{queryParams['startValue']}원</> : <></>}
+                {
+                  <>
+                    ~
+                    {queryParams['endValue'] !== '100000' ? (
+                      <>{queryParams['endValue']}원</>
+                    ) : (
+                      <>{queryParams['endValue']}원 이상</>
+                    )}
+                  </>
+                }
+              </>
+            )}
+          </span>
         </div>
         <ProductList {...{ listType: ListType.SEARCH, list: searchProducts }} />
       </div>

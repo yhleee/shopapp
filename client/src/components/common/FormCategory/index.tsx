@@ -4,11 +4,14 @@ import { styling } from 'common/utils'
 import { Category, CategoryFormResult } from 'common/types/entities/category'
 import { Tag, Card, Radio, Divider } from 'antd'
 import { SearchOptionRange, SearchOptionTerm } from 'common/types/enum/searchOptions'
+import { ListType } from 'common/types/enum/exposeType'
+import { first } from 'lodash-es'
 
 const { CheckableTag } = Tag
 
 interface OwnProps {
   cx?: DynamicCx
+  type: string
 }
 
 interface OwnState {
@@ -97,11 +100,15 @@ const categories: Category[] = [
 class FormCategory extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
+    let initCateId = '1'
+    if (this.props.type !== 'RANKING') {
+      initCateId = ''
+    }
     this.state = {
       selectForm: {
         range: SearchOptionRange.COMPANY,
         term: SearchOptionTerm.WEEK,
-        firstCategoryId: '1',
+        firstCategoryId: initCateId,
         secondCategoryId: null,
         thirdCategoryId: null,
       },
@@ -126,7 +133,11 @@ class FormCategory extends React.Component<Props, OwnState> {
 
   handleFirstCategoryChange = (id: string) => () => {
     const selectForm = this.state.selectForm
-    selectForm.firstCategoryId = id
+    if (this.props.type !== 'RANKING' && selectForm.firstCategoryId === id) {
+      selectForm.firstCategoryId = ''
+    } else {
+      selectForm.firstCategoryId = id
+    }
     selectForm.secondCategoryId = null
     selectForm.thirdCategoryId = null
     this.setState({ selectForm })
@@ -165,20 +176,22 @@ class FormCategory extends React.Component<Props, OwnState> {
 
     return (
       <div style={{ zoom: 2 }}>
-        <Divider>조회 범위</Divider>
-        <div style={{ width: '100%', padding: '8px 10px', textAlign: 'center' }}>
-          <Radio.Group defaultValue={range} buttonStyle="solid" size="large" onChange={this.handleSearchRange}>
-            <Radio.Button value={SearchOptionRange.COMPANY}>전사</Radio.Button>
-            <Radio.Button value={SearchOptionRange.SHOP}>매장</Radio.Button>
-          </Radio.Group>
-          &nbsp;|&nbsp;
-          <Radio.Group defaultValue={term} buttonStyle="solid" size="large" onChange={this.handleSearchTerm}>
-            <Radio.Button value={SearchOptionTerm.WEEK}>주간</Radio.Button>
-            <Radio.Button value={SearchOptionTerm.MONTH}>월간</Radio.Button>
-          </Radio.Group>
-        </div>
-
-        <Divider>대분류 카테고리</Divider>
+        {this.props.type === ListType.RANKING && (
+          <>
+            <Divider>조회 범위</Divider>
+            <div style={{ width: '100%', padding: '8px 10px', textAlign: 'center' }}>
+              <Radio.Group defaultValue={range} buttonStyle="solid" size="large" onChange={this.handleSearchRange}>
+                <Radio.Button value={SearchOptionRange.COMPANY}>전사</Radio.Button>
+                <Radio.Button value={SearchOptionRange.SHOP}>매장</Radio.Button>
+              </Radio.Group>
+              &nbsp;|&nbsp;
+              <Radio.Group defaultValue={term} buttonStyle="solid" size="large" onChange={this.handleSearchTerm}>
+                <Radio.Button value={SearchOptionTerm.WEEK}>주간</Radio.Button>
+                <Radio.Button value={SearchOptionTerm.MONTH}>월간</Radio.Button>
+              </Radio.Group>
+            </div>
+          </>
+        )}
         <div style={{ width: 'max-contents', overflowX: 'scroll', overflowY: 'hidden', display: 'flex' }}>
           {categories.map((category, index) => (
             <Card
