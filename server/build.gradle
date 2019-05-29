@@ -39,6 +39,7 @@ repositories {
     jcenter()
     maven { url 'http://packages.confluent.io/maven/' }
     maven { url 'http://nexus.saas.hand-china.com/content/repositories/rdc' }
+//    maven { url 'http://central.maven.org/maven2/' }
 }
 
 jacoco {
@@ -150,6 +151,10 @@ dependencies {
 
     compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
+    // html parser
+    compile 'org.jsoup:jsoup:1.10.3'
+//    compile 'net.sourceforge.htmlunit:htmlunit:2.35.0'
 }
 
 bootJar {
