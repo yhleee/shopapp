@@ -1,4 +1,4 @@
-package kr.co.oliveyoung.shopapp.services.api;
+package kr.co.oliveyoung.shopapp.services.api.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
@@ -79,9 +79,15 @@ public class ProductDetailParserController {
             // append review
             String reviewHtml = getHTML(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
-            reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
-            reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
-            reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            try {
+                reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            } catch (Exception e) {}
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
 
             // append script
