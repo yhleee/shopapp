@@ -48,9 +48,9 @@ spring:
   profiles: local
   oracle:
     datasource:
-      jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
-      username: test
-      password: test
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
       maximumPoolSize: 20
   mysql:
     datasource:
@@ -62,9 +62,9 @@ spring:
   profiles: dev
   oracle:
     datasource:
-      jdbcUrl: jdbc:oracle:thin:@127.0.0.1:1521/orcl
-      username: test
-      password: test
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
       maximumPoolSize: 20
   mysql:
     datasource:

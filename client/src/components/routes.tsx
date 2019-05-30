@@ -6,6 +6,9 @@ import Loadable from 'react-loadable'
 const Loading: React.SFC<any> = props => {
   return (
     <div>
+      <Row>
+        <Alert message="잠시만 기다려 주세요..." type="info" showIcon={true} />
+      </Row>
       <Row style={{ marginTop: 25 }}>
         <Spin />
       </Row>
@@ -28,6 +31,8 @@ export const Ranking = createLoadable(() => import('./Ranking'))
 export const RankingSearch = createLoadable(() => import('./Ranking/ranking_search'))
 export const SearchResult = createLoadable(() => import('./Search/search_result'))
 export const Search = createLoadable(() => import('./Search'))
+export const StockList = createLoadable(() => import('./Stock/stock_list'))
+export const Stock = createLoadable(() => import('./Stock'))
 export const ProductDetail = createLoadable(() => import('./Product/product_detail'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
@@ -47,6 +52,8 @@ const Routes = () => {
         {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}
         <Route path="/app/search/result" component={SearchResult} />
         <Route path="/app/search" component={Search} />
+        <Route path="/app/stock/list" component={StockList} />
+        <Route path="/app/stock" component={Stock} />
         <Route path="/app/product/detail/:pid" component={ProductDetail} />
 
         <Route component={PageNotFound} />
