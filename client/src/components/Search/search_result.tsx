@@ -9,6 +9,7 @@ import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
 import ProductList from 'components/common/ProductList'
 import { ListType } from 'common/types/enum/exposeType'
+import SearchList from './search_productlist'
 import * as queryString from 'query-string'
 
 const searchProducts: Product[] = [
@@ -104,7 +105,7 @@ class SearchResult extends React.Component<Props, {}> {
           <span>
             {' '}
             가격대 :
-            {queryParams['startValue'] === '0' && queryParams['endValue'] === '100000' ? (
+            {queryParams['startValue'] === '0' && queryParams['endValue'] === '200000' ? (
               <>전체</>
             ) : (
               <>
@@ -112,7 +113,7 @@ class SearchResult extends React.Component<Props, {}> {
                 {
                   <>
                     ~
-                    {queryParams['endValue'] !== '100000' ? (
+                    {queryParams['endValue'] !== '200000' ? (
                       <>{queryParams['endValue']}원</>
                     ) : (
                       <>{queryParams['endValue']}원 이상</>
@@ -123,7 +124,7 @@ class SearchResult extends React.Component<Props, {}> {
             )}
           </span>
         </div>
-        <ProductList {...{ listType: ListType.SEARCH, list: searchProducts }} />
+        <SearchList />
       </div>
     )
   }

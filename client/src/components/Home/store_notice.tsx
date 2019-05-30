@@ -35,7 +35,7 @@ class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {
     if (!isEmpty(noticeList)) {
       return (
         <Carousel autoplay={true} dots={false}>
-          {this.state.noticeList.map(noticeList => <p>{noticeList.text}</p>)}
+          {this.state.noticeList.map(noticeList => <p key='storeNoti'>{noticeList.text}</p>)}
         </Carousel>
       )
     } else {

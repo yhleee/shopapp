@@ -1,40 +1,23 @@
 import * as React from 'react'
-import { Icon, Row, Col, Input, message, Button, Menu, Slider, Tag, Carousel } from 'antd'
+import { Icon, Input, Menu, Slider, Tag, Carousel } from 'antd'
 import { DynamicCx } from 'common/types'
-import { styling, createCx } from 'common/utils'
+import { styling } from 'common/utils'
 import { Link } from 'react-router-dom'
 import FormCategory from 'components/common/FormCategory'
 import * as s from './search.scss'
 
-const ButtonGroup = Button.Group
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
 
-const buttonStyle = {
-  marginLeft: 5,
-  marginRight: 5,
-  height: 'auto',
-  width: 'auto',
-}
-
-const iconTextStyle = {
-  fontSize: 20,
-}
-
 const marks = {
-  10000: { style: { fontSize: 14 }, label: '1만원' },
-  20000: { style: { fontSize: 14 }, label: '2만원' },
-  30000: { style: { fontSize: 14 }, label: '3만원' },
-  40000: { style: { fontSize: 14 }, label: '4만원' },
-  50000: { style: { fontSize: 14 }, label: '5만원' },
-  60000: { style: { fontSize: 14 }, label: '6만원' },
-  70000: { style: { fontSize: 14 }, label: '7만원' },
-  80000: { style: { fontSize: 14 }, label: '8만원' },
-  90000: { style: { fontSize: 14 }, label: '9만원' },
-  100000: { style: { fontSize: 14 }, label: '10만원 이상' },
+  0: { style: { fontSize: 20 }, label: '0원' },
+  50000: { style: { fontSize: 20 }, label: '5만원' },
+  100000: { style: { fontSize: 20 }, label: '10만원' },
+  150000: { style: { fontSize: 20 }, label: '15만원' },
+  200000: { style: { fontSize: 20 }, label: '20만원 이상' },
 }
 
-const apiUrl = '/app/search/result/?'
+const searchResultUrl = '/app/search/result/?'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -43,7 +26,7 @@ interface OwnProps {
 interface OwnState {
   priceStrtVal: number
   priceEndVal: number
-  searchWord: string
+  searchword: string
   category: string
   brand: string[]
   benefit: string[]
@@ -67,8 +50,8 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
     super(props)
     this.state = {
       priceStrtVal: 0,
-      priceEndVal: 100000,
-      searchWord: null,
+      priceEndVal: 200000,
+      searchword: null,
       category: null,
       brand: null,
       benefit: null,
@@ -84,20 +67,21 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
     })
   }
   onChange = e => {
-    this.setState({ ...this.state, searchWord: e.target.value })
+    this.setState({ ...this.state, searchword: e.target.value })
   }
 
   goResultPage = () => {
     let params = ''
-    params = params + 'searchword=' + (this.state.searchWord ? this.state.searchWord : '')
-    params = params + '&category=' + (this.state.searchWord ? '010101' /*this.state.category */ : '')
+    params = params + 'searchword=' + (this.state.searchword ? this.state.searchword : '')
+    params = params + '&category=' + (this.state.searchword ? '010101' /*this.state.category */ : '')
     params =
-      params + '&brand=' + (this.state.searchWord === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '')
+      params + '&brand=' + (this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '')
     params =
-      params + '&benefit=' + (this.state.searchWord === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '')
+      params + '&benefit=' + (this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '')
     params = params + '&startValue=' + (this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '')
     params = params + '&endValue=' + (this.state.priceEndVal ? this.state.priceEndVal : '')
-    window.location.href = apiUrl + params
+    params = params + '&page=1'
+    window.location.href = searchResultUrl + params
   }
 
   render() {
@@ -113,7 +97,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
                 <Icon type="barcode" style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }} />
               </Link>
             }
-            value={this.state.searchWord}
+            value={this.state.searchword}
             onChange={this.onChange}
             style={{
               paddingRight: 20,
@@ -230,9 +214,9 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
           >
             <SubMenu
               title={
-                <p style={{ fontSize: 25, marginBottom: 500 }}>
-                  가격대{this.state.priceStrtVal} ~ {this.state.priceEndVal}
-                </p>
+                <span style={{ fontSize: 25, }}>
+                  가격대
+                </span>
               }
             >
               <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
@@ -241,8 +225,8 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
                   marks={marks}
                   defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
                   onAfterChange={this.onPriceRangeChange}
-                  max={100000}
-                  step={1000}
+                  max={200000}
+                  step={10000}
                   style={{ marginRight: 50, fontSize: 50 }}
                 />
               </Menu.Item>
