@@ -29,7 +29,7 @@ class RankingCategory extends React.Component<Props, {}> {
   }
 
   componentDidMount() {
-    this.props.updateLayoutTile('카테고리 별 RANKING')
+    this.props.updateLayoutTile('카테고리 RANKING')
   }
 
   render() {
