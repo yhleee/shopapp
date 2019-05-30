@@ -4,13 +4,11 @@ import { RootState } from 'common/reducer'
 import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import * as s from './ranking.scss'
-import FormCategory from 'components/common/FormCategory'
-import { SearchPage } from 'common/types/enum/searchOptions'
+import StockSearch from './stock_search'
+import * as s from './stock.scss'
 
 interface OwnProps {
   cx?: DynamicCx
-  handleParams: Function
 }
 
 interface StateProps {
@@ -23,21 +21,20 @@ interface DispatchProps {
 
 type Props = OwnProps & StateProps & DispatchProps
 
-class RankingCategory extends React.Component<Props, {}> {
+class Stock extends React.Component<Props, {}> {
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-    this.props.updateLayoutTile('카테고리 RANKING')
+    this.props.updateLayoutTile('타매장 재고조회')
   }
 
   render() {
-    const { cx, handleParams } = this.props
     return (
-      <div>
-        <FormCategory type={SearchPage.RANKING} handleParams={handleParams} />
-      </div>
+      <>
+        <StockSearch />
+      </>
     )
   }
 }
@@ -49,4 +46,4 @@ export default connect<StateProps, DispatchProps, OwnProps>(
   {
     updateLayoutTile,
   },
-)(styling(s)(RankingCategory))
+)(styling(s)(Stock))

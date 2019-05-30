@@ -47,7 +47,7 @@ class RankingAge extends React.Component<Props, OwnState> {
   }
 
   componentDidMount() {
-    this.props.updateLayoutTile('그룹별 RANKING')
+    this.props.updateLayoutTile('그룹 RANKING')
   }
 
   handleFormParams = (type: ParameterType) => event => {
