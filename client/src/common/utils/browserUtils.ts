@@ -47,3 +47,10 @@ export const requestIFrame = (url: string) => {
     document.body.removeChild(iframe)
   }, 1000)
 }
+
+export const isScrollEnd = (marginBottom?: number) => {
+  const displayInfo = getDisplaySize()
+  const { clientHeight, scrollHeight } = displayInfo
+  const currentPosition = window ? window.scrollY : 0
+  return scrollHeight < currentPosition + clientHeight + (marginBottom || 0)
+}
