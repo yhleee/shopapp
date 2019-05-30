@@ -32,6 +32,7 @@ export const SearchResult = createLoadable(() => import('./Search/search_result'
 export const Search = createLoadable(() => import('./Search'))
 export const StockList = createLoadable(() => import('./Stock/stock_list'))
 export const Stock = createLoadable(() => import('./Stock'))
+export const ProductDetail = createLoadable(() => import('./Product/product_detail'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -54,6 +55,7 @@ const Routes = () => {
         <Route path="/app/search" component={Search} />
         <Route path="/app/stock/list" component={StockList} />
         <Route path="/app/stock" component={Stock} />
+        <Route path="/app/product/detail/:pid" component={ProductDetail} />
 
         <Route component={PageNotFound} />
       </Switch>

@@ -12,6 +12,7 @@ const apiUrl = '/api/search/db/selectSearchProductList235235/?page=1'
 
 interface OwnProps {
   cx?: DynamicCx
+  searchQuery: String
 }
 interface OwnState {
   productList: any[]
@@ -51,7 +52,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
       return(
         <div className={cx('serach-no-result')}>
           <Icon type='stop' theme='twoTone' twoToneColor='red' style={{padding: 'auto', textAlign: 'center', fontSize: '80px', }}/>
-
+          <span>검색하신 "{this.props.searchQuery}"에 대한 
         </div>
       )
     }
