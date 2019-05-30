@@ -6,7 +6,6 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './search.scss'
 import { match } from 'react-router'
-import { Product } from 'common/types/entities/product'
 import SearchList from './search_productlist'
 import * as queryString from 'query-string'
 
