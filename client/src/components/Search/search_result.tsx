@@ -7,7 +7,7 @@ import { styling } from 'common/utils'
 import * as s from './search.scss'
 import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
-import ProductList from 'components/common/ProductList'
+import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
 import * as queryString from 'query-string'
 

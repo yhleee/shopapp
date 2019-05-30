@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import * as s from './productList.scss'
+import * as s from './product_list.scss'
 import { Product } from 'common/types/entities/product'
 import Img from 'common/components/Img'
 import { ListType } from 'common/types/enum/exposeType'
+import { Link } from 'react-router-dom'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -27,7 +28,7 @@ class ProductList extends React.Component<Props, {}> {
       <div className={cx('list_wrap')}>
         {list.map((product, index) => (
           <div className={cx('list_row')} key={index}>
-            <a className={cx('list_text')} href={product.linkUrl}>
+            <Link className={cx('list_text')} to={`/app/product/detail/${product.id}`}>
               {listType === ListType.RANKING && (
                 <div
                   className={cx(
@@ -48,7 +49,7 @@ class ProductList extends React.Component<Props, {}> {
                 {product.volume && product.volume + ' / '}
                 {product.price}
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

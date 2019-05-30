@@ -49,7 +49,7 @@ class ProductDetail extends React.Component<Props, OwnState> {
   render() {
     const { html } = this.state
     const iframe = this.iframe.current
-    if (iframe && iframe.contentWindow) {
+    if (iframe && iframe.contentWindow && html) {
       iframe.contentWindow.document.open()
       iframe.contentWindow.document.write(html)
       iframe.contentWindow.document.close()
