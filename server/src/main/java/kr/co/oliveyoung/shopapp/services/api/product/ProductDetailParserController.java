@@ -1,10 +1,9 @@
-package kr.co.oliveyoung.shopapp.services.api;
+package kr.co.oliveyoung.shopapp.services.api.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -29,16 +28,22 @@ public class ProductDetailParserController {
         try {
             String html = getHTML(productUrl);
             document = Jsoup.parse(html);
+            document.head().children().last().after(style);
+
+            document.body().getElementsByTag("script").remove();
+            document.body().getElementsByTag("form").remove();
+            document.body().getElementsByTag("input").remove();
             document.body().getElementById("webBanner_detail").remove();
             document.body().getElementById("mHeader").remove();
             document.body().getElementById("titConts").remove();
-//            document.body().getElementById("backBtn").remove();
             document.body().getElementById("mFooter").remove();
             document.body().getElementById("related_items").remove();
             document.body().getElementById("curation_wrap").remove();
             document.body().getElementById("btnShare").remove();
 
-            document.body().getElementsByClass("price_area gubun_bar").get(0).remove();
+            try {
+                document.body().getElementsByClass("price_area gubun_bar").get(0).remove();
+            } catch (Exception e) {}
 
             document.body().getElementsByClass("prd_buy_wrap").get(0).remove();
             Elements priceDetails = document.body().getElementsByClass("prd_detail_info").get(0).children();
@@ -52,22 +57,6 @@ public class ProductDetailParserController {
             document.body().getElementById("moveBrandShop").remove();
             document.body().getElementsByClass("offlineBurialLink").get(0).remove();
             document.body().getElementById("regGdasBtn").parent().remove();
-
-//            Elements scripts = document.body().getElementsByTag("script");
-//            for (Element script : scripts) {
-//                if (script.toString().indexOf("ssoCheck") > -1) {
-//                    script.remove();
-//                }
-//                if (script.toString().indexOf("recobell") > -1) {
-//                    script.remove();
-//                }
-//                if (script.toString().indexOf("loginCheck") > -1) {
-//                    script.remove();
-//                }
-//            }
-            document.body().getElementsByTag("script").remove();
-            document.body().getElementsByTag("form").remove();
-            document.body().getElementsByTag("input").remove();
             document.body().getElementById("qnaInfo").remove();
 
             try {
@@ -75,8 +64,6 @@ public class ProductDetailParserController {
                 for (Element tabMenu : tabMenus) {
                     tabMenu.attr("style", "width: 33.33%");
                 }
-
-//                document.body().getElementById("curation_wrap").attr("style", "display: none;");
             } catch (Exception e) {
                 log.error("탭 메뉴 조작 중 에러", e);
             }
@@ -89,12 +76,20 @@ public class ProductDetailParserController {
             // append goods info
             String goodsInfoHtml = getHTML(goodsInfoUrl);
             tabCont.get(1).children().get(0).before(goodsInfoHtml);
+            document.body().getElementsByClass("listBuyInfo").get(0).remove();
 
             // append review
             String reviewHtml = getHTML(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
-            reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
-            reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            try {
+                reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("review_thum").get(0).remove();
+            } catch (Exception e) {}
+            try {
+                reviewDocument.body().getElementsByClass("poll_result").get(0).attr("style", "padding: 20px 0px;");
+            } catch (Exception e) {}
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
 
             // append script
@@ -141,53 +136,9 @@ public class ProductDetailParserController {
         }
     }
 
-    private String getDetailHTML(String pid) {
-        try {
-            HttpClientParams httpParams = new HttpClientParams();
-            httpParams.setConnectionManagerClass(SimpleHttpConnectionManager.class);
-            httpParams.setParameter("pid", pid);
-            httpParams.setParameter("cVer", "20190502");
-            httpParams.setParameter("dv", "MO");
-            httpParams.setParameter("charset", "utf-8");
-            httpParams.setParameter("eVer", "2.0.0");
-            httpParams.setParameter("inc_css", "N");
-            httpParams.setParameter("inc_js", "N");
-            httpParams.setParameter("tu", "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + pid);
-            httpParams.setParameter("requestUrl", "http://ca.oliveyoung.co.kr/Acceleration/Cached");
-            httpParams.setParameter("v", "190524");
-            httpParams.setParameter("cssUrl", "http://ca.oliveyoung.co.kr/Cont/Css/s-style_v2.min.css");
-            httpParams.setParameter("jsUrl", "http://ca.oliveyoung.co.kr/Cont/Js/slazy_v2.min.js");
-
-            HttpClient client = new HttpClient(httpParams);
-            PostMethod method = null;
-            try {
-                method = new PostMethod("https://m.oliveyoung.co.kr/m/goods/getCdnGoodsDesc.do");
-                method.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
-                method.setRequestHeader("Host", "m.oliveyoung.co.kr");
-                method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
-                int code = client.executeMethod(method);
-                String response = IOUtils.toString(method.getResponseBodyAsStream(), "UTF-8");
-                if (code != 200) {
-                    throw new Exception("unexcepted result: " + code + " " + response);
-                }
-
-                return response;
-            } catch (Exception e) {
-                try {
-                    throw e;
-                } catch (Exception e1) {
-                    throw e1;
-                }
-            } finally {
-                if (method != null) {
-                    method.releaseConnection();
-                }
-            }
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
+    private String style = "<style>\n" +
+            "@media screen and (min-width: 500px) { #mContainer {zoom: 2;} }\n" +
+            "</style>";
 
     private String tabScript = "<script>\n" +
             " var tabMenu1 = document.getElementById('productInfo');\n" +
@@ -240,6 +191,16 @@ public class ProductDetailParserController {
             "   window.location.href='#productInfo';\n" +
             " }\n" +
             "\n" +
+            "var mgoods = {};\nmgoods['detail'] = {};\n" +
+            "mgoods.detail.openGiftFullPop = function () {\n" +
+            " document.getElementById('giftFullPop').style.display = 'block';\n" +
+            " document.getElementById('mContents').style.display = 'none';\n" +
+            "}\n" +
+            "var common = {};\n" +
+            "common.popFullClose = function () {\n" +
+            "   document.getElementById('giftFullPop').style.display = 'none';  \n" +
+            "   document.getElementById('mContents').style.display = 'block';  \n" +
+            "}\n" +
             " window.onload = function () {\n" +
             "   tabMenu1.addEventListener('click', clickTab1);\n" +
             "   tabMenu2.addEventListener('click', clickTab2);\n" +
