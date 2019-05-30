@@ -3,60 +3,66 @@
 
     <select id="selectSearchProductList" resultType="kr.co.oliveyoung.shopapp.feature.search.OracleSearch">
       <![CDATA[
-        SELECT ROWNUM as rank
-              ,A.GDS_CD as gdsCd
-              ,A.GDS_NM as productName
-              ,'https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=' || A.GDS_CD as linkUrl
-              ,'https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0010/A00000010390201ko.jpg?l=ko' as imageUrl
-              ,A.SHRT_GDS_NM as shrtGdsNm
-              ,A.GDS_SCLS_CD as gdsSclsCd
-              ,A.BRND_CD as brndCd
-              ,B.BRND_NM as brandName
-              ,B.SHRT_BRND_NM as shrtBrndNm
-              ,C.GDS_SELPRC_UPRC as sellPrc
-              ,NVL(D.PRMTN_SELPRC_DC_RT, 0) as dcRt
-              ,NVL(D.PRMTN_SELPRC_UPRC, C.GDS_SELPRC_UPRC) as dcSellPrc
-              ,NVL(D.PRMTN_SELPRC_UPRC, C.GDS_SELPRC_UPRC) as price
-          FROM TB_MD_GDS_M A          /* 상품마스터 */
-              ,TB_MD_BRND_M B         /* 브랜드마스터 */
-              ,TB_MD_GDS_SELPRC_L C   /* 판매가 */
-              ,(SELECT *
-                  FROM (
-                        SELECT GDS_CD
-                              ,SELPRC_APPLY_STRT_YMD
-                              ,SELPRC_APPLY_END_YMD
-                              ,SEL_CHNL_CD
-                              ,PRMTN_SELPRC_UPRC
-                              ,PRMTN_SELPRC_DC_RT
-                              ,ROW_NUMBER() OVER (PARTITION BY GDS_CD ORDER BY SPRMTN_CD DESC, SELPRC_APPLY_STRT_YMD DESC) AS RN
-                          FROM TB_PR_PRMTN_GDS_SELPRC_L     /* 상품행사가격 */
-                         WHERE TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN SELPRC_APPLY_STRT_YMD AND SELPRC_APPLY_END_YMD
-                           AND SEL_CHNL_CD = '01'
-                        AND USE_YN = 'Y') A
-                 WHERE A.RN = 1) D
-              ,TB_MD_STR_GDS_L E /* 매장취급고 */
-        WHERE A.BRND_CD = B.BRND_CD
-          AND A.GDS_CD = C.GDS_CD(+)
-          AND A.GDS_CD = E.GDS_CD
-          AND A.GDS_CD = D.GDS_CD(+)
-          /* 매장 코드 -> 계정 정보로부터 파라미터 수신 */
-          AND E.STR_CD = 'DB67'
-          AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN C.APPLY_STRT_YMD AND C.APPLY_END_YMD
-          AND C.SEL_CHNL_CD = '01'
-          AND C.SEL_CHNL_CD = D.SEL_CHNL_CD(+)
-          AND E.GDS_TREAT_YN = 'Y'
-          AND E.POG_REG_YN = 'Y'
-          /* 카테고리 파라미터 */
-          /*   AND SUBSTR(A.GDS_SCLS_CD, 0,2) = '06'  대카 조건 */
-          /*   AND SUBSTR(A.GDS_SCLS_CD, 0,4) = '0603'  중카 조건 */
-          /*   AND A.GDS_SCLS_CD = '060302'  소카 조건 */
-          /* 브랜드 파라미터 */
-          /*   AND A.BRND_CD IN ('1073', '1091') */
-          /* 가격대 파라미터 */
-          /*   AND 1=1                                            0-100000조건 */
-          /*   AND C.GDS_SELPRC_UPRC <= 50000                     0-N조건(~50000) */
-          /*   AND C.GDS_SELPRC_UPRC BETWEEN 10000 AND 20000      N-N조건(strtVal ~ endVal) */
-          /*   AND C.GDS_SELPRC_UPRC >= 10000                     N-100000조건(10000~) */
+        SELECT *
+          FROM (
+                SELECT ROWNUM as rank
+                      ,A.GDS_CD as gdsCd
+                      ,A.GDS_NM as productName
+                      ,'https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=' || A.GDS_CD as linkUrl
+                      ,'https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0010/A00000010390201ko.jpg?l=ko' as imageUrl
+                      ,A.SHRT_GDS_NM as shrtGdsNm
+                      ,A.GDS_SCLS_CD as gdsSclsCd
+                      ,A.BRND_CD as brndCd
+                      ,B.BRND_NM as brandName
+                      ,B.SHRT_BRND_NM as shrtBrndNm
+                      ,C.GDS_SELPRC_UPRC as sellPrc
+                      ,NVL(D.PRMTN_SELPRC_DC_RT, 0) as dcRt
+                      ,NVL(D.PRMTN_SELPRC_UPRC, C.GDS_SELPRC_UPRC) as dcSellPrc
+                      ,NVL(D.PRMTN_SELPRC_UPRC, C.GDS_SELPRC_UPRC) as price
+                  FROM TB_MD_GDS_M A          /* 상품마스터 */
+                      ,TB_MD_BRND_M B         /* 브랜드마스터 */
+                      ,TB_MD_GDS_SELPRC_L C   /* 판매가 */
+                      ,(SELECT *
+                          FROM (
+                                SELECT GDS_CD
+                                      ,SELPRC_APPLY_STRT_YMD
+                                      ,SELPRC_APPLY_END_YMD
+                                      ,SEL_CHNL_CD
+                                      ,PRMTN_SELPRC_UPRC
+                                      ,PRMTN_SELPRC_DC_RT
+                                      ,ROW_NUMBER() OVER (PARTITION BY GDS_CD ORDER BY SPRMTN_CD DESC, SELPRC_APPLY_STRT_YMD DESC) AS RN
+                                  FROM TB_PR_PRMTN_GDS_SELPRC_L     /* 상품행사가격 */
+                                 WHERE TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN SELPRC_APPLY_STRT_YMD AND SELPRC_APPLY_END_YMD
+                                   AND SEL_CHNL_CD = '01'
+                                AND USE_YN = 'Y') A
+                         WHERE A.RN = 1) D
+                      ,TB_MD_STR_GDS_L E /* 매장취급고 */
+                WHERE A.BRND_CD = B.BRND_CD
+                  AND A.GDS_CD = C.GDS_CD(+)
+                  AND A.GDS_CD = E.GDS_CD
+                  AND A.GDS_CD = D.GDS_CD(+)
+                  /* 매장 코드 -> 계정 정보로부터 파라미터 수신 */
+                  AND E.STR_CD = 'DB67'
+                  AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN C.APPLY_STRT_YMD AND C.APPLY_END_YMD
+                  AND C.SEL_CHNL_CD = '01'
+                  AND C.SEL_CHNL_CD = D.SEL_CHNL_CD(+)
+                  AND E.GDS_TREAT_YN = 'Y'
+                  AND E.POG_REG_YN = 'Y'
+                  /* 검색어 상품명 LIKE 검색 */
+                  /* AND A.GDS_NM LIKE 'SEARCH'     */
+                  /* 카테고리 파라미터 */
+                  /*   AND SUBSTR(A.GDS_SCLS_CD, 0,2) = '06'  대카 조건 */
+                  /*   AND SUBSTR(A.GDS_SCLS_CD, 0,4) = '0603'  중카 조건 */
+                  /*   AND A.GDS_SCLS_CD = '060302'  소카 조건 */
+                  /* 브랜드 파라미터 */
+                  /*   AND A.BRND_CD IN ('1073', '1091') */
+                  /* 가격대 파라미터 */
+                  /*   AND 1=1                                            0-100000조건 */
+                  /*   AND C.GDS_SELPRC_UPRC <= 50000                     0-N조건(~50000) */
+                  /*   AND C.GDS_SELPRC_UPRC BETWEEN 10000 AND 20000      N-N조건(strtVal ~ endVal) */
+                  /*   AND C.GDS_SELPRC_UPRC >= 10000                     N-100000조건(10000~) */
+        )
+        WHERE RANK BETWEEN (0 * 20 +1) AND (1 * 20)
           ]]>
     </select>
 </mapper>

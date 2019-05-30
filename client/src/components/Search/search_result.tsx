@@ -7,31 +7,9 @@ import { styling } from 'common/utils'
 import * as s from './search.scss'
 import { match } from 'react-router'
 import { Product } from 'common/types/entities/product'
-import ProductList from 'components/common/ProductList'
-import { ListType } from 'common/types/enum/exposeType'
 import SearchList from './search_productlist'
 import * as queryString from 'query-string'
 
-const searchProducts: Product[] = [
-  {
-    id: 'A000000125206',
-    brandName: '삼성',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012520601ko.png?l=ko',
-    linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125206',
-    price: 159500,
-    productName: '갤럭시 버즈 블랙',
-    rank: 1,
-  },
-  {
-    id: 'A000000125267',
-    brandName: '웰라쥬',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012526701ko.jpg?l=ko',
-    linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125267',
-    price: 17000,
-    productName: '웰라쥬리얼히알루로닉 원데이키트 6개입 한정기획',
-    rank: 2,
-  },
-]
 interface OwnProps {
   cx?: DynamicCx
   match?: match
@@ -46,11 +24,17 @@ interface DispatchProps {
   updateLayoutTile: typeof updateLayoutTile
 }
 
+interface OwnState {
+  page: number
+}
 type Props = OwnProps & StateProps & DispatchProps
 
-class SearchResult extends React.Component<Props, {}> {
+class SearchResult extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
+    this.state = {
+      page: 1,
+    }
   }
 
   componentDidMount() {
@@ -58,8 +42,8 @@ class SearchResult extends React.Component<Props, {}> {
   }
 
   render() {
-    const { cx, match, location } = this.props
-    const { params } = match
+    const { cx, location } = this.props
+    const { page } = this.state
 
     const queryParams = queryString.parse(location.search)
     console.log(queryParams)
@@ -95,8 +79,7 @@ class SearchResult extends React.Component<Props, {}> {
           )}
           {queryParams['benefit'] !== '' || queryParams['benefit'] ? (
             <>
-              {console.log('11111' + queryParams['benefit'] + '222')}
-              <span>혜택1 : {queryParams['benefit']}</span>
+              <span>혜택 : {queryParams['benefit']}</span>
               <br />
             </>
           ) : (
@@ -124,7 +107,7 @@ class SearchResult extends React.Component<Props, {}> {
             )}
           </span>
         </div>
-        <SearchList />
+        <SearchList searchQuery={queryParams['searchword']} page={page} />
       </div>
     )
   }

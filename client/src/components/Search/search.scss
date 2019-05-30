@@ -43,8 +43,23 @@
   width: 100%;
 }
 
-.serach-no-result {
+.serach-no-result-wrap {
   width: 100%;
-  text-align: 'center';
-  margin-top: 200px;
+}
+
+.serach-no-result-wrap .stop-text {
+  display: block;
+  text-align: center;
+  font-size: 50px;
+  margin-top: 20px;
+}
+
+.serach-no-result-wrap .stop-button {
+  display: block;
+  height: 80px;
+  text-align: center;
+  font-size: 50px;
+  background-color: #c2dd8d;
+  margin-left: 150px;
+  margin-right:150px;
 }
