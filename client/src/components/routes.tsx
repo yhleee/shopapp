@@ -30,6 +30,7 @@ export const RankingAge = createLoadable(() => import('./Ranking/ranking_age'))
 export const RankingBrand = createLoadable(() => import('./Ranking/ranking_brand'))
 export const SearchResult = createLoadable(() => import('./Search/search_result'))
 export const Search = createLoadable(() => import('./Search'))
+export const ProductDetail = createLoadable(() => import('./Product/product_detail'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -50,6 +51,7 @@ const Routes = () => {
         {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}
         <Route path="/app/search/result" component={SearchResult} />
         <Route path="/app/search" component={Search} />
+        <Route path="/app/product/detail/:pid" component={ProductDetail} />
 
         <Route component={PageNotFound} />
       </Switch>
