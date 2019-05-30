@@ -29,10 +29,10 @@ public class ProductDetailParserController {
             String html = getHTML(productUrl);
             document = Jsoup.parse(html);
             document.head().children().last().after(style);
-//            document.head().getElementsByTag("meta").attr("name", "viewport")
-//                    .first().attr("content", "width=device-width,initial-scale=2.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=no");
 
-//            document.body().getElementById("mContainer").attr("style", "zoom: 2;");
+            document.body().getElementsByTag("script").remove();
+            document.body().getElementsByTag("form").remove();
+            document.body().getElementsByTag("input").remove();
             document.body().getElementById("webBanner_detail").remove();
             document.body().getElementById("mHeader").remove();
             document.body().getElementById("titConts").remove();
@@ -41,7 +41,9 @@ public class ProductDetailParserController {
             document.body().getElementById("curation_wrap").remove();
             document.body().getElementById("btnShare").remove();
 
-            document.body().getElementsByClass("price_area gubun_bar").get(0).remove();
+            try {
+                document.body().getElementsByClass("price_area gubun_bar").get(0).remove();
+            } catch (Exception e) {}
 
             document.body().getElementsByClass("prd_buy_wrap").get(0).remove();
             Elements priceDetails = document.body().getElementsByClass("prd_detail_info").get(0).children();
@@ -55,10 +57,6 @@ public class ProductDetailParserController {
             document.body().getElementById("moveBrandShop").remove();
             document.body().getElementsByClass("offlineBurialLink").get(0).remove();
             document.body().getElementById("regGdasBtn").parent().remove();
-
-            document.body().getElementsByTag("script").remove();
-            document.body().getElementsByTag("form").remove();
-            document.body().getElementsByTag("input").remove();
             document.body().getElementById("qnaInfo").remove();
 
             try {
