@@ -12,6 +12,7 @@ const { CheckableTag } = Tag
 interface OwnProps {
   cx?: DynamicCx
   type: string
+  handleParams: Function
 }
 
 interface OwnState {
@@ -115,19 +116,21 @@ class FormCategory extends React.Component<Props, OwnState> {
     }
   }
 
-  componentDidUpdate() {
-    console.log(this.state)
+  componentDidMount() {
+    this.props.handleParams(this.state.selectForm)
   }
 
   handleSearchRange = (event: any) => {
     const selectForm = this.state.selectForm
     selectForm.range = event.target.value
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
   handleSearchTerm = (event: any) => {
     const selectForm = this.state.selectForm
     selectForm.term = event.target.value
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
@@ -140,6 +143,7 @@ class FormCategory extends React.Component<Props, OwnState> {
     }
     selectForm.secondCategoryId = null
     selectForm.thirdCategoryId = null
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
@@ -147,12 +151,14 @@ class FormCategory extends React.Component<Props, OwnState> {
     const selectForm = this.state.selectForm
     selectForm.secondCategoryId = id
     selectForm.thirdCategoryId = null
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
   handleThirdCategoryChange = (id: string) => () => {
     const selectForm = this.state.selectForm
     selectForm.thirdCategoryId = id
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 

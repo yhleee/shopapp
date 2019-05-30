@@ -9,6 +9,7 @@ import FormCategory from 'components/common/FormCategory'
 
 interface OwnProps {
   cx?: DynamicCx
+  handleParams: Function
 }
 
 interface StateProps {
@@ -31,10 +32,10 @@ class RankingCategory extends React.Component<Props, {}> {
   }
 
   render() {
-    const { cx } = this.props
+    const { cx, handleParams } = this.props
     return (
       <div>
-        <FormCategory type="RANKING" />
+        <FormCategory type="RANKING" handleParams={handleParams} />
       </div>
     )
   }
