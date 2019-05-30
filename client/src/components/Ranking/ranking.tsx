@@ -7,7 +7,7 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './ranking.scss'
 import { Product } from 'common/types/entities/product'
-import ProductList from 'components/common/ProductList'
+import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
 import { Link } from 'react-router-dom'
 
