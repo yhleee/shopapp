@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import { Category, CategoryFormResult } from 'common/types/entities/category'
+import { CategoryFormResult } from 'common/types/entities/search'
+import { Category } from 'common/types/entities/category'
 import { Tag, Card, Radio, Divider } from 'antd'
-import { SearchOptionRange, SearchOptionTerm } from 'common/types/enum/searchOptions'
+import { SearchOptionRange, SearchOptionTerm, SearchPage } from 'common/types/enum/searchOptions'
 import { ListType } from 'common/types/enum/exposeType'
 import { first } from 'lodash-es'
 
@@ -102,7 +103,7 @@ class FormCategory extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     let initCateId = '1'
-    if (this.props.type !== 'RANKING') {
+    if (this.props.type !== SearchPage.RANKING) {
       initCateId = ''
     }
     this.state = {

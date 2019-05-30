@@ -13,3 +13,22 @@ export enum SearchType {
   AGE = 'AGE',
   BRAND = 'BRAND',
 }
+
+export enum AgeGroup {
+  ALL = 'ALL',
+  TEENAGER = 'TEENAGER',
+  TWENTIES = 'TWENTIES',
+  THIRTIES = 'THIRTIES',
+  FORTIES = 'FORTIES,',
+}
+
+export enum Gender {
+  ALL = 'ALL',
+  WOMEN = 'WOMEN',
+  MEN = 'MEN',
+}
+
+export enum SearchPage {
+  RANKING = 'RANKING',
+  SEARCH = 'SEARCH',
+}

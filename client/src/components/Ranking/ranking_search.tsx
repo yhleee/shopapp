@@ -8,7 +8,7 @@ import { SearchType } from 'common/types/enum/searchOptions'
 import RankingCategory from './ranking_category'
 import RankingAge from './ranking_age'
 import RankingBrand from './ranking_brand'
-import { CategoryFormResult } from 'common/types/entities/category'
+import { CategoryFormResult, AgeFormResult } from 'common/types/entities/search'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -17,6 +17,7 @@ interface OwnProps {
 
 interface OwnState {
   categorySearchParams: CategoryFormResult
+  ageSearchParams: AgeFormResult
 }
 
 type Props = OwnProps
@@ -26,6 +27,7 @@ class Ranking extends React.Component<Props, OwnState> {
     super(props)
     this.state = {
       categorySearchParams: {},
+      ageSearchParams: {},
     }
   }
 
@@ -35,8 +37,12 @@ class Ranking extends React.Component<Props, OwnState> {
     this.setState({ categorySearchParams })
   }
 
+  handleAgeSearchParams = (ageSearchParams: AgeFormResult) => {
+    this.setState({ ageSearchParams })
+  }
+
   handleSearchClick = () => {
-    console.log(this.state.categorySearchParams)
+    console.log(this.state)
   }
 
   render() {
@@ -46,7 +52,7 @@ class Ranking extends React.Component<Props, OwnState> {
       <>
         <div>
           {searchType === SearchType.CATEGOTY && <RankingCategory handleParams={this.handleCategorySearchParams} />}
-          {searchType === SearchType.AGE && <RankingAge />}
+          {searchType === SearchType.AGE && <RankingAge handleParams={this.handleAgeSearchParams} />}
           {searchType === SearchType.BRAND && <RankingBrand />}
         </div>
         <div className={cx('button_search_wrap')}>

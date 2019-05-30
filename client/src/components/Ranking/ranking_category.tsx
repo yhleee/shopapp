@@ -6,6 +6,7 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './ranking.scss'
 import FormCategory from 'components/common/FormCategory'
+import { SearchPage } from 'common/types/enum/searchOptions'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -35,7 +36,7 @@ class RankingCategory extends React.Component<Props, {}> {
     const { cx, handleParams } = this.props
     return (
       <div>
-        <FormCategory type="RANKING" handleParams={handleParams} />
+        <FormCategory type={SearchPage.RANKING} handleParams={handleParams} />
       </div>
     )
   }

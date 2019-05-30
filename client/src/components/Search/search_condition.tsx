@@ -5,6 +5,7 @@ import { styling, createCx } from 'common/utils'
 import { Link } from 'react-router-dom'
 import FormCategory from 'components/common/FormCategory'
 import * as s from './search.scss'
+import { SearchPage } from 'common/types/enum/searchOptions'
 
 const ButtonGroup = Button.Group
 const SubMenu = Menu.SubMenu
@@ -100,6 +101,8 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
     window.location.href = apiUrl + params
   }
 
+  handleCategoryForm = () => {}
+
   render() {
     const { cx } = this.props
     return (
@@ -126,7 +129,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
           />
 
           {/* 카테고리 선택 영역 */}
-          <FormCategory type="SEARCH" />
+          <FormCategory type={SearchPage.SEARCH} handleParams={this.handleCategoryForm} />
 
           <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
             <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
