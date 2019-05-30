@@ -10,6 +10,7 @@ import { Product } from 'common/types/entities/product'
 import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
 import { Link } from 'react-router-dom'
+import { SearchType } from 'common/types/enum/searchOptions'
 
 const rankingProducts: Product[] = [
   {
@@ -62,21 +63,21 @@ class Ranking extends React.Component<Props, {}> {
         <div className={cx('top_menu_wrap')}>
           <Row>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <Link to="/app/ranking/category">
+              <Link to={`/app/ranking/search/${SearchType.CATEGOTY}`}>
                 <img src="/images/cosmetic_icon.png" />
                 <br />
                 <span>카테고리 별</span>
               </Link>
             </Col>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <Link to="/app/ranking/age">
+              <Link to={`/app/ranking/search/${SearchType.AGE}`}>
                 <img src="/images/beauty_face_icon.png" />
                 <br />
                 <span>연령대 별</span>
               </Link>
             </Col>
             <Col span={8} style={{ textAlign: 'center' }}>
-              <Link to="/app/ranking/brand">
+              <Link to={`/app/ranking/search/${SearchType.BRAND}`}>
                 <img src="/images/shop_icon.png" />
                 <br />
                 <span>브랜드 별</span>

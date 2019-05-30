@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import { Category, CategoryFormResult } from 'common/types/entities/category'
+import { CategoryFormResult } from 'common/types/entities/search'
+import { Category } from 'common/types/entities/category'
 import { Tag, Card, Radio, Divider } from 'antd'
-import { SearchOptionRange, SearchOptionTerm } from 'common/types/enum/searchOptions'
+import { SearchOptionRange, SearchOptionTerm, SearchPage } from 'common/types/enum/searchOptions'
 import { ListType } from 'common/types/enum/exposeType'
 import { first } from 'lodash-es'
 
@@ -12,6 +13,7 @@ const { CheckableTag } = Tag
 interface OwnProps {
   cx?: DynamicCx
   type: string
+  handleParams: Function
 }
 
 interface OwnState {
@@ -101,7 +103,7 @@ class FormCategory extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     let initCateId = '1'
-    if (this.props.type !== 'RANKING') {
+    if (this.props.type !== SearchPage.RANKING) {
       initCateId = ''
     }
     this.state = {
@@ -115,19 +117,21 @@ class FormCategory extends React.Component<Props, OwnState> {
     }
   }
 
-  componentDidUpdate() {
-    console.log(this.state)
+  componentDidMount() {
+    this.props.handleParams(this.state.selectForm)
   }
 
   handleSearchRange = (event: any) => {
     const selectForm = this.state.selectForm
     selectForm.range = event.target.value
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
   handleSearchTerm = (event: any) => {
     const selectForm = this.state.selectForm
     selectForm.term = event.target.value
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
@@ -140,6 +144,7 @@ class FormCategory extends React.Component<Props, OwnState> {
     }
     selectForm.secondCategoryId = null
     selectForm.thirdCategoryId = null
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
@@ -147,12 +152,14 @@ class FormCategory extends React.Component<Props, OwnState> {
     const selectForm = this.state.selectForm
     selectForm.secondCategoryId = id
     selectForm.thirdCategoryId = null
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
   handleThirdCategoryChange = (id: string) => () => {
     const selectForm = this.state.selectForm
     selectForm.thirdCategoryId = id
+    this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
