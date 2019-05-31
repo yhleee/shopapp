@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/search")
@@ -26,8 +27,9 @@ public class SearchController {
 
 
     @GetMapping("/db/selectSearchProductList")
-    public String selectSearchProductList() {
-        List<OracleSearch> productList = oracleSearchMapper.selectSearchProductList();
+    public String selectSearchProductList(@RequestParam("page") String page) {
+        log.info("===========PAGE : {} ============ :  ", page);
+        List<OracleSearch> productList = oracleSearchMapper.selectSearchProductList(Integer.parseInt(page));
         log.info("======= ENV : {} ======", EnvUtils.getEnv());
         return JsonUtils.objectToJson(productList);
     }

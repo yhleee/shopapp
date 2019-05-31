@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Icon, Input, Menu, Slider, Tag, Carousel } from 'antd'
+import { Icon, Input, Menu, Slider, Tag, Carousel, Modal } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Link } from 'react-router-dom'
@@ -71,17 +71,26 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
     this.setState({ ...this.state, searchword: e.target.value })
   }
 
+  modalParameterCheck = param => {
+    Modal.error({
+      title: param + '를 입력해 주세요.',
+    })
+  }
+
   goResultPage = () => {
     let params = ''
-    params = params + 'searchword=' + (this.state.searchword ? this.state.searchword : '')
-    params = params + '&category=' + (this.state.searchword ? '010101' /*this.state.category */ : '')
+    if (!this.state.searchword) {
+      this.modalParameterCheck('검색어')
+      return
+    }
+    params = params + 'searchword=' + (this.state.searchword ? this.state.searchword : '') //검색어 없는 경우 어떻게 처리?
+    params = params + '&category=' + (this.state.searchword ? '010101' /*this.state.category */ : '3')
     params =
-      params + '&brand=' + (this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '')
+      params + '&brand=' + (this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '1')
     params =
-      params + '&benefit=' + (this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '')
-    params = params + '&startValue=' + (this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '')
-    params = params + '&endValue=' + (this.state.priceEndVal ? this.state.priceEndVal : '')
-    params = params + '&page=1'
+      params + '&benefit=' + (this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '2')
+    params = params + '&startValue=' + (this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '0')
+    params = params + '&endValue=' + (this.state.priceEndVal ? this.state.priceEndVal : '200000')
     window.location.href = searchResultUrl + params
   }
 
@@ -96,9 +105,11 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
           <Input
             placeholder="검색어를 입력해주세요"
             suffix={
-              <Link to="/app/home">
-                <Icon type="barcode" style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }} />
-              </Link>
+              <Icon
+                onClick={() => alert(1)}
+                type="barcode"
+                style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
+              />
             }
             value={this.state.searchword}
             onChange={this.onChange}

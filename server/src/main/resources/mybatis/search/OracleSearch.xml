@@ -62,7 +62,7 @@
                   /*   AND C.GDS_SELPRC_UPRC BETWEEN 10000 AND 20000      N-N조건(strtVal ~ endVal) */
                   /*   AND C.GDS_SELPRC_UPRC >= 10000                     N-100000조건(10000~) */
         )
-        WHERE RANK BETWEEN (0 * 20 +1) AND (1 * 20)
+        WHERE RANK BETWEEN ((#{page} - 1 ) * 20 +1) AND (#{page} * 20)
           ]]>
     </select>
 </mapper>
