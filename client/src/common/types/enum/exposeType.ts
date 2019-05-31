@@ -1,4 +1,4 @@
 export enum ListType {
-  SEARCH = 'SEARCH',
-  RANKING = 'RANKING',
+  SEARCH = 'search',
+  RANKING = 'ranking',
 }

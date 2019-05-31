@@ -199,6 +199,7 @@ class FormCategory extends React.Component<Props, OwnState> {
             </div>
           </>
         )}
+        <Divider>대분류 카테고리</Divider>
         <div style={{ width: 'max-contents', overflowX: 'scroll', overflowY: 'hidden', display: 'flex' }}>
           {categories.map((category, index) => (
             <Card

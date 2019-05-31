@@ -1,34 +1,34 @@
 export enum SearchOptionRange {
-  COMPANY = 'COMPANY',
-  SHOP = 'SHOP',
+  COMPANY = 'company',
+  SHOP = 'shop',
 }
 
 export enum SearchOptionTerm {
-  WEEK = 'WEEK',
-  MONTH = 'MONTH',
+  WEEK = 'week',
+  MONTH = 'month',
 }
 
 export enum SearchType {
-  CATEGOTY = 'CATEGORY',
-  AGE = 'AGE',
-  BRAND = 'BRAND',
+  CATEGOTY = 'category',
+  AGE = 'age',
+  BRAND = 'brand',
 }
 
 export enum AgeGroup {
-  ALL = 'ALL',
-  TEENAGER = 'TEENAGER',
-  TWENTIES = 'TWENTIES',
-  THIRTIES = 'THIRTIES',
-  FORTIES = 'FORTIES,',
+  ALL = 'all',
+  TEENAGER = 'teenager',
+  TWENTIES = 'twenties',
+  THIRTIES = 'thirties',
+  FORTIES = 'forties,',
 }
 
 export enum Gender {
-  ALL = 'ALL',
-  WOMEN = 'WOMEN',
-  MEN = 'MEN',
+  ALL = 'all',
+  WOMEN = 'women',
+  MEN = 'men',
 }
 
 export enum SearchPage {
-  RANKING = 'RANKING',
-  SEARCH = 'SEARCH',
+  RANKING = 'ranking',
+  SEARCH = 'search',
 }

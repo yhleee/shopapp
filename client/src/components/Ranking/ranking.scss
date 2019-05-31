@@ -21,7 +21,15 @@
 }
 
 .button_search_wrap {
+    zoom: 2;
+    margin: 20px 0px;
+}
+
+.message_wrap {
     width: 100%;
-    zoom: 4;
-    padding: 8px 5px;
+    padding: 5px 8px;
+    border: silver 1px solid;
+    border-radius: 5px;
+    color: gray;
+    background-color: burlywood;
 }

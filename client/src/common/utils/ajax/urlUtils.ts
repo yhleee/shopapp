@@ -1,4 +1,11 @@
 import { isDev } from 'common/utils'
-const config = require(`../../../config`).default
 
-export const getBaseUrl = () => isDev(`${config.protocol}://${config.host}${config.port ? `:${config.port}` : ''}`, '')
+export const getBaseUrl = () => {
+  // return isDev(devBaseUrl, '')
+  if (process.env.NODE_ENV === 'development') {
+    const config = require('../../../config').default
+    const devBaseUrl = `${config.protocol}://${config.host}${config.port ? `:${config.port}` : ''}`
+    return devBaseUrl
+  }
+  return ''
+}
