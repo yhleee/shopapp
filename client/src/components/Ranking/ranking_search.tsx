@@ -67,6 +67,7 @@ class Ranking extends React.Component<Props, OwnState> {
       message.error('상품조회 조건을 완성 해 주세요.')
       return
     }
+    this.context.router.push('/app/ranking/products')
   }
 
   isSearchable = () => {

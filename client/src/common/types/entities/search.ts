@@ -5,8 +5,11 @@ export interface CategoryFormResult {
   range?: SearchOptionRange
   term?: SearchOptionTerm
   firstCategoryId?: string
+  firstCategoryName?: string
   secondCategoryId?: string
+  secondCategoryName?: string
   thirdCategoryId?: string
+  thirdCategoryName?: string
 }
 
 export interface AgeFormResult {
