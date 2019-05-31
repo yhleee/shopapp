@@ -85,7 +85,6 @@ class SearchResult extends React.Component<Props, OwnState> {
             <></>
           )}
           <span>
-            {' '}
             가격대 :
             {queryParams['startValue'] === '0' && queryParams['endValue'] === '200000' ? (
               <>전체</>
@@ -106,7 +105,7 @@ class SearchResult extends React.Component<Props, OwnState> {
             )}
           </span>
         </div>
-        <SearchList searchQuery={queryParams['searchword']} page={page} />
+        <SearchList searchQuery={queryParams['searchword']} />
       </div>
     )
   }

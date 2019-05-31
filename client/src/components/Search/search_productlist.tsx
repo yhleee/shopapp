@@ -1,23 +1,26 @@
 import * as React from 'react'
+import { Icon } from 'antd'
 import { axios } from '../../common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
+import { isScrollEnd } from '../../common/utils/browserUtils'
 import * as s from './search.scss'
-import { Icon } from 'antd'
 
 const apiUrl = '/api/search/db/selectSearchProductList/?page='
+let pageNumber = 0
 
 interface OwnProps {
   cx?: DynamicCx
   searchQuery: String
-  page: number
 }
 interface OwnState {
   productList: any[]
   callbackFlag: boolean
+  page: number
+  isLoading: boolean
 }
 
 class GetProductList extends React.Component<OwnProps, OwnState> {
@@ -26,15 +29,34 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
     this.state = {
       productList: [],
       callbackFlag: false,
+      page: 0,
+      isLoading: false,
+    }
+    this.scrollEnd = this.scrollEnd.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollEnd)
+    this.readMoreProduct()
+  }
+
+  scrollEnd() {
+    if (isScrollEnd(100)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true }, () => {
+          this.readMoreProduct()
+        })
+      }
     }
   }
 
-  async componentDidMount() {
-    const { data: productList } = await axios.get(apiUrl + this.props.page)
-    console.log('1' + this.state.callbackFlag)
-    this.setState({ productList })
-    this.setState({ callbackFlag: true })
-    console.log('2' + this.state.callbackFlag)
+  async readMoreProduct() {
+    pageNumber += 1
+    console.log('readProduct : ' + pageNumber)
+    this.setState({ ...this.state, page: pageNumber })
+    let { data: productList } = await axios.get(apiUrl + pageNumber)
+    productList = this.state.productList.concat(productList)
+    this.setState({ ...this.state, productList: productList, callbackFlag: true, isLoading: false })
   }
 
   render() {
