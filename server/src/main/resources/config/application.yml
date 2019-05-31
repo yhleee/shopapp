@@ -74,12 +74,56 @@ spring:
 ---
 spring:
   profiles: test
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
+      maximumPoolSize: 20
+  mysql:
+    datasource:
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T
 ---
 spring:
   profiles: beta
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
+      maximumPoolSize: 20
+  mysql:
+    datasource:
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T
 ---
 spring:
   profiles: stage
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
+      maximumPoolSize: 20
+  mysql:
+    datasource:
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T
 ---
 spring:
   profiles: production
+  oracle:
+    datasource:
+      jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
+      username: OOMAPP
+      password: TAblet52()
+      maximumPoolSize: 20
+  mysql:
+    datasource:
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      username: tabletAdmin
+      password: 1q2w3e4r%T

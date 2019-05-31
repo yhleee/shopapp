@@ -6,7 +6,7 @@ import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './product_detail.scss'
-import { getProductDetailHtml } from 'common/services/product_detail'
+import { getProductDetailHtml } from 'common/services/product'
 
 interface OwnProps {
   cx?: DynamicCx

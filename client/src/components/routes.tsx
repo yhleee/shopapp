@@ -47,6 +47,7 @@ const Routes = () => {
         <Route path="/app/home" component={Home} />
         <Route path="/app/survey" component={Survey} />
         <Route path="/app/test/axios" component={TestAxios} />
+        <Route path="/app/ranking/search/:searchType/:brandName" component={RankingSearch} />
         <Route path="/app/ranking/search/:searchType" component={RankingSearch} />
         <Route path="/app/ranking" component={Ranking} />
         {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}

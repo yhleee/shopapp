@@ -11,27 +11,7 @@ import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
 import { Link } from 'react-router-dom'
 import { SearchType } from 'common/types/enum/searchOptions'
-
-const rankingProducts: Product[] = [
-  {
-    id: 'A000000125206',
-    brandName: '삼성',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012520601ko.png?l=ko',
-    linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125206',
-    price: 159500,
-    productName: '갤럭시 버즈 블랙',
-    rank: 1,
-  },
-  {
-    id: 'A000000125267',
-    brandName: '웰라쥬',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012526701ko.jpg?l=ko',
-    linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125267',
-    price: 17000,
-    productName: '웰라쥬리얼히알루로닉 원데이키트 6개입 한정기획',
-    rank: 2,
-  },
-]
+import { getProductList } from 'common/services/product'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -45,19 +25,39 @@ interface DispatchProps {
   updateLayoutTile: typeof updateLayoutTile
 }
 
+interface OwnState {
+  categoryProductList: Product[]
+  brandProductList: Product[]
+  ageProductList: Product[]
+}
+
 type Props = OwnProps & StateProps & DispatchProps
 
-class Ranking extends React.Component<Props, {}> {
+class Ranking extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
+    this.state = {
+      categoryProductList: [],
+      brandProductList: [],
+      ageProductList: [],
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.updateLayoutTile('RANKING')
+    const productList = await getProductList(null)
+    if (productList) {
+      this.setState({
+        categoryProductList: productList,
+        brandProductList: productList,
+        ageProductList: productList,
+      })
+    }
   }
 
   render() {
     const { cx } = this.props
+    const { categoryProductList, brandProductList, ageProductList } = this.state
     return (
       <div>
         <div className={cx('top_menu_wrap')}>
@@ -87,11 +87,11 @@ class Ranking extends React.Component<Props, {}> {
         </div>
         <div>
           <div className={cx('product_list_title')}>카테고리 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: categoryProductList }} />
           <div className={cx('product_list_title')}>연령대 & 성 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: ageProductList }} />
           <div className={cx('product_list_title')}>브랜드 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: rankingProducts }} />
+          <ProductList {...{ listType: ListType.RANKING, list: brandProductList }} />
         </div>
       </div>
     )
