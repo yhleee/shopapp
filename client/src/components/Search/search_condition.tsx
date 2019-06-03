@@ -224,7 +224,14 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
 
           <Menu
             mode="inline"
-            style={{ width: '100%', height: 'auto', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}
+            style={{
+              width: '100%',
+              height: 'auto',
+              fontSize: 30,
+              marginBottom: 200,
+              marginTop: 20,
+              backgroundColor: '#e4ffaf',
+            }}
           >
             <SubMenu title={<span style={{ fontSize: 25 }}>가격대</span>}>
               <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
