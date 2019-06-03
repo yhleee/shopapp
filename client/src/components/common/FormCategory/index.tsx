@@ -102,17 +102,22 @@ const categories: Category[] = [
 class FormCategory extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
-    let initCateId = '1'
+    let initCategoryId = '1'
+    let initCategoryName = '기초화장품'
     if (this.props.type !== SearchPage.RANKING) {
-      initCateId = ''
+      initCategoryId = ''
+      initCategoryName = ''
     }
     this.state = {
       selectForm: {
         range: SearchOptionRange.COMPANY,
         term: SearchOptionTerm.WEEK,
-        firstCategoryId: initCateId,
+        firstCategoryId: initCategoryId,
+        firstCategoryName: initCategoryName,
         secondCategoryId: null,
+        secondCategoryName: null,
         thirdCategoryId: null,
+        thirdCategoryName: null,
       },
     }
   }
@@ -135,30 +140,37 @@ class FormCategory extends React.Component<Props, OwnState> {
     this.setState({ selectForm })
   }
 
-  handleFirstCategoryChange = (id: string) => () => {
+  handleFirstCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
     if (this.props.type !== 'RANKING' && selectForm.firstCategoryId === id) {
       selectForm.firstCategoryId = ''
+      selectForm.firstCategoryName = ''
     } else {
       selectForm.firstCategoryId = id
+      selectForm.firstCategoryName = name
     }
     selectForm.secondCategoryId = null
+    selectForm.secondCategoryName = null
     selectForm.thirdCategoryId = null
+    selectForm.thirdCategoryName = null
     this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
-  handleSecondCategoryChange = (id: string) => () => {
+  handleSecondCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
     selectForm.secondCategoryId = id
+    selectForm.secondCategoryName = name
     selectForm.thirdCategoryId = null
+    selectForm.thirdCategoryName = null
     this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
 
-  handleThirdCategoryChange = (id: string) => () => {
+  handleThirdCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
     selectForm.thirdCategoryId = id
+    selectForm.thirdCategoryName = name
     this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }
@@ -207,7 +219,7 @@ class FormCategory extends React.Component<Props, OwnState> {
               style={{ width: 120, backgroundColor: `${selectForm.firstCategoryId === category.id ? '#1890ff' : ''}` }}
               cover={<img alt={category.name} src={category.imageUrl} style={{ width: '100px' }} />}
               key={`${category.id}_${index}`}
-              onClick={this.handleFirstCategoryChange(category.id)}
+              onClick={this.handleFirstCategoryChange(category.id, category.name)}
             >
               <span style={{ fontSize: '10px' }}>{category.name}</span>
             </Card>
@@ -220,7 +232,7 @@ class FormCategory extends React.Component<Props, OwnState> {
               <CheckableTag
                 key={`${category.id}_${index}`}
                 checked={secondCategoryId === category.id}
-                onChange={this.handleSecondCategoryChange(category.id)}
+                onChange={this.handleSecondCategoryChange(category.id, category.name)}
               >
                 {category.name}
               </CheckableTag>
@@ -234,7 +246,7 @@ class FormCategory extends React.Component<Props, OwnState> {
               <CheckableTag
                 key={`${category.id}_${index}`}
                 checked={thirdCategoryId === category.id}
-                onChange={this.handleThirdCategoryChange(category.id)}
+                onChange={this.handleThirdCategoryChange(category.id, category.name)}
               >
                 {category.name}
               </CheckableTag>

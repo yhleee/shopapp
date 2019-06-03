@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { RootState } from 'common/reducer'
 import { match } from 'react-router'
 import { Button, message } from 'antd'
 import { DynamicCx } from 'common/types'
@@ -11,28 +13,38 @@ import RankingBrand from './ranking_brand'
 import { CategoryFormResult, AgeFormResult, BrandFormResult } from 'common/types/entities/search'
 import { getBrandInfo } from 'common/services/search_brand'
 import { Brand } from 'common/types/entities/brand'
+import {
+  RankingSearchParamsState,
+  resetRankingSearchParams,
+  updateRankingSearchParams,
+} from './ducks/rankingSearchParams'
+import { History } from 'history'
 
 interface OwnProps {
   cx?: DynamicCx
   match?: match
+  history?: History
+}
+
+interface StateProps {
+  rankingSearchParams: RankingSearchParamsState
+}
+
+interface DispatchProps {
+  resetRankingSearchParams: typeof resetRankingSearchParams
+  updateRankingSearchParams: typeof updateRankingSearchParams
 }
 
 interface OwnState {
-  categorySearchParams: CategoryFormResult
-  ageSearchParams: AgeFormResult
-  brandSearchParams: BrandFormResult
   preSelectBrand: Brand
 }
 
-type Props = OwnProps
+type Props = OwnProps & StateProps & DispatchProps
 
 class Ranking extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      categorySearchParams: {},
-      ageSearchParams: {},
-      brandSearchParams: {},
       preSelectBrand: null,
     }
   }
@@ -42,6 +54,9 @@ class Ranking extends React.Component<Props, OwnState> {
     const { match } = this.props
     const searchType = match.params['searchType']
     const brandName = match.params['brandName']
+    const rankingSearchParams = this.props.rankingSearchParams
+    rankingSearchParams.currentPageType = searchType
+    this.props.updateRankingSearchParams(rankingSearchParams)
     if (searchType === SearchType.BRAND && brandName && !preSelectBrand) {
       const brandList = await getBrandInfo(brandName)
       if (brandList) {
@@ -51,33 +66,37 @@ class Ranking extends React.Component<Props, OwnState> {
   }
 
   handleCategorySearchParams = (categorySearchParams: CategoryFormResult) => {
-    this.setState({ categorySearchParams })
+    const rankingSerchParams = this.props.rankingSearchParams
+    rankingSerchParams.categorySearchParams = categorySearchParams
+    this.props.updateRankingSearchParams(rankingSerchParams)
+    console.log(this.props.rankingSearchParams)
   }
 
   handleAgeSearchParams = (ageSearchParams: AgeFormResult) => {
-    this.setState({ ageSearchParams })
+    const rankingSerchParams = this.props.rankingSearchParams
+    rankingSerchParams.ageSearchParams = ageSearchParams
+    this.props.updateRankingSearchParams(rankingSerchParams)
   }
 
   handleBrandSearchParams = (brandSearchParams: BrandFormResult) => {
-    this.setState({ brandSearchParams })
-  }
-
-  handleSearchClick = () => {
-    if (!this.isSearchable()) {
-      message.error('상품조회 조건을 완성 해 주세요.')
-      return
-    }
+    const rankingSerchParams = this.props.rankingSearchParams
+    rankingSerchParams.brandSearchParams = brandSearchParams
+    this.props.updateRankingSearchParams(rankingSerchParams)
   }
 
   isSearchable = () => {
     const { match } = this.props
-    const { categorySearchParams, ageSearchParams, brandSearchParams } = this.state
+    const { categorySearchParams, ageSearchParams, brandSearchParams } = this.props.rankingSearchParams
     const searchType = match.params['searchType']
     return (
-      (searchType === SearchType.CATEGOTY && categorySearchParams.firstCategoryId) ||
-      (searchType === SearchType.BRAND && brandSearchParams.category) ||
-      (searchType === SearchType.AGE && ageSearchParams.category)
+      (searchType === SearchType.CATEGOTY && (categorySearchParams && categorySearchParams.firstCategoryId)) ||
+      (searchType === SearchType.BRAND && (brandSearchParams && brandSearchParams.category)) ||
+      (searchType === SearchType.AGE && (ageSearchParams && ageSearchParams.category))
     )
+  }
+
+  handleClickSearch = () => {
+    this.props.history.push('/app/ranking/products')
   }
 
   render() {
@@ -95,7 +114,7 @@ class Ranking extends React.Component<Props, OwnState> {
         </div>
         {this.isSearchable() && (
           <div className={cx('button_search_wrap')}>
-            <Button icon="search" type="primary" block href="javascript:void(0)" onClick={this.handleSearchClick}>
+            <Button icon="search" type="primary" block href="javascript:void(0)" onClick={this.handleClickSearch}>
               조회
             </Button>
           </div>
@@ -105,4 +124,12 @@ class Ranking extends React.Component<Props, OwnState> {
   }
 }
 
-export default styling(s)(Ranking)
+export default connect<StateProps, DispatchProps, OwnProps>(
+  (state: RootState) => ({
+    rankingSearchParams: state.rankingSearchParams,
+  }),
+  {
+    resetRankingSearchParams,
+    updateRankingSearchParams,
+  },
+)(styling(s)(Ranking))
