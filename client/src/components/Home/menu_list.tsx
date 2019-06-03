@@ -54,9 +54,8 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
           )}
         />
       )
-    } else {
-      return <></>
     }
+    return <></>
   }
 }
 

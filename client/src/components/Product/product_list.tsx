@@ -46,7 +46,7 @@ class ProductList extends React.Component<Props, {}> {
                 {product.productName}
               </div>
               <div className={cx('product_price')}>
-                {product.volume && product.volume + ' / '}
+                {product.volume && `${product.volume}/`}
                 {product.price}
               </div>
             </Link>
