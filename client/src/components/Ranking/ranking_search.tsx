@@ -13,16 +13,17 @@ import RankingBrand from './ranking_brand'
 import { CategoryFormResult, AgeFormResult, BrandFormResult } from 'common/types/entities/search'
 import { getBrandInfo } from 'common/services/search_brand'
 import { Brand } from 'common/types/entities/brand'
-import { Link } from 'react-router-dom'
 import {
   RankingSearchParamsState,
   resetRankingSearchParams,
   updateRankingSearchParams,
 } from './ducks/rankingSearchParams'
+import { History } from 'history'
 
 interface OwnProps {
   cx?: DynamicCx
   match?: match
+  history?: History
 }
 
 interface StateProps {
@@ -94,6 +95,10 @@ class Ranking extends React.Component<Props, OwnState> {
     )
   }
 
+  handleClickSearch = () => {
+    this.props.history.push('/app/ranking/products')
+  }
+
   render() {
     const { cx, match } = this.props
     const searchType = match.params['searchType']
@@ -109,11 +114,9 @@ class Ranking extends React.Component<Props, OwnState> {
         </div>
         {this.isSearchable() && (
           <div className={cx('button_search_wrap')}>
-            <Link to="/app/ranking/products">
-              <Button icon="search" type="primary" block href="javascript:void(0)">
-                조회
-              </Button>
-            </Link>
+            <Button icon="search" type="primary" block href="javascript:void(0)" onClick={this.handleClickSearch}>
+              조회
+            </Button>
           </div>
         )}
       </>
