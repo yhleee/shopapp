@@ -81,7 +81,7 @@ export namespace AgeGroupState {
   export const ageGroupTypeConfig: ageGroupConfig = {
     all: {
       value: 'ALL',
-      text: '전체',
+      text: '전체 연령',
     },
     teenager: {
       value: '10',
@@ -123,7 +123,7 @@ export namespace GenderState {
   export const genderTypeConfig: genderConfig = {
     all: {
       value: 'ALL',
-      text: '전체',
+      text: '전체 성별',
     },
     men: {
       value: 'MEN',

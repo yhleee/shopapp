@@ -16,17 +16,17 @@ import {
   SearchOptionTermState,
   AgeGroupState,
   GenderState,
+  SearchType,
 } from 'common/types/enum/searchOptions'
+import { RankingSearchParamsState } from './ducks/rankingSearchParams'
 
 interface OwnProps {
   cx?: DynamicCx
-  categorySearchParams?: CategoryFormResult
-  ageSearchParams?: AgeFormResult
-  brandSearchParams?: BrandFormResult
 }
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  rankingSearchParams: RankingSearchParamsState
 }
 
 interface DispatchProps {
@@ -48,29 +48,33 @@ class RankingProductList extends React.Component<Props, OwnState> {
   }
 
   async componentDidMount() {
-    const { ageSearchParams, brandSearchParams, categorySearchParams, updateLayoutTile } = this.props
-    if (ageSearchParams) updateLayoutTile('테마 RANKING')
-    else if (brandSearchParams) updateLayoutTile('브랜드 RANKING')
-    else if (categorySearchParams) updateLayoutTile('카테고리 RANKING')
+    const { rankingSearchParams, updateLayoutTile } = this.props
+    const { currentPageType } = rankingSearchParams
+    if (currentPageType === SearchType.AGE) updateLayoutTile('데모 RANKING')
+    else if (currentPageType === SearchType.BRAND) updateLayoutTile('브랜드 RANKING')
+    else if (currentPageType === SearchType.CATEGOTY) updateLayoutTile('카테고리 RANKING')
 
     const productList = await getProductList(null)
     this.setState({ productList })
   }
 
   getSearchQuery = () => {
-    const query = []
-    const { ageSearchParams, brandSearchParams, categorySearchParams } = this.props
-    if (ageSearchParams) {
+    let result = null
+    const rankingSearchParams = this.props.rankingSearchParams
+    const { ageSearchParams, brandSearchParams, categorySearchParams, currentPageType } = rankingSearchParams
+    if (currentPageType === SearchType.AGE) {
+      const query = []
       query.push(AgeGroupState.getAgeGroupState(ageSearchParams.age).text)
       query.push(GenderState.getGenderState(ageSearchParams.gender).text)
-      query.concat(this.getCategorySearchQuery(ageSearchParams.category))
-    } else if (brandSearchParams) {
+      result = query.concat(this.getCategorySearchQuery(ageSearchParams.category))
+    } else if (currentPageType === SearchType.BRAND) {
+      const query = []
       query.push(brandSearchParams.name)
-      query.concat(this.getCategorySearchQuery(brandSearchParams.category))
-    } else if (categorySearchParams) {
-      query.concat(this.getCategorySearchQuery(categorySearchParams))
+      result = query.concat(this.getCategorySearchQuery(brandSearchParams.category))
+    } else if (currentPageType === SearchType.CATEGOTY) {
+      result = this.getCategorySearchQuery(categorySearchParams)
     }
-    return query.join(' / ')
+    return result.join(' / ')
   }
 
   getCategorySearchQuery = (params: CategoryFormResult) => {
@@ -80,7 +84,7 @@ class RankingProductList extends React.Component<Props, OwnState> {
     params.firstCategoryName && query.push(params.firstCategoryName)
     params.secondCategoryName && query.push(params.secondCategoryName)
     params.thirdCategoryName && query.push(params.thirdCategoryName)
-    return query.join
+    return query
   }
 
   render() {
@@ -90,7 +94,6 @@ class RankingProductList extends React.Component<Props, OwnState> {
     return (
       <>
         <div className={cx('message_wrap')}>
-          {' '}
           <Icon type="search" /> {queryString}
         </div>
         {productList && <ProductList list={productList} listType={ListType.RANKING} />}
@@ -102,6 +105,7 @@ class RankingProductList extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    rankingSearchParams: state.rankingSearchParams,
   }),
   {
     updateLayoutTile,
