@@ -41,7 +41,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   }
 
   scrollEnd() {
-    if (isScrollEnd(100)) {
+    if (isScrollEnd(10)) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true }, () => {
           this.readMoreProduct()
@@ -52,7 +52,6 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
 
   async readMoreProduct() {
     pageNumber += 1
-    console.log('readProduct : ' + pageNumber)
     this.setState({ ...this.state, page: pageNumber })
     let { data: productList } = await axios.get(apiUrl + pageNumber)
     productList = this.state.productList.concat(productList)
@@ -63,6 +62,14 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
     const { cx } = this.props
     const { productList } = this.state
     const flag = this.state.callbackFlag
+    let loadingButton = null
+    if (this.state.isLoading || !flag) {
+      loadingButton = (
+        <Icon type="loading" style={{ marginTop: '80px', display: 'block', fontSize: '100px', color: '#c2dd8d' }} />
+      )
+    } else {
+      loadingButton = null
+    }
 
     if (!isEmpty(productList)) {
       if (productList.length == 1) {
@@ -71,6 +78,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
         return (
           <>
             <ProductList {...{ listType: ListType.SEARCH, list: this.state.productList }} />
+            {loadingButton}
           </>
         )
       } else {
@@ -83,7 +91,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
               style={{ marginTop: '50px', display: 'block', textAlign: 'center', fontSize: '150px' }}
             />
             <h1 className={cx('stop-text')}>
-              검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한{' '}
+              검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
             </h1>
             <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
@@ -102,7 +110,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
                 style={{ marginTop: '50px', display: 'block', textAlign: 'center', fontSize: '150px' }}
               />
               <h1 className={cx('stop-text')}>
-                검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한{' '}
+                검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
               </h1>
               <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
               <h1 className={cx('stop-button')}>타매장 재고조회</h1>
@@ -110,11 +118,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
           </>
         )
       } else {
-        return (
-          <>
-            <Icon type="loading" style={{ marginTop: '80px', display: 'block', fontSize: '100px', color: '#c2dd8d' }} />
-          </>
-        )
+        return <>{loadingButton}</>
       }
     }
   }
