@@ -14,7 +14,7 @@ const NaverSelective: React.FC<any> = ({}) => {
         if (!data.representImagePathForWest) return
         return (
           <Card
-            hoverable
+            hoverable={true}
             style={{ width: '90%', marginBottom: '10px' }}
             cover={<img alt={data.urlId} src={data.representImagePathForWest} />}
           >

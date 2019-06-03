@@ -73,7 +73,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
 
   modalParameterCheck = param => {
     Modal.error({
-      title: param + '를 입력해 주세요.',
+      title: `${param}를 입력해 주세요.`,
     })
   }
 
@@ -83,14 +83,14 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
       this.modalParameterCheck('검색어')
       return
     }
-    params = params + 'searchword=' + (this.state.searchword ? this.state.searchword : '') //검색어 없는 경우 어떻게 처리?
-    params = params + '&category=' + (this.state.searchword ? '010101' /*this.state.category */ : '3')
-    params =
-      params + '&brand=' + (this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '1')
-    params =
-      params + '&benefit=' + (this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '2')
-    params = params + '&startValue=' + (this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '0')
-    params = params + '&endValue=' + (this.state.priceEndVal ? this.state.priceEndVal : '200000')
+    params = `${params}searchword=${this.state.searchword ? this.state.searchword : ''}` // 검색어 없는 경우 어떻게 처리?
+    params = `${params}&category=${this.state.searchword ? '010101' : '3'}`
+    params = `${params}&brand=${this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '1'}`
+    params = `${params}&benefit=${
+      this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '2'
+    }`
+    params = `${params}&startValue=${this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '0'}`
+    params = `${params}&endValue=${this.state.priceEndVal ? this.state.priceEndVal : '200000'}`
     window.location.href = searchResultUrl + params
   }
 
@@ -128,7 +128,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
 
           <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
             <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
-              <Carousel autoplay>
+              <Carousel autoplay={true}>
                 <div>
                   <li style={{ textAlign: 'center' }}>
                     <MyTag>아이소이</MyTag>
@@ -236,7 +236,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
             <SubMenu title={<span style={{ fontSize: 25 }}>가격대</span>}>
               <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
                 <Slider
-                  range
+                  range={true}
                   marks={marks}
                   defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
                   onAfterChange={this.onPriceRangeChange}
