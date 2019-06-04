@@ -37,9 +37,9 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
 
   goListPage = () => {
     let params = ''
-    params = params + 'distance=' + (this.state.distance ? this.state.distance : '')
-    params = params + '&address=' + (this.state.address ? this.state.address : '')
-    params = params + '&searchword=' + (this.state.searchWord ? this.state.searchWord : '')
+    params = `${params}distance=${this.state.distance ? this.state.distance : ''}`
+    params = `${params}&address=${this.state.address ? this.state.address : ''}`
+    params = `${params}&searchword=${this.state.searchWord ? this.state.searchWord : ''}`
 
     window.location.href = searchResultUrl + params
   }

@@ -38,9 +38,8 @@ class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {
           {this.state.noticeList.map(noticeList => <p key="storeNoti">{noticeList.text}</p>)}
         </Carousel>
       )
-    } else {
-      return <></>
     }
+    return <></>
   }
 }
 
