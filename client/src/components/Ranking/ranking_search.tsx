@@ -69,7 +69,6 @@ class Ranking extends React.Component<Props, OwnState> {
     const rankingSerchParams = this.props.rankingSearchParams
     rankingSerchParams.categorySearchParams = categorySearchParams
     this.props.updateRankingSearchParams(rankingSerchParams)
-    console.log(this.props.rankingSearchParams)
   }
 
   handleAgeSearchParams = (ageSearchParams: AgeFormResult) => {
