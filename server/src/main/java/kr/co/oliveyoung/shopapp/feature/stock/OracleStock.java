@@ -12,8 +12,9 @@ public class OracleStock implements Serializable {
 
     private static final long serialVersionUID = -3720356412776588306L;
 
-    private String stroeCode;
+    private String storeCode;
     private String storeName;
+    private String exposeStoreName;
     private String address;
     private String addrerssDetail;
     private String phoneNumber;

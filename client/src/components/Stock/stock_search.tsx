@@ -94,9 +94,11 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
           <Input
             placeholder="검색어를 입력해주세요"
             suffix={
-              <Link to="/app/home">
-                <Icon type="barcode" style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }} />
-              </Link>
+              <Icon
+                onClick={() => (window.location.href = '/app/search/barcode')}
+                type="barcode"
+                style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
+              />
             }
             value={this.state.searchWord}
             onChange={this.onProductInputChange}
