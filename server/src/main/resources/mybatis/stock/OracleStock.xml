@@ -1,0 +1,53 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.stock.OracleStockMapper">
+
+  <select id="selectStockStoreList" resultType="kr.co.oliveyoung.shopapp.feature.stock.OracleStock">
+    <![CDATA[
+      SELECT /* OracleStock.selectStockStoreList */
+             Z1.STR_CD sotreCode
+            ,Z1.BIZPLC_NM storeName
+            ,Z1.RD_NM_SIGUNGU_ADDR address
+            ,Z1.RD_NM_DTL_ADDR1 addressDetail
+            ,Z1.BIZPLC_PHONE_NO phoneNumber
+            ,ROUND(Z1.DISTANCE * 1000,-1)||'M' distance
+            ,Z2.USFL_STK_QTY remainStock
+            ,Z1.LAT lat
+            ,Z1.LNG lng
+        FROM (SELECT T1.STR_CD
+                    ,T3.BIZPLC_NM
+                    ,RD_NM_SIGUNGU_ADDR
+                    ,RD_NM_DTL_ADDR1
+                    ,BIZPLC_PHONE_NO
+                    ,( 6371 * ACOS( COS( T2.LAT / 57.29577951 ) * COS( T1.LAT /
+                       57.29577951 ) * COS( T1.LNG / 57.29577951 - T2.LNG / 57.29577951 ) +
+                       SIN( T2.LAT / 57.29577951 ) * SIN( T1.LAT / 57.29577951 ) ) ) AS DISTANCE
+                    ,T1.LAT
+                    ,T1.LNG
+                FROM TB_SA_BIZPLC_ADD_L T1
+                    ,(	SELECT *
+                          FROM TB_SA_BIZPLC_ADD_L
+                         WHERE STR_CD = 'DB67') T2
+                    ,TB_SA_BIZPLC_M T3 /* 사업장 마스터 */
+               WHERE T1.STR_CD = T3.BIZPLC_CD
+                 AND NVL(T3.CLSTR_YMD,'29991231') > TO_CHAR(SYSDATE,'YYYYMMDD') /* 폐점일자 */
+                 AND NVL(T3.SAL_CLS_YMD,'29991231') > TO_CHAR(SYSDATE,'YYYYMMDD') /* 영업일자 */) Z1,
+             TB_ST_STR_SKU_ARSLT_L Z2  /* 매장 실재고 */
+       WHERE DISTANCE < 2
+         AND Z1.STR_CD = Z2.STR_CD
+         AND Z2.RNP_YMD = '20190502'
+         AND Z2.GDS_CD = ${goodsCode}
+         AND Z1.STR_CD <> 'DB67'
+       ORDER BY Z1.DISTANCE ASC
+    ]]>
+  </select>
+
+  <select id="selectStoreLocation" resultType="kr.co.oliveyoung.shopapp.feature.stock.OracleStock">
+    <![CDATA[
+      SELECT /* OracleStock.selectStoreLocation */
+             LAT lat
+            ,LNG lng
+        FROM TB_SA_BIZPLC_ADD_L
+       WHERE STR_CD = #{storeCode}    /* StoreCode Parameter */
+    ]]>
+  </select>
+</mapper>

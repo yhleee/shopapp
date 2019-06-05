@@ -9,7 +9,7 @@ import { ListType } from 'common/types/enum/exposeType'
 import { isScrollEnd } from '../../common/utils/browserUtils'
 import * as s from './search.scss'
 
-const apiUrl = '/api/search/db/selectSearchProductList/?page='
+const apiUrl = '/api/search/selectSearchProductList/?page='
 let pageNumber = 0
 
 interface OwnProps {
@@ -77,7 +77,9 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
 
     if (!isEmpty(productList)) {
       if (productList.length === 1) {
-        return (window.location.href = this.state.productList[0].linkUrl)
+        // 단건 조회시, product_detail 호출하도록 변경!
+        return (window.location.href = `/app/product/detail/?pid=${this.state.productList[0].gdsCd}`)
+        // return (window.location.href = this.state.productList[0].linkUrl)
       }
       if (productList.length > 1) {
         return (
@@ -99,7 +101,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
             <h1 className={cx('stop-text')}>
               검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
             </h1>
-            <h1 className={cx('stop-text')}>검색 결2과가 없습니다.</h1>
+            <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
           </div>
         </>
@@ -123,7 +125,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
             <h1 className={cx('stop-text')}>
               검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
             </h1>
-            <h1 className={cx('stop-text')}>검색 결과가3 없습니다.</h1>
+            <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
           </div>
         </>
