@@ -1,6 +1,7 @@
 package kr.co.oliveyoung.shopapp.services.api.product;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -11,14 +12,26 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
 public class ProductDetailParserController {
 
-    @GetMapping("/product/detail/parser")
-    public String ParseProductDetail(String pid) {
+    @GetMapping("/product/barcode/{barcode}")
+    public String getProductPidFromBarcode(@PathVariable("barcode") String barcode) {
+        String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + barcode;
+        String barcodeHtml = requestUrl(barcodeUrl, true);
+        Document document = Jsoup.parse(barcodeHtml);
+        String pid = document.body().getElementById("goodsNo").attr("value");
+        log.info("==== PID : {}", pid);
+
+        return parseProductDetail(pid);
+    }
+
+    @GetMapping("/product/detail/parser/{pid}")
+    public String parseProductDetail(@PathVariable("pid") String pid) {
         String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + pid;
         String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + pid;
         String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + pid;
@@ -26,7 +39,7 @@ public class ProductDetailParserController {
 
         Document document = null;
         try {
-            String html = getHTML(productUrl);
+            String html = requestUrl(productUrl, true);
             document = Jsoup.parse(html);
             document.head().children().last().after(style);
 
@@ -69,17 +82,17 @@ public class ProductDetailParserController {
             }
 
             // append product detail
-            String productDetailHtml = getHTML(productDetailUrl);
+            String productDetailHtml = requestUrl(productDetailUrl, true);
             Elements tabCont = document.body().getElementsByClass("line_tab_cont");
             tabCont.get(0).children().get(0).before(productDetailHtml);
 
             // append goods info
-            String goodsInfoHtml = getHTML(goodsInfoUrl);
+            String goodsInfoHtml = requestUrl(goodsInfoUrl, true);
             tabCont.get(1).children().get(0).before(goodsInfoHtml);
             document.body().getElementsByClass("listBuyInfo").get(0).remove();
 
             // append review
-            String reviewHtml = getHTML(reviewUrl);
+            String reviewHtml = requestUrl(reviewUrl, true);
             Document reviewDocument = Jsoup.parse(reviewHtml);
             try {
                 reviewDocument.body().getElementsByClass("btn_more").get(0).remove();
@@ -101,7 +114,13 @@ public class ProductDetailParserController {
         return document.toString();
     }
 
-    private String getHTML(String url) {
+    private void setMobileHeader(GetMethod method) {
+        method.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
+        method.setRequestHeader("Host", "m.oliveyoung.co.kr");
+        method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
+    }
+
+    private String requestUrl(String url, boolean needBody) {
         try {
             HttpClientParams httpParams = new HttpClientParams();
             httpParams.setConnectionManagerClass(SimpleHttpConnectionManager.class);
@@ -109,15 +128,20 @@ public class ProductDetailParserController {
             GetMethod method = null;
             try {
                 method = new GetMethod(url);
-                method.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
-                method.setRequestHeader("Host", "m.oliveyoung.co.kr");
-                method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
+                setMobileHeader(method);
                 int code = client.executeMethod(method);
                 String response = IOUtils.toString(method.getResponseBodyAsStream(), "UTF-8");
                 if (code != 200) {
                     throw new Exception("unexcepted result: " + code + " " + response);
                 }
 
+                if (!needBody) {
+                    for (Header sub : method.getResponseHeaders()) {
+                        log.info("==== {} : {}", sub.getName(), sub.getValue());
+                    }
+                    Header header = method.getResponseHeader("Location");
+                    return header.getValue();
+                }
                 return response;
             } catch (Exception e) {
                 try {

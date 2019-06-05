@@ -6,7 +6,7 @@ import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './product_detail.scss'
-import { getProductDetailHtml } from 'common/services/product'
+import { getProductDetailHtml, getProductDetailHtmlByBarcode } from 'common/services/product'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -42,7 +42,13 @@ class ProductDetail extends React.Component<Props, OwnState> {
     this.props.updateLayoutTile('상품정보')
     const { params } = this.props.match
     const pid = params['pid']
-    const html = await getProductDetailHtml(pid)
+    const barcode = params['barcode']
+    let html = null
+    if (barcode) {
+      html = await getProductDetailHtmlByBarcode(barcode)
+    } else {
+      html = await getProductDetailHtml(pid)
+    }
     this.setState({ html })
   }
 

@@ -54,6 +54,7 @@ const Routes = () => {
         <Route path="/app/search" component={Search} />
         <Route path="/app/stock/list" component={StockList} />
         <Route path="/app/stock" component={Stock} />
+        <Route path="/app/product/detail/barcode/:barcode" component={ProductDetail} />
         <Route path="/app/product/detail/:pid" component={ProductDetail} />
 
         <Route component={PageNotFound} />
