@@ -4,8 +4,9 @@
   <select id="selectStockStoreList" resultType="kr.co.oliveyoung.shopapp.feature.stock.OracleStock">
     <![CDATA[
       SELECT /* OracleStock.selectStockStoreList */
-             Z1.STR_CD sotreCode
+             Z1.STR_CD storeCode
             ,Z1.BIZPLC_NM storeName
+            ,'(' || Z1.STR_CD || ')' || Z1.BIZPLC_NM exposeStoreName
             ,Z1.RD_NM_SIGUNGU_ADDR address
             ,Z1.RD_NM_DTL_ADDR1 addressDetail
             ,Z1.BIZPLC_PHONE_NO phoneNumber
