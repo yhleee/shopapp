@@ -2,7 +2,12 @@ import { axios } from 'common/utils'
 import { Product } from 'common/types/entities/product'
 
 export const getProductDetailHtml = async (pid: string) => {
-  const response = await axios.get(`/api/product/detail/parser?pid=${pid}`)
+  const response = await axios.get(`/api/product/detail/parser/${pid}`)
+  return response && response.data
+}
+
+export const getProductDetailHtmlByBarcode = async (barcode: string) => {
+  const response = await axios.get(`/api/product/barcode/${barcode}`)
   return response && response.data
 }
 
