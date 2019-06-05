@@ -106,7 +106,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
             placeholder="검색어를 입력해주세요"
             suffix={
               <Icon
-                onClick={() => alert(1)}
+                onClick={() => (window.location.href = '/app/search/barcode')}
                 type="barcode"
                 style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
               />

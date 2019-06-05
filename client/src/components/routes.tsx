@@ -25,6 +25,7 @@ export const Survey = createLoadable(() => import('./Survey/survey'))
 export const Ranking = createLoadable(() => import('./Ranking'))
 export const RankingSearch = createLoadable(() => import('./Ranking/ranking_search'))
 export const SearchResult = createLoadable(() => import('./Search/search_result'))
+export const BarcodeScan = createLoadable(() => import('./Search/search_barcode'))
 export const Search = createLoadable(() => import('./Search'))
 export const StockList = createLoadable(() => import('./Stock/stock_list'))
 export const Stock = createLoadable(() => import('./Stock'))
@@ -49,6 +50,7 @@ const Routes = () => {
         <Route path="/app/ranking" component={Ranking} />
         {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}
         <Route path="/app/search/result" component={SearchResult} />
+        <Route path="/app/search/barcode" component={BarcodeScan} />
         <Route path="/app/search" component={Search} />
         <Route path="/app/stock/list" component={StockList} />
         <Route path="/app/stock" component={Stock} />
