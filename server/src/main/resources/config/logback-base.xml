@@ -6,6 +6,7 @@
   <property name="LOG_FILE_APPLICATION" value="${shopping.base.logs:-logs}/application.log" />
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <encoder>
+      <charset>UTF-8</charset>
       <pattern>${FILE_LOG_PATTERN}</pattern>
     </encoder>
     <file>${LOG_FILE_APPLICATION}</file>
