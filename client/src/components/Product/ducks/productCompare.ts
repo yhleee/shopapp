@@ -1,8 +1,8 @@
-import { Product } from 'common/types/entities/product'
+import { Product, ProductCompareInfo } from 'common/types/entities/product'
 
 export interface ProductCompareState {
-  currentProduct?: Product
-  compareList?: Product[]
+  currentProduct?: ProductCompareInfo
+  compareList?: ProductCompareInfo[]
 }
 
 const initialState: ProductCompareState = {

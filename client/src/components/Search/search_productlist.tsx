@@ -1,19 +1,21 @@
 import * as React from 'react'
 import { Icon } from 'antd'
-import { axios } from '../../common/utils/ajax/axios'
+import { axios } from 'common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import ProductList from '../Product/product_list'
 import { ListType } from 'common/types/enum/exposeType'
-import { isScrollEnd } from '../../common/utils/browserUtils'
+import { isScrollEnd } from 'common/utils/browserUtils'
 import * as s from './search.scss'
+import { History } from 'history'
 
 const apiUrl = '/api/search/db/selectSearchProductList/?page='
 let pageNumber = 0
 
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
   searchQuery: String
 }
 interface OwnState {
@@ -63,7 +65,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   }
 
   render() {
-    const { cx } = this.props
+    const { cx, history } = this.props
     const { productList } = this.state
     const flag = this.state.callbackFlag
     let loadingButton = null
@@ -82,7 +84,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
       if (productList.length > 1) {
         return (
           <>
-            <ProductList {...{ listType: ListType.SEARCH, list: this.state.productList }} />
+            <ProductList {...{ history, listType: ListType.SEARCH, list: this.state.productList }} />
             {loadingButton}
           </>
         )

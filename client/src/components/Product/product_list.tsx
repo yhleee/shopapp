@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { RootState } from 'common/reducer'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './product_list.scss'
@@ -8,25 +6,14 @@ import { Product } from 'common/types/entities/product'
 import Img from 'common/components/Img'
 import { ListType } from 'common/types/enum/exposeType'
 import { Link } from 'react-router-dom'
-import { ProductCompareState, updateProductCompare } from './ducks/productCompare'
-import { History } from 'history'
 
 interface OwnProps {
   cx?: DynamicCx
   list: Product[]
   listType: ListType
-  history?: History
 }
 
-interface StateProps {
-  productCompare: ProductCompareState
-}
-
-interface DispatchProps {
-  updateProductCompare: typeof updateProductCompare
-}
-
-type Props = OwnProps & StateProps & DispatchProps
+type Props = OwnProps
 
 class ProductList extends React.Component<Props, {}> {
   constructor(props) {
@@ -35,21 +22,13 @@ class ProductList extends React.Component<Props, {}> {
 
   componentDidMount() {}
 
-  handleClickProduct = (product: Product) => () => {
-    const { history, updateProductCompare, productCompare } = this.props
-    productCompare.currentProduct = product
-    updateProductCompare(productCompare)
-
-    history.push(`/app/product/detail/${product.id}`)
-  }
-
   render() {
     const { cx, list, listType } = this.props
     return (
       <div className={cx('list_wrap')}>
         {list.map((product, index) => (
           <div className={cx('list_row')} key={index}>
-            <div className={cx('list_text')} onClick={this.handleClickProduct(product)}>
+            <Link className={cx('list_text')} to={`/app/product/detail/${product.id}`}>
               {listType === ListType.RANKING && (
                 <div
                   className={cx(
@@ -70,7 +49,7 @@ class ProductList extends React.Component<Props, {}> {
                 {product.volume && `${product.volume}/`}
                 {product.price}
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
@@ -78,11 +57,4 @@ class ProductList extends React.Component<Props, {}> {
   }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps>(
-  (state: RootState) => ({
-    productCompare: state.productCompare,
-  }),
-  {
-    updateProductCompare,
-  },
-)(styling(s)(ProductList))
+export default styling(s)(ProductList)
