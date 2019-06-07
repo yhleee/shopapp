@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import kr.co.oliveyoung.shopapp.config.mybatis.OracleMapper;
 import kr.co.oliveyoung.shopapp.config.mybatis.MybatisOracleConfigurationSupport;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,4 +40,8 @@ public class OracleDataSourceConfig {
     return myBatisConfigurationSupport.build(dataSource);
   }
 
+  @Bean(name="oracleSession")
+  public SqlSessionTemplate mySqlSession(@Qualifier("oracleSessionFactory") SqlSessionFactory oracleSessionFactory) throws Exception {
+    return new SqlSessionTemplate(oracleSessionFactory);
+  }
 }
