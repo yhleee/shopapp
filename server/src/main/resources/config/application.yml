@@ -21,10 +21,16 @@ spring:
     datasource:
       driverClassName: oracle.jdbc.driver.OracleDriver
       connectionTestQuery: SELECT 1 FROM DUAL
+      maximumPoolSize: 3
   mysql:
     datasource:
       driverClassName: com.mysql.jdbc.Driver
       connectionTestQuery: SELECT 1 FROM DUAL
+      maxActive: 5
+      maxAge: 1
+      minIdle: 1
+      maxIdle: 5
+      maximumPoolSize: 5
 
 mybatis:
   mapper-locations: classpath:mybatis/**/*.xml
@@ -34,6 +40,8 @@ mybatis:
     useGeneratedKeys: true
     defaultExecutorType: REUSE
     aggressiveLazyLoading: false
+    default-statement-timeout: 1
+
 
 server:
   port: ${PORT:9090}
@@ -51,10 +59,9 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -65,10 +72,9 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -79,10 +85,9 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -93,10 +98,9 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -107,10 +111,9 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -121,9 +124,8 @@ spring:
       jdbcUrl: jdbc:oracle:thin:@52.2.165.125:1522/OYOODEV
       username: OOMAPP
       password: TAblet52()
-      maximumPoolSize: 20
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=1000&amp;connectTimeout=1000
       username: tabletAdmin
       password: 1q2w3e4r%T
