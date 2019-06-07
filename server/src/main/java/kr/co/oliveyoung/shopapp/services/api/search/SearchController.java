@@ -10,7 +10,7 @@ import kr.co.oliveyoung.shopapp.feature.test.MySqlTestMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -23,9 +23,8 @@ public class SearchController {
     @Autowired
     private MySqlTestMapper mySqlTestMapper;
 
-
-    @GetMapping("/search/selectSearchProductList")
-    public String selectSearchProductList(@RequestParam("page") String page) {
+    @GetMapping("/search/product/{page}")
+    public String selectSearchProductList(@PathVariable("page") String page) {
         log.info("===========PAGE : {} ============ :  ", page);
         List<OracleSearch> productList = oracleSearchMapper.selectSearchProductList(Integer.parseInt(page));
         log.info("======= ENV : {} ======", EnvUtils.getEnv());

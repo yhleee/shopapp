@@ -7,6 +7,7 @@ import kr.co.oliveyoung.shopapp.feature.stock.OracleStockMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,8 @@ public class StockController {
     @Autowired
     private OracleStockMapper oracleStockMapper;
 
-    @GetMapping("/stock/getStockStoreList")
-    public String selectSearchProductList(@RequestParam("goodsCode") String goodsCode) {
+    @GetMapping("/stock/stores/list/{goodsCode}")
+    public String selectSearchProductList(@PathVariable("goodsCode") String goodsCode) {
         List<OracleStock> storeList = oracleStockMapper.selectStockStoreList(goodsCode);
         return JsonUtils.objectToJson(storeList);
     }
