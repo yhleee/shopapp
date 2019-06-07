@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { Icon } from 'antd'
-import { axios } from '../../common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import ProductList from '../Product/product_list'
+import { Product } from 'common/types/entities/product'
 import { ListType } from 'common/types/enum/exposeType'
 import { isScrollEnd } from '../../common/utils/browserUtils'
 import * as s from './search.scss'
+import { getSearchProductList } from '../../common/services/search'
 
-const apiUrl = '/api/search/selectSearchProductList/?page='
 let pageNumber = 0
 
 interface OwnProps {
@@ -17,7 +17,7 @@ interface OwnProps {
   searchQuery: String
 }
 interface OwnState {
-  productList: any[]
+  productList: Product[]
   callbackFlag: boolean
   page: number
   isLoading: boolean
@@ -53,7 +53,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   async readMoreProduct() {
     pageNumber += 1
     this.setState({ ...this.state, page: pageNumber })
-    const { data: productList } = await axios.get(apiUrl + pageNumber)
+    const productList = await getSearchProductList(pageNumber)
     this.setState({
       ...this.state,
       productList: this.state.productList.concat(productList),
@@ -77,9 +77,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
 
     if (!isEmpty(productList)) {
       if (productList.length === 1) {
-        // 단건 조회시, product_detail 호출하도록 변경!
-        return (window.location.href = `/app/product/detail/?pid=${this.state.productList[0].gdsCd}`)
-        // return (window.location.href = this.state.productList[0].linkUrl)
+        return (window.location.href = `/app/product/detail/?pid=${this.state.productList[0].id}`)
       }
       if (productList.length > 1) {
         return (

@@ -23,17 +23,12 @@ interface DispatchProps {
   updateLayoutTile: typeof updateLayoutTile
 }
 
-interface OwnState {
-  page: number
-}
+interface OwnState {}
 type Props = OwnProps & StateProps & DispatchProps
 
 class SearchResult extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
-    this.state = {
-      page: 1,
-    }
   }
 
   componentDidMount() {
@@ -42,7 +37,6 @@ class SearchResult extends React.Component<Props, OwnState> {
 
   render() {
     const { cx, location } = this.props
-    const { page } = this.state
 
     const queryParams = queryString.parse(location.search)
     console.log(queryParams)

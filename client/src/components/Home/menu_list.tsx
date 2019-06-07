@@ -4,6 +4,7 @@ import { List, Avatar } from 'antd'
 import { axios } from '../../common/utils/ajax/axios'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
+import { Notice } from '../../common/types/entities/notice'
 import { isEmpty } from 'lodash-es'
 import * as s from './home.scss'
 
@@ -13,7 +14,7 @@ interface OwnProps {
   cx?: DynamicCx
 }
 interface OwnState {
-  menuList: string[]
+  menuList: Notice[]
 }
 
 class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
@@ -42,12 +43,12 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
           itemLayout="horizontal"
           dataSource={menuList}
           renderItem={item => (
-            <Link to={item.menuLnk}>
+            <Link to={item.linkUrl}>
               <List.Item>
                 <List.Item.Meta
-                  avatar={<Avatar size={50} src={item.menuIcon} />}
-                  title={item.menuNm}
-                  description={item.menuDesc}
+                  avatar={<Avatar size={50} src={item.logo} />}
+                  title={item.title}
+                  description={item.subTitle}
                 />
               </List.Item>
             </Link>
