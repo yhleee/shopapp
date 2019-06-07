@@ -44,18 +44,4 @@ public class TestController {
         log.info("======= ENV : {} ======", EnvUtils.getEnv());
         return JsonUtils.objectToJson(testList);
     }
-
-    @GetMapping("/db/noticeList")
-    public String getNoticeList() {
-        List<MySqlTest> testList = mySqlTestMapper.selectStrNoticeList();
-        log.info("======= ENV : {} ======", EnvUtils.getEnv());
-        return JsonUtils.objectToJson(testList);
-    }
-
-    @GetMapping("/db/homeMenuList")
-    public String getHomeMenuList() {
-        List<MySqlTest> testList = mySqlTestMapper.selectHomeMenuList();
-        log.info("======= ENV : {} ======", EnvUtils.getEnv());
-        return JsonUtils.objectToJson(testList);
-    }
 }

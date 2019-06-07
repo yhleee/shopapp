@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -22,8 +23,8 @@ public class storeStockDetailParserController {
   @Autowired
   private OracleStockMapper oracleStockMapper;
 
-  @GetMapping("/stock/detail/parser")
-  public String ParseStoreDetail(String storeId) {
+  @GetMapping("/stock/stores/detail/parser/{storeId}")
+  public String ParseStoreDetail(@PathVariable("storeId") String storeId) {
     String storeDescUrl = "https://m.oliveyoung.co.kr/m/store/getStoreDetail.do?strNo=" + storeId;
 
     Document document = null;
