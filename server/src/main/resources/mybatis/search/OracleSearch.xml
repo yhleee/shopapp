@@ -3,10 +3,11 @@
 
     <select id="selectSearchProductList" resultType="kr.co.oliveyoung.shopapp.feature.search.OracleSearch">
       <![CDATA[
-        SELECT *
+        SELECT /* OracleSearch.selectSearchProductList */
+               *
           FROM (
                 SELECT ROWNUM as rank
-                      ,A.GDS_CD as gdsCd
+                      ,A.GDS_CD as id
                       ,A.GDS_NM as productName
                       ,'https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=' || A.GDS_CD as linkUrl
                       ,'https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0010/A00000010390201ko.jpg?l=ko' as imageUrl

@@ -13,7 +13,7 @@ public class OracleSearch implements Serializable {
     private static final long serialVersionUID = -3720356412776588306L;
 
     private String rank;
-    private String gdsCd;
+    private String id;
     private String productName;
     private String linkUrl;
     private String imageUrl;

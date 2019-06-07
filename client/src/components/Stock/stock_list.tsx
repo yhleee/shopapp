@@ -4,6 +4,7 @@ import { RootState } from 'common/reducer'
 import { match } from 'react-router'
 import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { getStoreStockList } from 'common/services/stock'
+import { Store } from 'common/types/entities/store'
 import { DynamicCx } from 'common/types'
 import { Table } from 'antd'
 import StoreDetail from './stock_storedetail'
@@ -13,7 +14,6 @@ import * as s from './stock.scss'
 
 interface OwnProps {
   cx?: DynamicCx
-  location?: Location
   match?: match
 }
 
@@ -26,7 +26,7 @@ interface DispatchProps {
 }
 
 interface OwnState {
-  storeList: any[]
+  storeList: Store[]
 }
 
 type Props = OwnProps & StateProps & DispatchProps
@@ -57,9 +57,8 @@ class StockList extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx, location } = this.props
+    const { cx } = this.props
     const { storeList } = this.state
-    const queryParams = queryString.parse(location.search)
 
     return (
       <>
