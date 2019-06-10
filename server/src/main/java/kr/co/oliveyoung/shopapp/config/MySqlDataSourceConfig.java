@@ -2,7 +2,9 @@ package kr.co.oliveyoung.shopapp.config;
 
 import kr.co.oliveyoung.shopapp.config.mybatis.MySqlMapper;
 import kr.co.oliveyoung.shopapp.config.mybatis.MybatisMySqlConfigurationSupport;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 @MapperScan(
     basePackages = "kr.co.oliveyoung.shopapp.feature",
@@ -35,4 +38,8 @@ public class MySqlDataSourceConfig {
     return mybatisMySqlConfigurationSupport.build(dataSource);
   }
 
+  @Bean(name="mySqlSession")
+  public SqlSessionTemplate mySqlSession(@Qualifier("mySqlSessionFactory") SqlSessionFactory mySqlSessionFactory) throws Exception {
+    return new SqlSessionTemplate(mySqlSessionFactory);
+  }
 }

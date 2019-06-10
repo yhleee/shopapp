@@ -39,4 +39,13 @@ const dummyProducts: Product[] = [
     productName: '웰라쥬리얼히알루로닉 원데이키트 6개입 한정기획',
     rank: 2,
   },
+  {
+    id: 'A000000125839',
+    brandName: '닥터자르트',
+    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0012/A00000012583902ko.jpg?l=ko',
+    linkUrl: 'http://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000125839&dispCatNo=90000010001',
+    price: 39200,
+    productName: '닥터자르트 바이탈 하이드라 솔루션 바이옴 에센스 150ml 기획',
+    rank: 3,
+  },
 ]

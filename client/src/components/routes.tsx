@@ -31,6 +31,7 @@ export const StockList = createLoadable(() => import('./Stock/stock_list'))
 export const Stock = createLoadable(() => import('./Stock'))
 export const ProductDetail = createLoadable(() => import('./Product/product_detail'))
 export const RankingProductList = createLoadable(() => import('./Ranking/ranking_product_list'))
+export const ProductCompareList = createLoadable(() => import('./Product/product_compare'))
 
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
@@ -48,7 +49,6 @@ const Routes = () => {
         <Route path="/app/ranking/search/:searchType/:brandName" component={RankingSearch} />
         <Route path="/app/ranking/search/:searchType" component={RankingSearch} />
         <Route path="/app/ranking" component={Ranking} />
-        {/* <Route path="/app/search/result/:searchword&:category" component={SearchResult} /> */}
         <Route path="/app/search/result" component={SearchResult} />
         <Route path="/app/search/barcode" component={BarcodeScan} />
         <Route path="/app/search" component={Search} />
@@ -56,6 +56,7 @@ const Routes = () => {
         <Route path="/app/stock" component={Stock} />
         <Route path="/app/product/detail/barcode/:barcode" component={ProductDetail} />
         <Route path="/app/product/detail/:pid" component={ProductDetail} />
+        <Route path="/app/product/compare/list" component={ProductCompareList} />
 
         <Route component={PageNotFound} />
       </Switch>

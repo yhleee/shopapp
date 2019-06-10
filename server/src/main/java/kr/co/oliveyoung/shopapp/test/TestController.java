@@ -2,10 +2,7 @@ package kr.co.oliveyoung.shopapp.test;
 
 import kr.co.oliveyoung.shopapp.common.utils.EnvUtils;
 import kr.co.oliveyoung.shopapp.common.utils.JsonUtils;
-import kr.co.oliveyoung.shopapp.feature.test.MySqlTest;
-import kr.co.oliveyoung.shopapp.feature.test.MySqlTestMapper;
-import kr.co.oliveyoung.shopapp.feature.test.OracleTest;
-import kr.co.oliveyoung.shopapp.feature.test.OracleTestMapper;
+import kr.co.oliveyoung.shopapp.feature.test.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +21,9 @@ public class TestController {
 
     @Autowired
     private MySqlTestMapper mySqlTestMapper;
+
+//    @Autowired
+//    private MySqlTestRepository mySqlTestRepository;
 
     @GetMapping("/selective")
     public String getSelective() {

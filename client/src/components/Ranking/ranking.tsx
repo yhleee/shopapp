@@ -12,9 +12,11 @@ import { ListType } from 'common/types/enum/exposeType'
 import { Link } from 'react-router-dom'
 import { SearchType } from 'common/types/enum/searchOptions'
 import { getProductList } from 'common/services/product'
+import { History } from 'history'
 
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
 }
 
 interface StateProps {
@@ -56,7 +58,7 @@ class Ranking extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx } = this.props
+    const { cx, history } = this.props
     const { categoryProductList, brandProductList, ageProductList } = this.state
     return (
       <div>
@@ -87,11 +89,11 @@ class Ranking extends React.Component<Props, OwnState> {
         </div>
         <div>
           <div className={cx('product_list_title')}>카테고리 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: categoryProductList }} />
+          <ProductList {...{ history, listType: ListType.RANKING, list: categoryProductList }} />
           <div className={cx('product_list_title')}>연령대 & 성 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: ageProductList }} />
+          <ProductList {...{ history, listType: ListType.RANKING, list: ageProductList }} />
           <div className={cx('product_list_title')}>브랜드 별 RANKING</div>
-          <ProductList {...{ listType: ListType.RANKING, list: brandProductList }} />
+          <ProductList {...{ history, listType: ListType.RANKING, list: brandProductList }} />
         </div>
       </div>
     )

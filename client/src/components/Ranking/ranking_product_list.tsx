@@ -19,9 +19,11 @@ import {
   SearchType,
 } from 'common/types/enum/searchOptions'
 import { RankingSearchParamsState } from './ducks/rankingSearchParams'
+import { History } from 'history'
 
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
 }
 
 interface StateProps {
@@ -88,7 +90,7 @@ class RankingProductList extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx } = this.props
+    const { cx, history } = this.props
     const { productList } = this.state
     const queryString = this.getSearchQuery()
     return (
@@ -96,7 +98,7 @@ class RankingProductList extends React.Component<Props, OwnState> {
         <div className={cx('message_wrap')}>
           <Icon type="search" /> {queryString}
         </div>
-        {productList && <ProductList list={productList} listType={ListType.RANKING} />}
+        {productList && <ProductList history={history} list={productList} listType={ListType.RANKING} />}
       </>
     )
   }
