@@ -127,6 +127,12 @@ class ProductDetail extends React.Component<Props, OwnState> {
     this.setState({ visibleCompareOverCountModal: false })
   }
 
+  goStockList = () => {
+    const { params } = this.props.match
+    const stockUrl = `/app/stock/list/?goodsCode=${params['pid']}`
+    window.location.href = stockUrl
+  }
+
   render() {
     const { cx, productCompare } = this.props
     const { productDetailInfo, visibleCompareOverCountModal, loading } = this.state
@@ -148,7 +154,7 @@ class ProductDetail extends React.Component<Props, OwnState> {
         </div>
         <div className={cx('bottom_button_wrap')}>
           <Button.Group style={{ width: '100%' }}>
-            <Button>재고조회</Button>
+            <Button onClick={this.goStockList}>재고조회</Button>
             <Link to="/app/product/compare/list">
               <Button>비교하기</Button>
             </Link>

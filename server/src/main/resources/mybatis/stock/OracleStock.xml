@@ -36,7 +36,7 @@
        WHERE DISTANCE < 2
          AND Z1.STR_CD = Z2.STR_CD
          AND Z2.RNP_YMD = '20190502'
-         AND Z2.GDS_CD = ${goodsCode}
+         AND Z2.GDS_CD = #{goodsCode}
          AND Z1.STR_CD <> 'DB67'
        ORDER BY Z1.DISTANCE ASC
     ]]>
