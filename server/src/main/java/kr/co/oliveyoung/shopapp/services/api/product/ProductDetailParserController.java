@@ -1,5 +1,7 @@
 package kr.co.oliveyoung.shopapp.services.api.product;
 
+import kr.co.oliveyoung.shopapp.common.enums.ResponseResult;
+import kr.co.oliveyoung.shopapp.common.model.ApiResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -8,8 +10,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,27 +17,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Slf4j
 @RestController
 public class ProductDetailParserController {
 
     @GetMapping("/product/barcode/{barcode}")
-    public ProductDetailInfo getProductPidFromBarcode(@PathVariable("barcode") String barcode) {
+    public ApiResponseMessage getProductPidFromBarcode(HttpServletResponse response, @PathVariable("barcode") String barcode) {
         String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + barcode;
         String barcodeHtml = requestUrl(barcodeUrl);
         Document document = Jsoup.parse(barcodeHtml);
-        String pid = document.body().getElementById("goodsNo").attr("value");
-        log.info("==== PID : {}", pid);
-
-        return parseProductDetail(pid);
+        String pid = null;
+        try {
+            pid = document.body().getElementById("goodsNo").attr("value");
+            log.info("==== PID : {}", pid);
+        } catch (Exception e) {
+            log.error("바코드 상품조회 중 오류가 발생하였습니다.", e);
+            response.setStatus(204);
+            return null; // new ApiResponseMessage(ResponseResult.FAIL, "존재하지 않는 상품코드 입니다.", null);
+        }
+        return parseProductDetail(response, pid);
     }
 
     @GetMapping("/product/detail/parser/{pid}")
-    public ProductDetailInfo parseProductDetail(@PathVariable("pid") String pid) {
+    public ApiResponseMessage parseProductDetail(HttpServletResponse response, @PathVariable("pid") String pid) {
         String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + pid;
         String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + pid;
         String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + pid;
         String reviewUrl = "https://m.oliveyoung.co.kr/m/goods/getGdasSummaryAjax.do?goodsNo=" + pid;
+
+        if (pid == null) {
+            response.setStatus(400);
+            return new ApiResponseMessage(ResponseResult.FAIL, "상품번호가 없습니다.", null);
+        }
 
         ProductDetailInfo result = new ProductDetailInfo();
         result.setPid(pid);
@@ -64,9 +77,7 @@ public class ProductDetailParserController {
                         result.setVolume(trElement.getElementsByTag("td").get(0).text());
                     }
                 }
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
+            } catch (Exception e) {}
             // append review
             String reviewHtml = requestUrl(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
@@ -79,9 +90,7 @@ public class ProductDetailParserController {
                 result.setReviewPoint(reviewPoint);
                 String reviewPollHtml = reviewDocument.body().getElementsByClass("poll_sample").outerHtml();
                 result.setReviewPollHtml(reviewPollHtml);
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
+            } catch (Exception e) {}
             // append script
             document.body().children().last().after(tabScript);
             // create result info
@@ -89,7 +98,15 @@ public class ProductDetailParserController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return result;
+        ApiResponseMessage message = null;
+        if (result == null || result.getHtml() == null) {
+//            message = new ApiResponseMessage(ResponseResult.FAIL, "상품 상세가 존재하지 않습니다.", null);
+            response.setStatus(204);
+        } else {
+            message = new ApiResponseMessage(ResponseResult.SUCCESS, null, null);
+            message.setContents(result);
+        }
+        return message;
     }
 
     private void setProductElementInfos(ProductDetailInfo detailInfo, Document document) {

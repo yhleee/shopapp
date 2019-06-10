@@ -3,7 +3,7 @@
   <include resource="org/springframework/boot/logging/logback/defaults.xml" />
   <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-  <property name="LOG_FILE_APPLICATION" value="${shopping.base.logs:-logs}/application.log" />
+  <property name="LOG_FILE_APPLICATION" value="${oyshopapp.base.logs:-logs}/application.log" />
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <encoder>
       <charset>UTF-8</charset>

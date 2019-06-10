@@ -54,11 +54,27 @@ class ProductDetail extends React.Component<Props, OwnState> {
     const pid = params['pid']
     const barcode = params['barcode']
     let productDetailInfo: ProductDetailInfo = null
+    let response = null
     if (barcode) {
-      productDetailInfo = await getProductDetailHtmlByBarcode(barcode)
+      response = await getProductDetailHtmlByBarcode(barcode)
     } else {
-      productDetailInfo = await getProductDetailHtml(pid)
+      response = await getProductDetailHtml(pid)
     }
+
+    if (response && response.status === 200) {
+      productDetailInfo = response.data && response.data.contents
+    } else if (response && response.status === 204) {
+      message.error('해당하는 상품이 없습니다.')
+      setTimeout(() => {
+        window && window.history.back()
+      }, 3000)
+    } else if (response && response.status === 400) {
+      message.error('상품번호가 누락되었습니다.')
+      setTimeout(() => {
+        window && window.history.back()
+      }, 3000)
+    }
+
     if (productDetailInfo) {
       const { productCompare, updateProductCompare } = this.props
       productCompare.currentProduct = {
