@@ -9,6 +9,7 @@ import * as s from './product_compare.scss'
 import { ProductCompareState, updateProductCompare } from './ducks/productCompare'
 import { Button, Icon, Modal, message, Empty, Table } from 'antd'
 import { ProductDetailInfo } from 'common/types/entities/product'
+import { result } from 'lodash-es'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -51,6 +52,7 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     const reviewPoints = {}
     const reviewStarHtmls = {}
     const reviewPollHtmls = {}
+    const manageButons = {}
 
     names['name'] = '상품명'
     brands['name'] = '브랜드'
@@ -61,6 +63,7 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     reviewPoints['name'] = '평점'
     reviewStarHtmls['name'] = '평점'
     reviewPollHtmls['name'] = '상품평'
+    manageButons['name'] = '관리'
 
     compareList.forEach((product, index) => {
       names[`value${index + 1}`] = product.name
@@ -72,9 +75,22 @@ class ProductCompareList extends React.Component<Props, OwnState> {
       reviewStarHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewStarHtml }} />
       reviewPollHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewPollHtml }} />
       volumes[`value${index + 1}`] = product.volume
+      manageButons[`value${index + 1}`] = (
+        <Button
+          icon="delete"
+          size="large"
+          href="javascript:void(0)"
+          onClick={this.handleRemoveCompare(index)}
+          block={true}
+          type="danger"
+        >
+          비교함에서 삭제
+        </Button>
+      )
     })
 
     // productTable.push(names)
+    productTable.push(manageButons)
     productTable.push(images)
     productTable.push(brands)
     // productTable.push(prices)
@@ -85,6 +101,19 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     productTable.push(reviewPollHtmls)
 
     return productTable
+  }
+
+  handleRemoveCompare = (selectIndex: number) => () => {
+    const { productCompare, updateProductCompare } = this.props
+    const { compareList } = productCompare
+    const resultCompareList = []
+    compareList.forEach((product, index) => {
+      if (index !== selectIndex) {
+        resultCompareList.push(product)
+      }
+    })
+    productCompare.compareList = resultCompareList
+    updateProductCompare(productCompare)
   }
 
   render() {
