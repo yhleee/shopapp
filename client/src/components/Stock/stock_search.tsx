@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Icon, Row, Col, Input, Divider } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import { Link } from 'react-router-dom'
 import * as s from './stock.scss'
 
 const searchResultUrl = '/app/stock/list/?'
@@ -40,6 +39,7 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
     params = `${params}distance=${this.state.distance ? this.state.distance : ''}`
     params = `${params}&address=${this.state.address ? this.state.address : ''}`
     params = `${params}&searchword=${this.state.searchWord ? this.state.searchWord : ''}`
+    params = `${params}&goodsCode=8809535802408`
 
     window.location.href = searchResultUrl + params
   }
@@ -94,9 +94,11 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
           <Input
             placeholder="검색어를 입력해주세요"
             suffix={
-              <Link to="/app/home">
-                <Icon type="barcode" style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }} />
-              </Link>
+              <Icon
+                onClick={() => (window.location.href = '/app/search/barcode')}
+                type="barcode"
+                style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
+              />
             }
             value={this.state.searchWord}
             onChange={this.onProductInputChange}

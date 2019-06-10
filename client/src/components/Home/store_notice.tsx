@@ -1,18 +1,17 @@
 import * as React from 'react'
 import { Carousel } from 'antd'
-import { axios } from '../../common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
+import { Notice } from 'common/types/entities/notice'
+import { getStoreNoticeList } from '../../common/services/home'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './home.scss'
-
-const apiUrl = '/api/test/db/noticeList'
 
 interface OwnProps {
   cx?: DynamicCx
 }
 interface OwnState {
-  noticeList: any[]
+  noticeList: Notice[]
 }
 
 class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {
@@ -24,18 +23,17 @@ class GetStoreNoticeList extends React.Component<OwnProps, OwnState> {
   }
 
   async componentDidMount() {
-    const { data: noticeList } = await axios.get(apiUrl)
+    const noticeList = await getStoreNoticeList()
     this.setState({ noticeList })
   }
 
   render() {
-    const { cx } = this.props
     const { noticeList } = this.state
 
     if (!isEmpty(noticeList)) {
       return (
         <Carousel autoplay={true} dots={false}>
-          {this.state.noticeList.map(noticeList => <p key="storeNoti">{noticeList.text}</p>)}
+          {this.state.noticeList.map(noticeList => <p key="storeNoti">{noticeList.title}</p>)}
         </Carousel>
       )
     }

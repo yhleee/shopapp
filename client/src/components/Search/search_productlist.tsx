@@ -1,25 +1,23 @@
 import * as React from 'react'
 import { Icon } from 'antd'
-import { axios } from 'common/utils/ajax/axios'
 import { isEmpty } from 'lodash-es'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import ProductList from '../Product/product_list'
+import { Product } from 'common/types/entities/product'
 import { ListType } from 'common/types/enum/exposeType'
-import { isScrollEnd } from 'common/utils/browserUtils'
+import { isScrollEnd } from '../../common/utils/browserUtils'
 import * as s from './search.scss'
-import { History } from 'history'
+import { getSearchProductList } from '../../common/services/search'
 
-const apiUrl = '/api/search/db/selectSearchProductList/?page='
 let pageNumber = 0
 
 interface OwnProps {
   cx?: DynamicCx
-  history?: History
   searchQuery: String
 }
 interface OwnState {
-  productList: any[]
+  productList: Product[]
   callbackFlag: boolean
   page: number
   isLoading: boolean
@@ -55,7 +53,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   async readMoreProduct() {
     pageNumber += 1
     this.setState({ ...this.state, page: pageNumber })
-    const { data: productList } = await axios.get(apiUrl + pageNumber)
+    const productList = await getSearchProductList(pageNumber)
     this.setState({
       ...this.state,
       productList: this.state.productList.concat(productList),
@@ -65,7 +63,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   }
 
   render() {
-    const { cx, history } = this.props
+    const { cx } = this.props
     const { productList } = this.state
     const flag = this.state.callbackFlag
     let loadingButton = null
@@ -79,12 +77,12 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
 
     if (!isEmpty(productList)) {
       if (productList.length === 1) {
-        return (window.location.href = this.state.productList[0].linkUrl)
+        return (window.location.href = `/app/product/detail/?pid=${this.state.productList[0].id}`)
       }
       if (productList.length > 1) {
         return (
           <>
-            <ProductList {...{ history, listType: ListType.SEARCH, list: this.state.productList }} />
+            <ProductList {...{ listType: ListType.SEARCH, list: this.state.productList }} />
             {loadingButton}
           </>
         )
@@ -101,7 +99,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
             <h1 className={cx('stop-text')}>
               검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
             </h1>
-            <h1 className={cx('stop-text')}>검색 결2과가 없습니다.</h1>
+            <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
           </div>
         </>
@@ -125,7 +123,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
             <h1 className={cx('stop-text')}>
               검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
             </h1>
-            <h1 className={cx('stop-text')}>검색 결과가3 없습니다.</h1>
+            <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
           </div>
         </>

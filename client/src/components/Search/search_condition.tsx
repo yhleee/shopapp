@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Icon, Input, Menu, Slider, Tag, Carousel, Modal } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
-import { Link } from 'react-router-dom'
 import FormCategory from 'components/common/FormCategory'
 import * as s from './search.scss'
 import { SearchPage } from 'common/types/enum/searchOptions'
@@ -106,7 +105,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
             placeholder="검색어를 입력해주세요"
             suffix={
               <Icon
-                onClick={() => alert(1)}
+                onClick={() => (window.location.href = '/app/search/barcode')}
                 type="barcode"
                 style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
               />

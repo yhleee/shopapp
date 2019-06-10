@@ -1,19 +1,18 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { List, Avatar } from 'antd'
-import { axios } from '../../common/utils/ajax/axios'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
+import { Notice } from '../../common/types/entities/notice'
 import { isEmpty } from 'lodash-es'
+import { getHomeMenuList } from '../../common/services/home'
 import * as s from './home.scss'
-
-const apiUrl = '/api/test/db/homeMenuList'
 
 interface OwnProps {
   cx?: DynamicCx
 }
 interface OwnState {
-  menuList: string[]
+  menuList: Notice[]
 }
 
 class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
@@ -25,7 +24,7 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
   }
 
   async componentDidMount() {
-    const { data: menuList } = await axios.get(apiUrl)
+    const menuList = await getHomeMenuList()
     this.setState({ menuList })
   }
 
@@ -35,19 +34,17 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
     if (!isEmpty(menuList)) {
       return (
         <List
-          grid={{
-            gutter: 16,
-          }}
+          grid={{ gutter: 16 }}
           size="large"
           itemLayout="horizontal"
           dataSource={menuList}
           renderItem={item => (
-            <Link to={item.menuLnk}>
+            <Link to={item.linkUrl}>
               <List.Item>
                 <List.Item.Meta
-                  avatar={<Avatar size={50} src={item.menuIcon} />}
-                  title={item.menuNm}
-                  description={item.menuDesc}
+                  avatar={<Avatar size={50} src={item.logo} />}
+                  title={item.title}
+                  description={item.subTitle}
                 />
               </List.Item>
             </Link>
