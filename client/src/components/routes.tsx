@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { Alert, Row, Spin } from 'antd'
+import { Alert, Spin } from 'antd'
 import Loadable from 'react-loadable'
 
 const Loading: React.SFC<any> = props => {
@@ -39,12 +39,13 @@ const Routes = () => {
   return (
     <>
       <Switch>
+        <Redirect exact={true} from="" to="/app/home" />
         <Redirect exact={true} from="/" to="/app/home" />
         <Redirect exact={true} from="/app" to="/app/home" />
         <Route path="/app/example" component={Example} />
+        <Route path="/app/test/axios" component={TestAxios} />
         <Route path="/app/home" component={Home} />
         <Route path="/app/survey" component={Survey} />
-        <Route path="/app/test/axios" component={TestAxios} />
         <Route path="/app/ranking/products" component={RankingProductList} />
         <Route path="/app/ranking/search/:searchType/:brandName" component={RankingSearch} />
         <Route path="/app/ranking/search/:searchType" component={RankingSearch} />

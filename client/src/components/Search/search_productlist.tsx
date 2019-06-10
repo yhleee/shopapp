@@ -6,9 +6,9 @@ import { styling } from 'common/utils'
 import ProductList from '../Product/product_list'
 import { Product } from 'common/types/entities/product'
 import { ListType } from 'common/types/enum/exposeType'
-import { isScrollEnd } from '../../common/utils/browserUtils'
+import { isScrollEnd } from 'common/utils/browserUtils'
 import * as s from './search.scss'
-import { getSearchProductList } from '../../common/services/search'
+import { getSearchProductList } from 'common/services/search'
 
 let pageNumber = 0
 
@@ -77,7 +77,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
 
     if (!isEmpty(productList)) {
       if (productList.length === 1) {
-        return (window.location.href = `/app/product/detail/?pid=${this.state.productList[0].id}`)
+        return (window.location.href = `/app/product/detail/${this.state.productList[0].id}`)
       }
       if (productList.length > 1) {
         return (
