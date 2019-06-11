@@ -56,7 +56,7 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
         <div>
           {/* 시/군/구 입력 영역 */}
           <div className={cx('title')}>거리(km) / 구</div>
-          <Row gutter={10}>
+          <Row>
             <Col span={12}>
               <select className={cx('select-distance')} onChange={this.handleChange} defaultValue="0">
                 <option className={cx('option')} value="0">
