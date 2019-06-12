@@ -34,7 +34,6 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
     if (!isEmpty(menuList)) {
       return (
         <List
-          grid={{ gutter: 16 }}
           size="large"
           itemLayout="horizontal"
           dataSource={menuList}
@@ -43,8 +42,9 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
               <List.Item>
                 <List.Item.Meta
                   avatar={<Avatar size={50} src={item.logo} />}
-                  title={item.title}
-                  description={item.subTitle}
+                  style={{ marginLeft: '10px', marginRight: '10px', padding: '10px', height: '150px' }}
+                  title={<h2>{item.title}</h2>}
+                  description={<h4>{item.subTitle}</h4>}
                 />
               </List.Item>
             </Link>

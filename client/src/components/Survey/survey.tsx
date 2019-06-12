@@ -111,9 +111,6 @@ class Survey extends React.Component<OwnProps, OwnState> {
             <div className="steps-content">
               <p style={{ fontSize: '60px', textAlign: 'center' }}>{steps[current].subtitle}</p>
               <List
-                grid={{
-                  gutter: 16,
-                }}
                 size="large"
                 itemLayout="horizontal"
                 dataSource={steps[current].questions}
