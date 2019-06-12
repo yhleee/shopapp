@@ -7,9 +7,7 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './product_compare.scss'
 import { ProductCompareState, updateProductCompare } from './ducks/productCompare'
-import { Button, Icon, Modal, message, Empty, Table } from 'antd'
-import { ProductDetailInfo } from 'common/types/entities/product'
-import { result } from 'lodash-es'
+import { Button, Empty, Table } from 'antd'
 
 interface OwnProps {
   cx?: DynamicCx

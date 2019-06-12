@@ -3,11 +3,14 @@ import { Icon, Row, Col, Input, Divider } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './stock.scss'
+import { match } from 'react-router'
 
 const searchResultUrl = '/app/stock/list/?'
 
 interface OwnProps {
   cx?: DynamicCx
+  match?: match
+  goodsCode?: string
 }
 
 interface OwnState {
@@ -19,10 +22,19 @@ interface OwnState {
 class StockSearch extends React.Component<OwnProps, OwnState> {
   constructor(props) {
     super(props)
+    const { goodsCode } = this.props
     this.state = {
-      searchWord: null,
+      searchWord: goodsCode || null,
       distance: '0',
       address: '',
+    }
+  }
+
+  componentDidMount() {
+    const { params } = this.props.match && this.props.match
+    if (params) {
+      const goodsCode = params['goodsCode']
+      this.setState({ searchWord: goodsCode })
     }
   }
 

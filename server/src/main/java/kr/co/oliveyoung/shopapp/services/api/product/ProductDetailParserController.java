@@ -28,36 +28,38 @@ public class ProductDetailParserController {
         String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + barcode;
         String barcodeHtml = requestUrl(barcodeUrl);
         Document document = Jsoup.parse(barcodeHtml);
-        String pid = null;
+        String goodsCode = null;
         try {
-            pid = document.body().getElementById("goodsNo").attr("value");
-            log.info("==== PID : {}", pid);
+            goodsCode = document.body().getElementById("goodsNo").attr("value");
+            log.info("==== GoodsCode : {}", goodsCode);
         } catch (Exception e) {
             log.error("바코드 상품조회 중 오류가 발생하였습니다.", e);
             response.setStatus(204);
             return null; // new ApiResponseMessage(ResponseResult.FAIL, "존재하지 않는 상품코드 입니다.", null);
         }
-        return parseProductDetail(response, pid);
+        return parseProductDetail(response, goodsCode);
     }
 
-    @GetMapping("/product/detail/parser/{pid}")
-    public ApiResponseMessage parseProductDetail(HttpServletResponse response, @PathVariable("pid") String pid) {
-        String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + pid;
-        String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + pid;
-        String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + pid;
-        String reviewUrl = "https://m.oliveyoung.co.kr/m/goods/getGdasSummaryAjax.do?goodsNo=" + pid;
+    @GetMapping("/product/detail/parser/{goodsCode}")
+    public ApiResponseMessage parseProductDetail(HttpServletResponse response, @PathVariable("goodsCode") String goodsCode) {
+        String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + goodsCode;
+        String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + goodsCode;
+        String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + goodsCode;
+        String reviewUrl = "https://m.oliveyoung.co.kr/m/goods/getGdasSummaryAjax.do?goodsNo=" + goodsCode;
 
-        if (pid == null) {
+        if (goodsCode == null) {
             response.setStatus(400);
             return new ApiResponseMessage(ResponseResult.FAIL, "상품번호가 없습니다.", null);
         }
 
         ProductDetailInfo result = new ProductDetailInfo();
-        result.setPid(pid);
+        result.setGoodsCode(goodsCode);
         Document document = null;
         try {
             String html = requestUrl(productUrl);
             document = Jsoup.parse(html);
+            // create result info
+            setProductElementInfos(result, document);
             transformProductPage(document);
             // append product detail
             String productDetailHtml = requestUrl(productDetailUrl);
@@ -72,9 +74,9 @@ public class ProductDetailParserController {
                 Elements trElements = goodsInfoDocument.body().getElementsByTag("tr");
                 for (Element trElement : trElements) {
                     String thText = trElement.getElementsByTag("th").get(0).text();
-                    log.info("===== thText[{}]", thText);
                     if (thText.contains("용량")) {
                         result.setVolume(trElement.getElementsByTag("td").get(0).text());
+                        break;
                     }
                 }
             } catch (Exception e) {}
@@ -93,8 +95,7 @@ public class ProductDetailParserController {
             } catch (Exception e) {}
             // append script
             document.body().children().last().after(tabScript);
-            // create result info
-            setProductElementInfos(result, document);
+            result.setHtml(document.toString());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -109,31 +110,20 @@ public class ProductDetailParserController {
         return message;
     }
 
+    private String parseInputValue(Document document, String elementId) {
+        try {
+            return document.getElementById(elementId).attr("value");
+        } catch (Exception e) {}
+        return null;
+    }
+
     private void setProductElementInfos(ProductDetailInfo detailInfo, Document document) {
-        Element body = document.body();
-        try {
-            Element titleWrap = body.getElementsByClass("titBox").get(0);
-            String brandNm = titleWrap.getElementsByTag("span").get(0).text();
-            detailInfo.setBrandName(brandNm);
-            String name = titleWrap.getElementsByTag("h3").get(0).text();
-            detailInfo.setName(name);
-            String imageUrl = body.getElementById("mainImage_1").attr("src");
-            detailInfo.setImageUrl(imageUrl);
-        } catch (Exception e) {}
-        try {
-            Elements priceSaleElements = body.select(".price_area");
-            for (Element priceSaleElement : priceSaleElements) {
-                String price = priceSaleElement.getElementsByClass("tx_info").get(0)
-                        .getElementsByClass("eng").text();
-                if (priceSaleElement.hasClass("sale")) {
-                    detailInfo.setSalePrice(price);
-                } else {
-                    detailInfo.setPrice(price);
-                }
-            }
-        } catch (Exception e) {}
-        String html = document.toString();
-        detailInfo.setHtml(html);
+        detailInfo.setBrandName(parseInputValue(document, "onlBrndNm"));
+        detailInfo.setBrandCode(parseInputValue(document, "onlBrndCd"));
+        detailInfo.setName(parseInputValue(document, "goodsNm"));
+        detailInfo.setGoodsNo(parseInputValue(document, "lgcGoodsNo"));
+        detailInfo.setPrice(parseInputValue(document, "finalPrc"));
+        detailInfo.setImageUrl(parseInputValue(document, "snsImg"));
     }
 
     private void removeUnusedReviewElements(Document document) {

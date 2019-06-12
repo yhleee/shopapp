@@ -1,6 +1,6 @@
 import { getCookies, DisplayInfo, getDisplaySize, requestIFrame } from './utils/browserUtils'
 
-export interface clickLogParams {
+export interface ClickLogParams {
   cd: string // code
   iw?: number // display inner width
   iy?: number // display inner height
@@ -11,13 +11,13 @@ export interface clickLogParams {
   bu?: string // browser unique id
   uid?: string // user id (optional)
   kwd?: string // search keyword (optional)
-  pid?: string // product id (optional)
+  gc?: string // product id a.k.a. goodsCode (optional)
   i?: number // click index no (optional)
   r?: number // expose rank (optional)
 }
 
 export const getParamString = (params: Object) => {
-  const result = new Array()
+  const result = []
   Object.keys(params).forEach((key, index) => {
     if (index === 0) result.push('?')
     else result.push('&')
@@ -38,34 +38,34 @@ export const sclog = (code: string, userId?: string) => () => {
   clog({ cd: code, uid: userId }, event)
 }
 
-export const kclog = (code: string, keyword: string, productId?: string, userId?: string) => () => {
+export const kclog = (code: string, keyword: string, goodsCode?: string, userId?: string) => () => {
   clog(
     {
       cd: code,
       kwd: keyword,
-      pid: productId,
+      gc: goodsCode,
       uid: userId,
     },
     event,
   )
 }
 
-export const pclog = (code: string, productId: string, userId?: string) => () => {
+export const pclog = (code: string, goodsCode: string, userId?: string) => () => {
   clog(
     {
       cd: code,
-      pid: productId,
+      gc: goodsCode,
       uid: userId,
     },
     event,
   )
 }
 
-export const dclog = (params: clickLogParams) => () => {
+export const dclog = (params: ClickLogParams) => () => {
   clog(params, event)
 }
 
-export const clog = (params: clickLogParams, event: Event) => {
+export const clog = (params: ClickLogParams, event: Event) => {
   if (event) {
     params['cx'] = event['x']
     params['cy'] = event['y']

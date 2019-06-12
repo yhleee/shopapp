@@ -51,14 +51,14 @@ class ProductDetail extends React.Component<Props, OwnState> {
   async componentDidMount() {
     this.props.updateLayoutTile('상품정보')
     const { params } = this.props.match
-    const pid = params['pid']
+    const goodsCode = params['goodsCode']
     const barcode = params['barcode']
     let productDetailInfo: ProductDetailInfo = null
     let response = null
     if (barcode) {
       response = await getProductDetailHtmlByBarcode(barcode)
     } else {
-      response = await getProductDetailHtml(pid)
+      response = await getProductDetailHtml(goodsCode)
     }
 
     if (response && response.status === 200) {
@@ -78,12 +78,13 @@ class ProductDetail extends React.Component<Props, OwnState> {
     if (productDetailInfo) {
       const { productCompare, updateProductCompare } = this.props
       productCompare.currentProduct = {
-        pid: productDetailInfo.pid,
+        goodsCode: productDetailInfo.goodsCode,
+        goodsNo: productDetailInfo.goodsNo,
         name: productDetailInfo.name,
         brandName: productDetailInfo.brandName,
+        brandCode: productDetailInfo.brandCode,
         imageUrl: productDetailInfo.imageUrl,
         price: productDetailInfo.price,
-        salePrice: productDetailInfo.salePrice,
         volume: productDetailInfo.volume || null,
         reviewPoint: productDetailInfo.reviewPoint || null,
         reviewPollHtml: productDetailInfo.reviewPollHtml || null,
@@ -120,10 +121,8 @@ class ProductDetail extends React.Component<Props, OwnState> {
     const { productCompare } = this.props
     const { compareList, currentProduct } = productCompare
     let hasDuplicate = false
-    console.log(`- curr : ${currentProduct.pid}`)
     compareList.forEach(product => {
-      console.log(`-- now : ${product.pid}`)
-      if (product.pid === currentProduct.pid) {
+      if (product.goodsCode === currentProduct.goodsCode) {
         hasDuplicate = true
       }
     })
@@ -141,12 +140,6 @@ class ProductDetail extends React.Component<Props, OwnState> {
   handleCancel = () => {
     message.info('취소하였습니다.')
     this.setState({ visibleCompareOverCountModal: false })
-  }
-
-  goStockList = () => {
-    const { params } = this.props.match
-    const stockUrl = `/app/stock/list/?goodsCode=${params['pid']}`
-    window.location.href = stockUrl
   }
 
   render() {
@@ -170,7 +163,9 @@ class ProductDetail extends React.Component<Props, OwnState> {
         </div>
         <div className={cx('bottom_button_wrap')}>
           <Button.Group style={{ width: '100%' }}>
-            <Button onClick={this.goStockList}>재고조회</Button>
+            <Link to={`/app/stock/list/${productDetailInfo && productDetailInfo.goodsNo}`}>
+              <Button>재고조회</Button>
+            </Link>
             <Link to="/app/product/compare/list">
               <Button>비교하기</Button>
             </Link>
