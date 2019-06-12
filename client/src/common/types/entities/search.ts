@@ -23,3 +23,12 @@ export interface BrandFormResult {
   brand?: Brand
   category?: CategoryFormResult
 }
+
+export interface SearchForm {
+  searchword?: string
+  category?: string
+  brand?: string
+  benefit?: string
+  startValue?: number
+  endValue?: number
+}
