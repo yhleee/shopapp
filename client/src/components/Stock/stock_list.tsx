@@ -47,8 +47,12 @@ class StockList extends React.Component<Props, OwnState> {
 
   async componentDidMount() {
     this.props.updateLayoutTile('재고조회')
-    const queryParams = queryString.parse(location.search)
-    const storeList = await getStoreStockList(queryParams['goodsCode'])
+    let goodsCode = this.props.match && this.props.match.params && this.props.match.params['goodsCode']
+    if (!goodsCode) {
+      const queryParams = queryString.parse(location.search)
+      goodsCode = queryParams['goodsCode']
+    }
+    const storeList = await getStoreStockList(goodsCode)
     this.setState({ storeList: this.state.storeList.concat(storeList) })
   }
 
@@ -65,7 +69,7 @@ class StockList extends React.Component<Props, OwnState> {
         <div className={cx('grid-head')}>
           <Table
             columns={columns}
-            rowKey={'1'}
+            rowKey={record => record.storeCode}
             pagination={false}
             expandedRowRender={record => this.getStoreDetail(record.storeCode)}
             dataSource={storeList}

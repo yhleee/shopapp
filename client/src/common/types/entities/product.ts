@@ -10,12 +10,13 @@ export interface Product {
 }
 
 export interface ProductCompareInfo {
-  pid: string
+  goodsCode: string
+  goodsNo: String
   name: string
   brandName: string
+  brandCode: string
   imageUrl: string
   price: string
-  salePrice?: string
   reviewPoint?: string
   reviewStarHtml?: string
   reviewPollHtml?: string

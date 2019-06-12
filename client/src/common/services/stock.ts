@@ -1,6 +1,6 @@
 import { axios } from 'common/utils'
 
-export const getStoreStockList = async (goodsCode: string) => {
+export const getStoreStockList = async (goodsCode: any) => {
   const response = await axios.get(`/api/stock/stores/list/${goodsCode}`)
   return response && response.data
 }

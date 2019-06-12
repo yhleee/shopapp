@@ -10,10 +10,11 @@ public class ProductDetailInfo implements Serializable {
     private String html;
     private String imageUrl;
     private String name;
-    private String pid;
+    private String goodsCode;
+    private String goodsNo;
     private String brandName;
+    private String brandCode;
     private String price;
-    private String salePrice;
     private String reviewPoint;
     private String reviewStarHtml;
     private String reviewPollHtml;

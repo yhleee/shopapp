@@ -5,5 +5,5 @@ export enum ListType {
 
 export enum ProductDetailInquireType {
   BARCODE = 'barcode',
-  PID = 'pid',
+  GOODSCODE = 'goodscode',
 }
