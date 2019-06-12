@@ -29,6 +29,7 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
   }
 
   render() {
+    const { cx } = this.props
     const { menuList } = this.state
 
     if (!isEmpty(menuList)) {
@@ -43,8 +44,8 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
                 <List.Item.Meta
                   avatar={<Avatar size={50} src={item.logo} />}
                   style={{ marginLeft: '10px', marginRight: '10px', padding: '10px', height: '150px' }}
-                  title={<h2>{item.title}</h2>}
-                  description={<h4>{item.subTitle}</h4>}
+                  title={<p className={cx('title-text')}>{item.title}</p>}
+                  description={<strong>{item.subTitle}</strong>}
                 />
               </List.Item>
             </Link>
