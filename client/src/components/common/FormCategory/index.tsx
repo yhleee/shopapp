@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { DynamicCx } from 'common/types'
-import { styling } from 'common/utils'
 import { CategoryFormResult } from 'common/types/entities/search'
 import { Category } from 'common/types/entities/category'
 import { Tag, Card, Radio, Divider } from 'antd'
 import { SearchOptionRange, SearchOptionTerm, SearchPage } from 'common/types/enum/searchOptions'
 import { ListType } from 'common/types/enum/exposeType'
-import { first } from 'lodash-es'
+import { getCategoryList } from '../../../common/services/category'
 
 const { CheckableTag } = Tag
 
@@ -18,86 +17,10 @@ interface OwnProps {
 
 interface OwnState {
   selectForm: CategoryFormResult
+  categories: Category[]
 }
 
 type Props = OwnProps
-
-const categories: Category[] = [
-  {
-    id: '1',
-    name: '기초화장품',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0000/A00000000330801ko.jpg?l=ko',
-    defaut: true,
-    subCategories: [
-      {
-        id: '6',
-        name: '스킨케어',
-        subCategories: [
-          {
-            id: '12',
-            name: '스킨',
-          },
-          {
-            id: '13',
-            name: '로션',
-          },
-          {
-            id: '14',
-            name: '크림',
-          },
-          {
-            id: '15',
-            name: '에센스',
-          },
-        ],
-      },
-      {
-        id: '7',
-        name: '클렌징',
-      },
-      {
-        id: '8',
-        name: '마스크팩',
-      },
-      {
-        id: '9',
-        name: '썬케어',
-      },
-      {
-        id: '10',
-        name: '기초화장품',
-      },
-      {
-        id: '11',
-        name: '기타',
-      },
-    ],
-  },
-  {
-    id: '2',
-    name: '색조화장품',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012388101ko.jpg?l=ko',
-    defaut: true,
-  },
-  {
-    id: '3',
-    name: '바디용품',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012483201ko.jpg?l=ko',
-    defaut: true,
-  },
-  {
-    id: '4',
-    name: '헤어용품',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0001/A00000001630904ko.jpg?l=ko',
-    defaut: true,
-  },
-  {
-    id: '5',
-    name: '프래그런스',
-    imageUrl: 'http://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0012/A00000012470701ko.jpg?l=ko',
-    defaut: true,
-  },
-]
 
 class FormCategory extends React.Component<Props, OwnState> {
   constructor(props) {
@@ -119,11 +42,14 @@ class FormCategory extends React.Component<Props, OwnState> {
         thirdCategoryId: null,
         thirdCategoryName: null,
       },
+      categories: [],
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.handleParams(this.state.selectForm)
+    const categoryList = await getCategoryList()
+    this.setState({ ...this.state, categories: this.state.categories.concat(categoryList) })
   }
 
   handleSearchRange = (event: any) => {
@@ -190,16 +116,16 @@ class FormCategory extends React.Component<Props, OwnState> {
     const { selectForm } = this.state
     const { term, range, firstCategoryId, secondCategoryId, thirdCategoryId } = selectForm
     let secondCategories: Category[] = null
-    categories.forEach(category => {
-      if (category.id === firstCategoryId) {
-        secondCategories = category['subCategories']
+    this.state.categories.forEach(category => {
+      if (category.categoryId === firstCategoryId) {
+        secondCategories = category['category']
       }
     })
     let thirdCategories: Category[] = null
     secondCategories &&
       secondCategories.forEach(category => {
-        if (category.id === secondCategoryId) {
-          thirdCategories = category['subCategories']
+        if (category.categoryId === secondCategoryId) {
+          thirdCategories = category['category']
         }
       })
 
@@ -223,15 +149,18 @@ class FormCategory extends React.Component<Props, OwnState> {
         )}
         <Divider>대분류 카테고리</Divider>
         <div style={{ width: 'max-contents', overflowX: 'scroll', overflowY: 'hidden', display: 'flex' }}>
-          {categories.map((category, index) => (
+          {this.state.categories.map((category, index) => (
             <Card
               hoverable
-              style={{ width: 120, backgroundColor: `${selectForm.firstCategoryId === category.id ? '#1890ff' : ''}` }}
-              cover={<img alt={category.name} src={category.imageUrl} style={{ width: '100px' }} />}
-              key={`${category.id}_${index}`}
-              onClick={this.handleFirstCategoryChange(category.id, category.name)}
+              style={{
+                width: 120,
+                backgroundColor: `${selectForm.firstCategoryId === category.categoryId ? '#1890ff' : ''}`,
+              }}
+              cover={<img alt={category.categoryName} src={category.categoryImage} style={{ width: '100px' }} />}
+              key={`${category.categoryId}_${index}`}
+              onClick={this.handleFirstCategoryChange(category.categoryId, category.categoryName)}
             >
-              <span style={{ fontSize: '10px' }}>{category.name}</span>
+              <span style={{ fontSize: '10px' }}>{category.categoryName}</span>
             </Card>
           ))}
         </div>
@@ -240,11 +169,11 @@ class FormCategory extends React.Component<Props, OwnState> {
           {secondCategories &&
             secondCategories.map((category: Category, index: number) => (
               <CheckableTag
-                key={`${category.id}_${index}`}
-                checked={secondCategoryId === category.id}
-                onChange={this.handleSecondCategoryChange(category.id, category.name)}
+                key={`${category.categoryId}_${index}`}
+                checked={secondCategoryId === category.categoryId}
+                onChange={this.handleSecondCategoryChange(category.categoryId, category.categoryName)}
               >
-                {category.name}
+                {category.categoryName}
               </CheckableTag>
             ))}
         </div>
@@ -254,11 +183,11 @@ class FormCategory extends React.Component<Props, OwnState> {
           {thirdCategories &&
             thirdCategories.map((category: Category, index: number) => (
               <CheckableTag
-                key={`${category.id}_${index}`}
-                checked={thirdCategoryId === category.id}
-                onChange={this.handleThirdCategoryChange(category.id, category.name)}
+                key={`${category.categoryId}_${index}`}
+                checked={thirdCategoryId === category.categoryId}
+                onChange={this.handleThirdCategoryChange(category.categoryId, category.categoryName)}
               >
-                {category.name}
+                {category.categoryName}
               </CheckableTag>
             ))}
         </div>

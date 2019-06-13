@@ -1,11 +1,11 @@
 import { SearchOptionRange, SearchOptionTerm } from '../enum/searchOptions'
 
 export interface Category {
-  id: string
-  name: string
-  imageUrl?: string
+  categoryId: string
+  categoryName: string
+  categoryImage?: string
   defaut?: boolean
-  subCategories?: Category[]
+  category?: Category[]
 }
 
 export interface CategoryFormResult {
