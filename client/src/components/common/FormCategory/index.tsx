@@ -142,9 +142,9 @@ class FormCategory extends React.Component<Props, OwnState> {
 
   handleFirstCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
-    if (this.props.type !== 'RANKING' && selectForm.firstCategoryId === id) {
-      selectForm.firstCategoryId = ''
-      selectForm.firstCategoryName = ''
+    if (this.props.type !== SearchPage.RANKING && selectForm.firstCategoryId === id) {
+      selectForm.firstCategoryId = null
+      selectForm.firstCategoryName = null
     } else {
       selectForm.firstCategoryId = id
       selectForm.firstCategoryName = name
@@ -159,8 +159,13 @@ class FormCategory extends React.Component<Props, OwnState> {
 
   handleSecondCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
-    selectForm.secondCategoryId = id
-    selectForm.secondCategoryName = name
+    if (selectForm.secondCategoryId === id) {
+      selectForm.secondCategoryId = null
+      selectForm.secondCategoryName = null
+    } else {
+      selectForm.secondCategoryId = id
+      selectForm.secondCategoryName = name
+    }
     selectForm.thirdCategoryId = null
     selectForm.thirdCategoryName = null
     this.props.handleParams(selectForm)
@@ -169,8 +174,13 @@ class FormCategory extends React.Component<Props, OwnState> {
 
   handleThirdCategoryChange = (id: string, name: string) => () => {
     const selectForm = this.state.selectForm
-    selectForm.thirdCategoryId = id
-    selectForm.thirdCategoryName = name
+    if (selectForm.thirdCategoryId === id) {
+      selectForm.thirdCategoryId = null
+      selectForm.thirdCategoryName = null
+    } else {
+      selectForm.thirdCategoryId = id
+      selectForm.thirdCategoryName = name
+    }
     this.props.handleParams(selectForm)
     this.setState({ selectForm })
   }

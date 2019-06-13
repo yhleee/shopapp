@@ -63,7 +63,15 @@ class SearchCondition extends React.Component<Props, OwnState> {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.searchConditionParams.searchForm.searchword = ''
+    this.props.searchConditionParams.searchForm.category = ''
+    this.props.searchConditionParams.searchForm.benefit = ''
+    this.props.searchConditionParams.searchForm.brand = ''
+    this.props.searchConditionParams.searchForm.startValue = 0
+    this.props.searchConditionParams.searchForm.endValue = 200000
+    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
+  }
 
   onPriceRangeChange = ([startVal, endVal]) => {
     this.props.searchConditionParams.searchForm.endValue = endVal
@@ -77,11 +85,6 @@ class SearchCondition extends React.Component<Props, OwnState> {
   goResultPage = () => {
     const searchConditionParams = this.props.searchConditionParams
     this.props.updateSearchConditionParams(searchConditionParams)
-
-    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
-    console.log(`2 = ${this.props.searchConditionParams.searchForm.startValue}`)
-    console.log(`3 = ${this.props.searchConditionParams.searchForm.endValue}`)
-
     this.props.history.push('/app/search/result')
   }
 
