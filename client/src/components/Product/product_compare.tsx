@@ -67,7 +67,7 @@ class ProductCompareList extends React.Component<Props, OwnState> {
       names[`value${index + 1}`] = product.name
       brands[`value${index + 1}`] = product.brandName
       prices[`value${index + 1}`] = product.price
-      salePrices[`value${index + 1}`] = product.salePrice
+      // salePrices[`value${index + 1}`] = product.salePrice
       images[`value${index + 1}`] = <img src={product.imageUrl} style={{ width: '20%' }} />
       reviewPoints[`value${index + 1}`] = product.reviewPoint
       reviewStarHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewStarHtml }} />
@@ -91,8 +91,8 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     productTable.push(manageButons)
     productTable.push(images)
     productTable.push(brands)
-    // productTable.push(prices)
-    productTable.push(salePrices)
+    productTable.push(prices)
+    // productTable.push(salePrices)
     productTable.push(volumes)
     // productTable.push(reviewPoints)
     productTable.push(reviewStarHtmls)

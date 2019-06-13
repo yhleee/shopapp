@@ -4,12 +4,14 @@ import layoutTitle, { LayoutTitleState } from 'components/Layout/ducks/LayoutTit
 import rankingSearchParams, { RankingSearchParamsState } from 'components/Ranking/ducks/rankingSearchParams'
 import productCompare, { ProductCompareState } from 'components/Product/ducks/productCompare'
 import searchConditionParams, { SearchConditionParamsState } from '../components/Search/ducks/searchConditionParams'
+import stockSearchParams, { StockSearchParamsState } from '../components/Stock/ducks/stockSearchParams'
 
 export interface RootState {
   testCount: TestCountState
   layoutTitle: LayoutTitleState
   rankingSearchParams: RankingSearchParamsState
   searchConditionParams: SearchConditionParamsState
+  stockSearchParams: StockSearchParamsState
   productCompare: ProductCompareState
 }
 
@@ -18,5 +20,6 @@ export default combineReducers({
   layoutTitle,
   rankingSearchParams,
   searchConditionParams,
+  stockSearchParams,
   productCompare,
 })

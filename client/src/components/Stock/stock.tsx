@@ -5,10 +5,12 @@ import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import StockSearch from './stock_search'
+import { History } from 'history'
 import * as s from './stock.scss'
 
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
 }
 
 interface StateProps {
@@ -31,9 +33,10 @@ class Stock extends React.Component<Props, {}> {
   }
 
   render() {
+    const { cx, history } = this.props
     return (
       <>
-        <StockSearch />
+        <StockSearch {...{ history }} />
       </>
     )
   }

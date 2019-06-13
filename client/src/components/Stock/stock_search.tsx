@@ -4,14 +4,28 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './stock.scss'
 import { match } from 'react-router'
-
-const searchResultUrl = '/app/stock/list/?'
+import { History } from 'history'
+import { StockSearchParamsState, resetStockSearchParams, updateStockSearchParams } from './ducks/stockSearchParams'
+import { connect } from 'react-redux'
+import { RootState } from '../../common/reducer'
 
 interface OwnProps {
   cx?: DynamicCx
   match?: match
   goodsCode?: string
+  history?: History
 }
+
+interface StateProps {
+  stockSearchParams: StockSearchParamsState
+}
+
+interface DispatchProps {
+  resetStockSearchParams: typeof resetStockSearchParams
+  updateStockSearchParams: typeof updateStockSearchParams
+}
+
+type Props = OwnProps & StateProps & DispatchProps
 
 interface OwnState {
   searchWord: string
@@ -19,7 +33,7 @@ interface OwnState {
   address: string
 }
 
-class StockSearch extends React.Component<OwnProps, OwnState> {
+class StockSearch extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     const { goodsCode } = this.props
@@ -39,26 +53,22 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
   }
 
   onProductInputChange = e => {
-    this.setState({ ...this.state, searchWord: e.target.value })
+    this.props.stockSearchParams.stock.goodsCode = e.target.value
+    // this.setState({ ...this.state, searchWord: e.target.value })
   }
 
   onAddressInputChange = e => {
-    this.setState({ ...this.state, address: e.target.value })
+    this.props.stockSearchParams.stock.address = e.target.value
   }
 
   goListPage = () => {
-    let params = ''
-    params = `${params}distance=${this.state.distance ? this.state.distance : ''}`
-    params = `${params}&address=${this.state.address ? this.state.address : ''}`
-    params = `${params}&searchword=${this.state.searchWord ? this.state.searchWord : ''}`
-    params = `${params}&goodsCode=8809535802408`
-
-    window.location.href = searchResultUrl + params
+    /* 개발서버 결과 확인용 코드 */
+    this.props.stockSearchParams.stock.goodsCode = '8809535802408'
+    this.props.history.push('/app/stock/list')
   }
 
   handleChange = e => {
-    console.log(e.target.value)
-    this.setState({ ...this.state, distance: e.target.value })
+    this.props.stockSearchParams.stock.distance = e.target.value
   }
 
   render() {
@@ -95,7 +105,6 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
               <input
                 className={cx('input-address')}
                 placeholder="ex)강남, 강남구"
-                value={this.state.address}
                 onChange={this.onAddressInputChange}
               />
             </Col>
@@ -112,7 +121,6 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
                 style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
               />
             }
-            value={this.state.searchWord}
             onChange={this.onProductInputChange}
             style={{
               paddingRight: 20,
@@ -131,4 +139,12 @@ class StockSearch extends React.Component<OwnProps, OwnState> {
     )
   }
 }
-export default styling(s)(StockSearch)
+export default connect<StateProps, DispatchProps, OwnProps>(
+  (state: RootState) => ({
+    stockSearchParams: state.stockSearchParams,
+  }),
+  {
+    resetStockSearchParams,
+    updateStockSearchParams,
+  },
+)(styling(s)(StockSearch))

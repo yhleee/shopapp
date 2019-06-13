@@ -1,7 +1,12 @@
 import { axios } from 'common/utils'
+import { StockSearchForm } from '../types/entities/store'
 
-export const getStoreStockList = async (goodsCode: any) => {
-  const response = await axios.get(`/api/stock/stores/list/${goodsCode}`)
+export const getStoreStockList = async (stockSearchForm: StockSearchForm) => {
+  const response = await axios.get(
+    `/api/stock/stores/list?goodsCode=${stockSearchForm.goodsCode}&distance=${stockSearchForm.distance}&address=${
+      stockSearchForm.address
+    }`,
+  )
   return response && response.data
 }
 
