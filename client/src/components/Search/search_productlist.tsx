@@ -39,6 +39,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   }
 
   componentDidMount() {
+    pageNumber = 0
     window.addEventListener('scroll', this.scrollEnd)
     this.readMoreProduct()
   }

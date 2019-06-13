@@ -43,21 +43,49 @@
                   AND C.SEL_CHNL_CD = D.SEL_CHNL_CD(+)
                   AND E.GDS_TREAT_YN = 'Y'
                   AND E.POG_REG_YN = 'Y'
-                  /* 검색어 상품명 LIKE 검색 */
-                  /* AND A.GDS_NM LIKE 'SEARCH'     */
+                  ]]>
+                  <if test="searchword != null and searchword != ''">
+                    /* 검색어 상품명 LIKE 검색 */
+                    AND A.GDS_NM LIKE '%' || #{searchword} || '%'
+                  </if>
+                  <if test="category != null and category != ''">
                   /* 카테고리 파라미터 */
-                  /*   AND SUBSTR(A.GDS_SCLS_CD, 0,2) = '06'  대카 조건 */
-                  /*   AND SUBSTR(A.GDS_SCLS_CD, 0,4) = '0603'  중카 조건 */
-                  /*   AND A.GDS_SCLS_CD = '060302'  소카 조건 */
+                    <choose>
+                      <when test="category.length == 2">
+                        AND SUBSTR(A.GDS_SCLS_CD, 0,2) = #{category}  /* 대카 조건 */
+                      </when>
+                      <when test="category.length == 4">
+                        AND SUBSTR(A.GDS_SCLS_CD, 0,4) = #{category}  /* 중카 조건 */
+                      </when>
+                      <when test="category.length == 6">
+                        AND A.GDS_SCLS_CD = #{category}  /* 소카 조건 */
+                      </when>
+                    </choose>
+                  </if>
                   /* 브랜드 파라미터 */
                   /*   AND A.BRND_CD IN ('1073', '1091') */
-                  /* 가격대 파라미터 */
-                  /*   AND 1=1                                            0-100000조건 */
-                  /*   AND C.GDS_SELPRC_UPRC <= 50000                     0-N조건(~50000) */
-                  /*   AND C.GDS_SELPRC_UPRC BETWEEN 10000 AND 20000      N-N조건(strtVal ~ endVal) */
-                  /*   AND C.GDS_SELPRC_UPRC >= 10000                     N-100000조건(10000~) */
+                  <if test="startValue != null and endValue != null">
+                    <choose>
+                      <when test="startValue == 0 and endValue != 200000">
+                        <![CDATA[
+                        AND C.GDS_SELPRC_UPRC <= #{endValue}
+                        ]]>
+                      </when>
+                      <when test="startValue != 0 and endValue == 200000">
+                        <![CDATA[
+                        AND C.GDS_SELPRC_UPRC >= #{startValue}
+                        ]]>
+                      </when>
+                      <when test="startValue != 0 and endValue != 200000">
+                        <![CDATA[
+                        AND C.GDS_SELPRC_UPRC BETWEEN #{startValue} AND #{endValue}
+                        ]]>
+                      </when>
+                    </choose>
+                  </if>
+      <![CDATA[
         )
         WHERE RANK BETWEEN ((#{page} - 1 ) * 20 +1) AND (#{page} * 20)
-          ]]>
+      ]]>
     </select>
 </mapper>
