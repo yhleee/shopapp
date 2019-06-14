@@ -34,6 +34,8 @@ class StoreNotice extends React.Component<Props, OwnState> {
   styleZoomValue: number
   styleMarginLeft: number
   scrollTransitionDuration: string
+  intervalRefreshNotice: any
+  intervalNoticeScroll: any
 
   constructor(props) {
     super(props)
@@ -98,7 +100,7 @@ class StoreNotice extends React.Component<Props, OwnState> {
       this.storeNoticeEl.current.style.marginLeft = `${maxMarginLeft}px`
     } catch (e) {}
     let marginLeft = 0
-    setInterval(() => {
+    this.intervalNoticeScroll = setInterval(() => {
       try {
         this.storeNoticeEl.current.style.marginLeft = `${marginLeft}px`
         if (marginLeft === 0) {
@@ -116,9 +118,17 @@ class StoreNotice extends React.Component<Props, OwnState> {
     const inputWrapEl = this.storeNoticeWriteEl.current
     const display = inputWrapEl.style.display
     if (display === 'block') {
-      inputWrapEl.style.display = 'none'
+      inputWrapEl.style.marginTop = '-70px'
+      inputWrapEl.style.opacity = '0'
+      setTimeout(() => {
+        inputWrapEl.style.display = 'none'
+      }, 850)
     } else {
-      inputWrapEl.style.display = 'block '
+      inputWrapEl.style.display = 'block'
+      setTimeout(() => {
+        inputWrapEl.style.marginTop = '8px'
+        inputWrapEl.style.opacity = '1'
+      }, 100)
     }
   }
 
@@ -134,15 +144,21 @@ class StoreNotice extends React.Component<Props, OwnState> {
     }
     if (await this.addNotice(text)) {
       message.success('등록되었습니다.')
+      this.toggleStoreNoticeWrite()
     }
   }
 
   componentDidMount() {
     this.setNotice()
-    setInterval(() => {
+    this.intervalRefreshNotice = setInterval(() => {
       this.setNotice()
     }, 10000)
     this.scrollStoreNotice()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalRefreshNotice)
+    clearInterval(this.intervalNoticeScroll)
   }
 
   render() {
@@ -190,14 +206,17 @@ class StoreNotice extends React.Component<Props, OwnState> {
           ref={this.storeNoticeWriteEl}
           style={{
             display: 'none',
-            margin: '8px 0',
+            margin: '-70px 0 8px 0',
             textAlign: 'right',
+            opacity: 0,
+            transitionDuration: '1s',
           }}
         >
           <Input
             addonBefore={<Icon type="edit" />}
             placeholder="매장공지 작성"
             onChange={this.handleChangeNoticeWrite}
+            style={{ zIndex: 2000 }}
           />
           <Button
             type="primary"
