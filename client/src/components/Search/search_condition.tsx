@@ -13,6 +13,7 @@ import {
 } from './ducks/searchConditionParams'
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
+import { CategoryFormResult } from '../../common/types/entities/search'
 
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
@@ -65,7 +66,7 @@ class SearchCondition extends React.Component<Props, OwnState> {
 
   componentDidMount() {
     this.props.searchConditionParams.searchForm.searchword = ''
-    this.props.searchConditionParams.searchForm.category = ''
+    this.props.searchConditionParams.searchForm.categoryId = ''
     this.props.searchConditionParams.searchForm.benefit = ''
     this.props.searchConditionParams.searchForm.brand = ''
     this.props.searchConditionParams.searchForm.startValue = 0
@@ -85,10 +86,28 @@ class SearchCondition extends React.Component<Props, OwnState> {
   goResultPage = () => {
     const searchConditionParams = this.props.searchConditionParams
     this.props.updateSearchConditionParams(searchConditionParams)
+    console.log(`Result = ${this.props.searchConditionParams.searchForm.categoryId}`)
     this.props.history.push('/app/search/result')
   }
 
-  handleCategoryForm = () => {}
+  handleCategoryForm = (categorySearchParams: CategoryFormResult) => {
+    const searchConditionParams = this.props.searchConditionParams
+
+    if (categorySearchParams.thirdCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.thirdCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.thirdCategoryName
+    } else if (categorySearchParams.secondCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.secondCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.secondCategoryName
+    } else if (categorySearchParams.firstCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.firstCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.firstCategoryName
+    } else {
+      searchConditionParams.searchForm.categoryId = ''
+      searchConditionParams.searchForm.categoryName = ''
+    }
+    this.props.updateSearchConditionParams(searchConditionParams)
+  }
 
   render() {
     const { cx } = this.props
@@ -117,9 +136,10 @@ class SearchCondition extends React.Component<Props, OwnState> {
             }}
           />
 
-          {/* 카테고리 선택 영역 */}
+          {/* 카테고리 선택 영역(다중 선택 불가) */}
           <FormCategory type={SearchPage.SEARCH} handleParams={this.handleCategoryForm} />
 
+          {/* 브랜드 선택 영역(다중 선택 가능) */}
           <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
             <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
               <Carousel autoplay={true}>
