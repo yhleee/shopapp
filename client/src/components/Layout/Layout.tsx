@@ -35,6 +35,8 @@ interface OwnState {
 type Props = StateProps & OwnProps & DispatchProps
 
 class Layout extends React.Component<Props, OwnState> {
+  intervalRefreshUserInfo: any
+
   constructor(props) {
     super(props)
     this.state = {
@@ -44,9 +46,13 @@ class Layout extends React.Component<Props, OwnState> {
 
   componentDidMount() {
     this.props.fetchUserInfo()
-    setInterval(() => {
+    this.intervalRefreshUserInfo = setInterval(() => {
       this.props.fetchUserInfo()
     }, 30000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalRefreshUserInfo)
   }
 
   openMenu = () => {
