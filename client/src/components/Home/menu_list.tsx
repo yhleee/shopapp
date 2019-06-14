@@ -29,6 +29,7 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
   }
 
   render() {
+    const { cx } = this.props
     const { menuList } = this.state
 
     if (!isEmpty(menuList)) {

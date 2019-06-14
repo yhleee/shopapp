@@ -9,12 +9,15 @@ import { ListType } from 'common/types/enum/exposeType'
 import { isScrollEnd } from 'common/utils/browserUtils'
 import * as s from './search.scss'
 import { getSearchProductList } from 'common/services/search'
+import { SearchForm } from '../../common/types/entities/search'
 
 let pageNumber = 0
 
 interface OwnProps {
   cx?: DynamicCx
   searchQuery: String
+  location?: Location
+  searchForm?: SearchForm
 }
 interface OwnState {
   productList: Product[]
@@ -36,6 +39,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   }
 
   componentDidMount() {
+    pageNumber = 0
     window.addEventListener('scroll', this.scrollEnd)
     this.readMoreProduct()
   }
@@ -53,7 +57,9 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   async readMoreProduct() {
     pageNumber += 1
     this.setState({ ...this.state, page: pageNumber })
-    const productList = await getSearchProductList(pageNumber)
+
+    const productList = await getSearchProductList(this.props.searchForm, pageNumber)
+
     this.setState({
       ...this.state,
       productList: this.state.productList.concat(productList),

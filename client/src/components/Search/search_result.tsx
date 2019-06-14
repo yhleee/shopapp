@@ -6,8 +6,8 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './search.scss'
 import { match } from 'react-router'
+import { SearchConditionParamsState } from './ducks/searchConditionParams'
 import SearchList from './search_productlist'
-import * as queryString from 'query-string'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -17,6 +17,7 @@ interface OwnProps {
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  searchConditionParams: SearchConditionParamsState
 }
 
 interface DispatchProps {
@@ -36,43 +37,40 @@ class SearchResult extends React.Component<Props, OwnState> {
   }
 
   render() {
-    const { cx, location } = this.props
-
-    const queryParams = queryString.parse(location.search)
-    console.log(queryParams)
+    const { cx } = this.props
 
     return (
       <div>
         <div style={{ backgroundColor: '#eee', fontSize: 25, paddingLeft: 15, paddingTop: 10, paddingBottom: 10 }}>
-          {queryParams['searchword'] !== '' || queryParams['searchword'] ? (
+          {this.props.searchConditionParams.searchForm.searchword ? (
             <>
               <span>
-                검색어 : <strong>{queryParams['searchword']}</strong>
+                검색어 : <strong>{this.props.searchConditionParams.searchForm.searchword}</strong>
               </span>
               <br />
             </>
           ) : (
             <></>
           )}
-          {queryParams['category'] !== '' || queryParams['category'] ? (
+          {this.props.searchConditionParams.searchForm.category ? (
             <>
-              <span>카테고리 : {queryParams['category']}</span>
+              <span>카테고리 : {this.props.searchConditionParams.searchForm.category}</span>
               <br />
             </>
           ) : (
             <></>
           )}
-          {queryParams['brand'] !== '' || queryParams['brand'] ? (
+          {this.props.searchConditionParams.searchForm.brand ? (
             <>
-              <span>브랜드 : {queryParams['brand']}</span>
+              <span>브랜드 : {this.props.searchConditionParams.searchForm.brand}</span>
               <br />
             </>
           ) : (
             <></>
           )}
-          {queryParams['benefit'] !== '' || queryParams['benefit'] ? (
+          {this.props.searchConditionParams.searchForm.benefit ? (
             <>
-              <span>혜택 : {queryParams['benefit']}</span>
+              <span>혜택 : {this.props.searchConditionParams.searchForm.benefit}</span>
               <br />
             </>
           ) : (
@@ -80,18 +78,23 @@ class SearchResult extends React.Component<Props, OwnState> {
           )}
           <span>
             가격대 :
-            {queryParams['startValue'] === '0' && queryParams['endValue'] === '200000' ? (
+            {this.props.searchConditionParams.searchForm.startValue === 0 &&
+            this.props.searchConditionParams.searchForm.endValue === 200000 ? (
               <>전체</>
             ) : (
               <>
-                {queryParams['startValue'] !== '0' ? <>{queryParams['startValue']}원</> : <></>}
+                {this.props.searchConditionParams.searchForm.startValue !== 0 ? (
+                  <>{this.props.searchConditionParams.searchForm.startValue}원</>
+                ) : (
+                  <></>
+                )}
                 {
                   <>
                     ~
-                    {queryParams['endValue'] !== '200000' ? (
-                      <>{queryParams['endValue']}원</>
+                    {this.props.searchConditionParams.searchForm.endValue !== 200000 ? (
+                      <>{this.props.searchConditionParams.searchForm.endValue}원</>
                     ) : (
-                      <>{queryParams['endValue']}원 이상</>
+                      <>{this.props.searchConditionParams.searchForm.endValue}원 이상</>
                     )}
                   </>
                 }
@@ -99,7 +102,7 @@ class SearchResult extends React.Component<Props, OwnState> {
             )}
           </span>
         </div>
-        <SearchList searchQuery={queryParams['searchword']} />
+        <SearchList searchForm={this.props.searchConditionParams.searchForm} />
       </div>
     )
   }
@@ -108,6 +111,7 @@ class SearchResult extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    searchConditionParams: state.searchConditionParams,
   }),
   {
     updateLayoutTile,

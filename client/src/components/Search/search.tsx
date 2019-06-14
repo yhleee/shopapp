@@ -5,10 +5,12 @@ import { LayoutTitleState, updateLayoutTile } from '../Layout/ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import SearchCondition from './search_condition'
+import { History } from 'history'
 import * as s from './search.scss'
 
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
 }
 
 interface StateProps {
@@ -31,9 +33,11 @@ class Search extends React.Component<Props, {}> {
   }
 
   render() {
+    const { cx, history } = this.props
+
     return (
       <>
-        <SearchCondition />
+        <SearchCondition {...{ history }} />
       </>
     )
   }

@@ -8,8 +8,8 @@ import { Store } from 'common/types/entities/store'
 import { DynamicCx } from 'common/types'
 import { Table } from 'antd'
 import StoreDetail from './stock_storedetail'
+import { StockSearchParamsState } from './ducks/stockSearchParams'
 import { styling } from 'common/utils'
-import * as queryString from 'query-string'
 import * as s from './stock.scss'
 
 interface OwnProps {
@@ -19,6 +19,7 @@ interface OwnProps {
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  stockSearchParamsState: StockSearchParamsState
 }
 
 interface DispatchProps {
@@ -47,12 +48,14 @@ class StockList extends React.Component<Props, OwnState> {
 
   async componentDidMount() {
     this.props.updateLayoutTile('재고조회')
-    let goodsCode = this.props.match && this.props.match.params && this.props.match.params['goodsCode']
-    if (!goodsCode) {
-      const queryParams = queryString.parse(location.search)
-      goodsCode = queryParams['goodsCode']
+    if (this.props.match && this.props.match.params && this.props.match.params['goodsCode']) {
+      this.props.stockSearchParamsState.stock.goodsCode = this.props.match.params['goodsCode']
     }
-    const storeList = await getStoreStockList(goodsCode)
+    console.log(`goodsCode = ${this.props.stockSearchParamsState.stock.goodsCode}`)
+    console.log(`address = ${this.props.stockSearchParamsState.stock.address}`)
+    console.log(`distance = ${this.props.stockSearchParamsState.stock.distance}`)
+
+    const storeList = await getStoreStockList(this.props.stockSearchParamsState.stock)
     this.setState({ storeList: this.state.storeList.concat(storeList) })
   }
 
@@ -83,6 +86,7 @@ class StockList extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    stockSearchParamsState: state.stockSearchParams,
   }),
   {
     updateLayoutTile,

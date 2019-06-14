@@ -1,10 +1,18 @@
 import * as React from 'react'
-import { Icon, Input, Menu, Slider, Tag, Carousel, Modal } from 'antd'
+import { Icon, Input, Menu, Slider, Tag, Carousel } from 'antd'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import FormCategory from 'components/common/FormCategory'
 import * as s from './search.scss'
 import { SearchPage } from 'common/types/enum/searchOptions'
+import { History } from 'history'
+import {
+  SearchConditionParamsState,
+  updateSearchConditionParams,
+  resetSearchConditionParams,
+} from './ducks/searchConditionParams'
+import { connect } from 'react-redux'
+import { RootState } from '../../common/reducer'
 
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
@@ -17,21 +25,23 @@ const marks = {
   200000: { style: { fontSize: 20 }, label: '20만원 이상' },
 }
 
-const searchResultUrl = '/app/search/result/?'
-
 interface OwnProps {
   cx?: DynamicCx
+  history?: History
 }
 
-interface OwnState {
-  priceStrtVal: number
-  priceEndVal: number
-  searchword: string
-  category: string
-  brand: string[]
-  benefit: string[]
-  checked: boolean
+interface StateProps {
+  searchConditionParams: SearchConditionParamsState
 }
+
+interface DispatchProps {
+  resetSearchConditionParams: typeof resetSearchConditionParams
+  updateSearchConditionParams: typeof updateSearchConditionParams
+}
+
+interface OwnState {}
+
+type Props = OwnProps & StateProps & DispatchProps
 
 class MyTag extends React.Component {
   state = { checked: false }
@@ -45,58 +55,44 @@ class MyTag extends React.Component {
   }
 }
 
-class SearchCondition extends React.Component<OwnProps, OwnState> {
+class SearchCondition extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      priceStrtVal: 0,
-      priceEndVal: 200000,
-      searchword: null,
-      category: null,
-      brand: null,
-      benefit: null,
       checked: false,
     }
   }
 
-  onPriceRangeChange = ([strtVal, endVal]) => {
-    this.setState({
-      ...this.state,
-      priceStrtVal: strtVal,
-      priceEndVal: endVal,
-    })
-  }
-  onChange = e => {
-    this.setState({ ...this.state, searchword: e.target.value })
+  componentDidMount() {
+    this.props.searchConditionParams.searchForm.searchword = ''
+    this.props.searchConditionParams.searchForm.category = ''
+    this.props.searchConditionParams.searchForm.benefit = ''
+    this.props.searchConditionParams.searchForm.brand = ''
+    this.props.searchConditionParams.searchForm.startValue = 0
+    this.props.searchConditionParams.searchForm.endValue = 200000
+    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
   }
 
-  modalParameterCheck = param => {
-    Modal.error({
-      title: `${param}를 입력해 주세요.`,
-    })
+  onPriceRangeChange = ([startVal, endVal]) => {
+    this.props.searchConditionParams.searchForm.endValue = endVal
+    this.props.searchConditionParams.searchForm.startValue = startVal
+  }
+
+  onChange = e => {
+    this.props.searchConditionParams.searchForm.searchword = e.target.value
   }
 
   goResultPage = () => {
-    let params = ''
-    if (!this.state.searchword) {
-      this.modalParameterCheck('검색어')
-      return
-    }
-    params = `${params}searchword=${this.state.searchword ? this.state.searchword : ''}` // 검색어 없는 경우 어떻게 처리?
-    params = `${params}&category=${this.state.searchword ? '010101' : '3'}`
-    params = `${params}&brand=${this.state.searchword === '!@$!@#!@$!@$!@$!' ? 'brand' /*this.state.brandList */ : '1'}`
-    params = `${params}&benefit=${
-      this.state.searchword === '!@$!#@^#@^@!#^@#^' ? 'benefit' /*this.state.benefit */ : '2'
-    }`
-    params = `${params}&startValue=${this.state.priceStrtVal >= 0 ? this.state.priceStrtVal : '0'}`
-    params = `${params}&endValue=${this.state.priceEndVal ? this.state.priceEndVal : '200000'}`
-    window.location.href = searchResultUrl + params
+    const searchConditionParams = this.props.searchConditionParams
+    this.props.updateSearchConditionParams(searchConditionParams)
+    this.props.history.push('/app/search/result')
   }
 
   handleCategoryForm = () => {}
 
   render() {
     const { cx } = this.props
+
     return (
       <>
         <div>
@@ -110,7 +106,6 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
                 style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
               />
             }
-            value={this.state.searchword}
             onChange={this.onChange}
             style={{
               paddingRight: 20,
@@ -237,7 +232,7 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
                 <Slider
                   range={true}
                   marks={marks}
-                  defaultValue={[this.state.priceStrtVal, this.state.priceEndVal]}
+                  defaultValue={[0, 200000]}
                   onAfterChange={this.onPriceRangeChange}
                   max={200000}
                   step={10000}
@@ -254,4 +249,13 @@ class SearchCondition extends React.Component<OwnProps, OwnState> {
     )
   }
 }
-export default styling(s)(SearchCondition)
+
+export default connect<StateProps, DispatchProps, OwnProps>(
+  (state: RootState) => ({
+    searchConditionParams: state.searchConditionParams,
+  }),
+  {
+    resetSearchConditionParams,
+    updateSearchConditionParams,
+  },
+)(styling(s)(SearchCondition))

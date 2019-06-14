@@ -1,0 +1,26 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.common.OracleCategoryMapper">
+
+    <select id="selectCategoryList" resultType="kr.co.oliveyoung.shopapp.feature.common.OracleCategory">
+      <![CDATA[
+        SELECT DISTINCT
+               CLS_CD as categoryId
+              ,CLS_NM as categoryName
+              ,CLS_LVL_CD as depth
+          FROM TB_MD_CJ_CLS_MST_IS
+         WHERE CLS_LVL_CD = #{level}
+      ]]>
+      <choose>
+        <when test="id == 'root'">
+          <![CDATA[
+           AND CLS_CD <= '05'
+           ]]>
+        </when>
+        <otherwise>
+           AND CLS_CD LIKE #{id} || '%'
+        </otherwise>
+      </choose>
+           AND CLS_NM NOT IN ('프레그런스','홈 프레그런스')
+         ORDER BY CLS_CD
+    </select>
+</mapper>
