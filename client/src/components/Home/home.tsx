@@ -8,6 +8,7 @@ import StoreNotice from './store_notice'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './home.scss'
+import ShopNotice from '../Notice/store_notice'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -27,7 +28,7 @@ const Home: React.FC<Props> = ({ cx, resetLayoutTitle }) => {
   resetLayoutTitle()
   return (
     <>
-      <StoreNotice />
+      <ShopNotice />
       <Notice />
       <MenuList />
     </>

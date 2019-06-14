@@ -45,7 +45,6 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     const brands = {}
     const prices = {}
     const volumes = {}
-    const salePrices = {}
     const images = {}
     const reviewPoints = {}
     const reviewStarHtmls = {}
@@ -55,7 +54,6 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     names['name'] = '상품명'
     brands['name'] = '브랜드'
     prices['name'] = '판매가'
-    salePrices['name'] = '판매가'
     volumes['name'] = '용량 및 중량'
     images['name'] = '상품이미지'
     reviewPoints['name'] = '평점'
@@ -67,7 +65,6 @@ class ProductCompareList extends React.Component<Props, OwnState> {
       names[`value${index + 1}`] = product.name
       brands[`value${index + 1}`] = product.brandName
       prices[`value${index + 1}`] = product.price
-      // salePrices[`value${index + 1}`] = product.salePrice
       images[`value${index + 1}`] = <img src={product.imageUrl} style={{ width: '20%' }} />
       reviewPoints[`value${index + 1}`] = product.reviewPoint
       reviewStarHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewStarHtml }} />
@@ -92,7 +89,6 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     productTable.push(images)
     productTable.push(brands)
     productTable.push(prices)
-    // productTable.push(salePrices)
     productTable.push(volumes)
     // productTable.push(reviewPoints)
     productTable.push(reviewStarHtmls)

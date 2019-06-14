@@ -5,3 +5,12 @@ export interface Notice {
   logo: string
   linkUrl: string
 }
+
+export interface ShopNotice {
+  id?: number
+  strCd: string
+  text?: string
+  wrtrUsrId?: string
+  modUsrId?: string
+  delYn?: string
+}
