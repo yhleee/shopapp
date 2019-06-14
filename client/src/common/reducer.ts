@@ -5,6 +5,7 @@ import rankingSearchParams, { RankingSearchParamsState } from 'components/Rankin
 import productCompare, { ProductCompareState } from 'components/Product/ducks/productCompare'
 import searchConditionParams, { SearchConditionParamsState } from '../components/Search/ducks/searchConditionParams'
 import stockSearchParams, { StockSearchParamsState } from '../components/Stock/ducks/stockSearchParams'
+import userInfo, { UserInfoState } from 'components/Layout/ducks/UserInfo'
 
 export interface RootState {
   testCount: TestCountState
@@ -13,6 +14,7 @@ export interface RootState {
   searchConditionParams: SearchConditionParamsState
   stockSearchParams: StockSearchParamsState
   productCompare: ProductCompareState
+  userInfo: UserInfoState
 }
 
 export default combineReducers({
@@ -22,4 +24,5 @@ export default combineReducers({
   searchConditionParams,
   stockSearchParams,
   productCompare,
+  userInfo,
 })

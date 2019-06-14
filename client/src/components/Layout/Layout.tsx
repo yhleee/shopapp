@@ -9,6 +9,7 @@ import { Drawer } from 'antd'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
 import { sclog } from 'common/clickLog'
+import { fetchUserInfo, resetUserInfo, UserInfoState } from './ducks/UserInfo'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -17,11 +18,14 @@ interface OwnProps {
 
 interface StateProps {
   layoutTitle: LayoutTitleState
+  userInfo: UserInfoState
 }
 
 interface DispatchProps {
   fetchLayoutTitle: typeof fetchLayoutTitle
   updateLayoutTile: typeof updateLayoutTile
+  fetchUserInfo: typeof fetchUserInfo
+  resetUserInfo: typeof resetUserInfo
 }
 
 interface OwnState {
@@ -31,11 +35,24 @@ interface OwnState {
 type Props = StateProps & OwnProps & DispatchProps
 
 class Layout extends React.Component<Props, OwnState> {
+  intervalRefreshUserInfo: any
+
   constructor(props) {
     super(props)
     this.state = {
       visible: false,
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchUserInfo()
+    this.intervalRefreshUserInfo = setInterval(() => {
+      this.props.fetchUserInfo()
+    }, 30000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalRefreshUserInfo)
   }
 
   openMenu = () => {
@@ -109,9 +126,12 @@ class Layout extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     layoutTitle: state.layoutTitle,
+    userInfo: state.userInfo,
   }),
   {
     fetchLayoutTitle,
     updateLayoutTile,
+    fetchUserInfo,
+    resetUserInfo,
   },
 )(styling(s)(Layout))
