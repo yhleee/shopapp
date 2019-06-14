@@ -42,9 +42,9 @@ class GetHomeMenuList extends React.Component<OwnProps, OwnState> {
               <List.Item>
                 <List.Item.Meta
                   avatar={<Avatar size={50} src={item.logo} />}
-                  style={{ marginLeft: '10px', marginRight: '10px', padding: '10px', height: '150px' }}
-                  title={<h2>{item.title}</h2>}
-                  description={<h4>{item.subTitle}</h4>}
+                  style={{ marginLeft: '10px', marginRight: '10px', padding: '10px', height: '150px', zoom: 1.5 }}
+                  title={item.title}
+                  description={item.subTitle}
                 />
               </List.Item>
             </Link>
