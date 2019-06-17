@@ -27,8 +27,8 @@ public class ShopAppApplication extends SpringBootServletInitializer {
   @Bean
   public RestTemplate getRestTemplate() {
     return new RestTemplateBuilder()
-        .setConnectTimeout(3000)
-        .setReadTimeout(5000)
+        .setConnectTimeout(5000)
+        .setReadTimeout(6000)
         .build();
   }
 }
