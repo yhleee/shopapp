@@ -8,7 +8,7 @@ import kr.co.oliveyoung.shopapp.feature.common.OracleCategoryMapper;
 
 public class CommonUtil {
 
-  CommonUtil(){}
+  public CommonUtil(){}
 
   public List<OracleCategory> getCategories(OracleCategoryMapper oracleCategoryMapper){
 

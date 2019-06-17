@@ -14,6 +14,8 @@ import {
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
 import { CategoryFormResult } from '../../common/types/entities/search'
+import { getSearchBrandList } from '../../common/services/search'
+import { BrandParams } from '../../common/types/entities/brand'
 
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
@@ -40,7 +42,9 @@ interface DispatchProps {
   updateSearchConditionParams: typeof updateSearchConditionParams
 }
 
-interface OwnState {}
+interface OwnState {
+  brandList: BrandParams[]
+}
 
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -60,18 +64,21 @@ class SearchCondition extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      checked: false,
+      brandList: [],
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.searchConditionParams.searchForm.searchword = ''
     this.props.searchConditionParams.searchForm.categoryId = ''
     this.props.searchConditionParams.searchForm.benefit = ''
     this.props.searchConditionParams.searchForm.brand = ''
     this.props.searchConditionParams.searchForm.startValue = 0
     this.props.searchConditionParams.searchForm.endValue = 200000
-    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
+
+    const brandList = await getSearchBrandList('00')
+    console.log(`brandList = ${brandList.toString()}`)
+    this.setState({ ...this.state, brandList: this.state.brandList.concat(brandList) })
   }
 
   onPriceRangeChange = ([startVal, endVal]) => {
@@ -86,7 +93,6 @@ class SearchCondition extends React.Component<Props, OwnState> {
   goResultPage = () => {
     const searchConditionParams = this.props.searchConditionParams
     this.props.updateSearchConditionParams(searchConditionParams)
-    console.log(`Result = ${this.props.searchConditionParams.searchForm.categoryId}`)
     this.props.history.push('/app/search/result')
   }
 
@@ -111,6 +117,20 @@ class SearchCondition extends React.Component<Props, OwnState> {
 
   render() {
     const { cx } = this.props
+    const { brandList } = this.state
+    this.state.brandList.slice(0, 4)
+    const brandRender = brandList.map((brand, i) => {
+      if (i === 0) {
+        ;<div>
+          <li>
+            <MyTag>${brand.brandName}</MyTag>
+          </li>
+        </div>
+      } else if (i % 25 === 0) {
+      } else if (i % 5 === 0) {
+      } else {
+      }
+    })
 
     return (
       <>

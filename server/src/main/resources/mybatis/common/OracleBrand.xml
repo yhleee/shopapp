@@ -25,8 +25,9 @@
                        AND SUBSTR(A.GDS_SCLS_CD, 0, 2) IN ('01', '02', '03', '04', '05')
                      GROUP BY A.GDS_SCLS_CD, B.BRND_CD, B.BRND_NM
                     )
+             ORDER BY categoryLevel, CONVERT(brandName, 'ISO2022-KR')
           )
-        ORDER BY categoryLevel, CONVERT(brandName, 'ISO2022-KR')
+          WHERE ROWNUM < 100
       ]]>
     </select>
 </mapper>

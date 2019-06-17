@@ -63,7 +63,13 @@
                     </choose>
                   </if>
                   /* 브랜드 파라미터 */
-                  /*   AND A.BRND_CD IN ('1073', '1091') */
+                  <if test="brandCodes != null and brandCodes != ''">
+                    AND A.BRND_CD IN
+                    <foreach collection="brandCodes" item="brandCode" index="index" separator="," open="(" close=")">
+                      #{brandCode}
+                    </foreach>
+                  </if>
+                  /* 가격대 파라미터 */
                   <if test="startValue != null and endValue != null">
                     <choose>
                       <when test="startValue == 0 and endValue != 200000">

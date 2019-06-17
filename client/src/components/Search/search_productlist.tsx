@@ -15,7 +15,6 @@ let pageNumber = 0
 
 interface OwnProps {
   cx?: DynamicCx
-  searchQuery: String
   location?: Location
   searchForm?: SearchForm
 }
@@ -57,7 +56,6 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
   async readMoreProduct() {
     pageNumber += 1
     this.setState({ ...this.state, page: pageNumber })
-
     const productList = await getSearchProductList(this.props.searchForm, pageNumber)
 
     this.setState({
@@ -103,7 +101,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
               style={{ marginTop: '50px', display: 'block', textAlign: 'center', fontSize: '150px' }}
             />
             <h1 className={cx('stop-text')}>
-              검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
+              검색하신 <strong>"{this.props.searchForm.searchword}"</strong>에 대한
             </h1>
             <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>
@@ -127,7 +125,7 @@ class GetProductList extends React.Component<OwnProps, OwnState> {
               }}
             />
             <h1 className={cx('stop-text')}>
-              검색하신 <strong>"{this.props.searchQuery}"</strong>에 대한
+              검색하신 <strong>"{this.props.searchForm.searchword}"</strong>에 대한
             </h1>
             <h1 className={cx('stop-text')}>검색 결과가 없습니다.</h1>
             <h1 className={cx('stop-button')}>타매장 재고조회</h1>

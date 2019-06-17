@@ -9,3 +9,8 @@ export const getSearchProductList = async (searchForm: SearchForm, page: number)
   )
   return response && response.data
 }
+
+export const getSearchBrandList = async (depth: string) => {
+  const response = await axios.get(`/api/search/params/brand?searchword=${depth}`)
+  return response && response.data
+}
