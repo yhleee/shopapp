@@ -1,0 +1,15 @@
+.title {
+  display: table-cell;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  word-wrap:normal;
+  width: 500px;
+  overflow:hidden;
+}
+
+.date {
+  display: table-cell;
+  width: 300px;
+  color: #18901A;
+  text-align: right;
+}

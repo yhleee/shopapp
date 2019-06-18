@@ -7,7 +7,7 @@ import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import * as s from './product_compare.scss'
 import { ProductCompareState, updateProductCompare } from './ducks/productCompare'
-import { Button, Empty, Table } from 'antd'
+import { Button, Empty, Table, Rate } from 'antd'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -66,7 +66,7 @@ class ProductCompareList extends React.Component<Props, OwnState> {
       brands[`value${index + 1}`] = product.brandName
       prices[`value${index + 1}`] = product.price
       images[`value${index + 1}`] = <img src={product.imageUrl} style={{ width: '20%' }} />
-      reviewPoints[`value${index + 1}`] = product.reviewPoint
+      reviewPoints[`value${index + 1}`] = <Rate allowHalf={true} defaultValue={Number(product.reviewPoint)} />
       reviewStarHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewStarHtml }} />
       reviewPollHtmls[`value${index + 1}`] = <div dangerouslySetInnerHTML={{ __html: product.reviewPollHtml }} />
       volumes[`value${index + 1}`] = product.volume
@@ -139,7 +139,7 @@ class ProductCompareList extends React.Component<Props, OwnState> {
     console.log(tableDatas)
     return (
       <div style={{ width: '100%', height: '100%', textAlign: 'center' }}>
-        <Table dataSource={tableDatas} columns={columns} pagination={false} />
+        <Table dataSource={tableDatas} columns={columns} pagination={false} style={{ textAlign: 'center' }} />
       </div>
     )
   }
