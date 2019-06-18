@@ -13,6 +13,9 @@ import {
 } from './ducks/searchConditionParams'
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
+import { CategoryFormResult } from '../../common/types/entities/search'
+import { getSearchBrandList } from '../../common/services/search'
+import { BrandParams } from '../../common/types/entities/brand'
 
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
@@ -39,7 +42,9 @@ interface DispatchProps {
   updateSearchConditionParams: typeof updateSearchConditionParams
 }
 
-interface OwnState {}
+interface OwnState {
+  brandList: BrandParams[]
+}
 
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -59,18 +64,21 @@ class SearchCondition extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      checked: false,
+      brandList: [],
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.searchConditionParams.searchForm.searchword = ''
-    this.props.searchConditionParams.searchForm.category = ''
+    this.props.searchConditionParams.searchForm.categoryId = ''
     this.props.searchConditionParams.searchForm.benefit = ''
     this.props.searchConditionParams.searchForm.brand = ''
     this.props.searchConditionParams.searchForm.startValue = 0
     this.props.searchConditionParams.searchForm.endValue = 200000
-    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
+
+    const brandList = await getSearchBrandList('00')
+    console.log(`brandList = ${brandList.toString()}`)
+    this.setState({ ...this.state, brandList: this.state.brandList.concat(brandList) })
   }
 
   onPriceRangeChange = ([startVal, endVal]) => {
@@ -88,10 +96,41 @@ class SearchCondition extends React.Component<Props, OwnState> {
     this.props.history.push('/app/search/result')
   }
 
-  handleCategoryForm = () => {}
+  handleCategoryForm = (categorySearchParams: CategoryFormResult) => {
+    const searchConditionParams = this.props.searchConditionParams
+
+    if (categorySearchParams.thirdCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.thirdCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.thirdCategoryName
+    } else if (categorySearchParams.secondCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.secondCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.secondCategoryName
+    } else if (categorySearchParams.firstCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.firstCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.firstCategoryName
+    } else {
+      searchConditionParams.searchForm.categoryId = ''
+      searchConditionParams.searchForm.categoryName = ''
+    }
+    this.props.updateSearchConditionParams(searchConditionParams)
+  }
 
   render() {
     const { cx } = this.props
+    const { brandList } = this.state
+    this.state.brandList.slice(0, 4)
+    const brandRender = brandList.map((brand, i) => {
+      if (i === 0) {
+        ;<div>
+          <li>
+            <MyTag>${brand.brandName}</MyTag>
+          </li>
+        </div>
+      } else if (i % 25 === 0) {
+      } else if (i % 5 === 0) {
+      } else {
+      }
+    })
 
     return (
       <>
@@ -117,9 +156,10 @@ class SearchCondition extends React.Component<Props, OwnState> {
             }}
           />
 
-          {/* 카테고리 선택 영역 */}
+          {/* 카테고리 선택 영역(다중 선택 불가) */}
           <FormCategory type={SearchPage.SEARCH} handleParams={this.handleCategoryForm} />
 
+          {/* 브랜드 선택 영역(다중 선택 가능) */}
           <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
             <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
               <Carousel autoplay={true}>

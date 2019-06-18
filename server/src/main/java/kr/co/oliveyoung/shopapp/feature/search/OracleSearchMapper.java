@@ -7,5 +7,5 @@ import kr.co.oliveyoung.shopapp.config.mybatis.OracleMapper;
 @OracleMapper
 public interface OracleSearchMapper {
 
-    List<OracleSearch> selectSearchProductList(Map<String, String> map);
+    List<OracleSearch> selectSearchProductList(Map<String, Object> map);
 }

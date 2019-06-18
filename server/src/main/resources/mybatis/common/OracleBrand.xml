@@ -1,0 +1,33 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.common.OracleBrandMapper">
+
+    <select id="selectBrandList" resultType="kr.co.oliveyoung.shopapp.feature.common.OracleBrand">
+      <![CDATA[
+        SELECT brandCode
+              ,brandName
+              ,categoryLevel
+              ,categoryId
+          FROM (
+            /* 전사 브랜드 조회 쿼리 */
+            SELECT DISTINCT
+                    '0' categoryLevel
+                   ,categoryId as categoryId
+                   ,BRND_CD as brandCode
+                   ,BRND_NM as brandName
+              FROM (
+                    SELECT '0' categoryId
+                           ,B.BRND_CD
+                           ,B.BRND_NM
+                      FROM TB_MD_GDS_M A
+                           ,TB_MD_BRND_M B
+                     WHERE A.BRND_CD = B.BRND_CD
+                       AND B.USE_YN = 'Y'
+                       AND SUBSTR(A.GDS_SCLS_CD, 0, 2) IN ('01', '02', '03', '04', '05')
+                     GROUP BY A.GDS_SCLS_CD, B.BRND_CD, B.BRND_NM
+                    )
+             ORDER BY categoryLevel, CONVERT(brandName, 'ISO2022-KR')
+          )
+          WHERE ROWNUM < 100
+      ]]>
+    </select>
+</mapper>

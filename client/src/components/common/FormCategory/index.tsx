@@ -49,6 +49,7 @@ class FormCategory extends React.Component<Props, OwnState> {
   async componentDidMount() {
     this.props.handleParams(this.state.selectForm)
     const categoryList = await getCategoryList()
+    // this.setState({ ...this.state, categories: this.state.categories.concat(categoryList["categoryList"]) })
     this.setState({ ...this.state, categories: this.state.categories.concat(categoryList) })
   }
 

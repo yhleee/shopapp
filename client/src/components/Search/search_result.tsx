@@ -52,9 +52,9 @@ class SearchResult extends React.Component<Props, OwnState> {
           ) : (
             <></>
           )}
-          {this.props.searchConditionParams.searchForm.category ? (
+          {this.props.searchConditionParams.searchForm.categoryId ? (
             <>
-              <span>카테고리 : {this.props.searchConditionParams.searchForm.category}</span>
+              <span>카테고리 : {this.props.searchConditionParams.searchForm.categoryName}</span>
               <br />
             </>
           ) : (
