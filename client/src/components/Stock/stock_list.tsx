@@ -50,7 +50,12 @@ class StockList extends React.Component<Props, OwnState> {
     this.props.updateLayoutTile('재고조회')
     if (this.props.match && this.props.match.params && this.props.match.params['goodsCode']) {
       this.props.stockSearchParamsState.stock.goodsCode = this.props.match.params['goodsCode']
+      this.props.stockSearchParamsState.stock.distance = '30'
     }
+
+    console.log(`goods = ${this.props.stockSearchParamsState.stock.goodsCode}`)
+    console.log(`distance = ${this.props.stockSearchParamsState.stock.distance}`)
+    console.log(`address = ${this.props.stockSearchParamsState.stock.address}`)
 
     const storeList = await getStoreStockList(this.props.stockSearchParamsState.stock)
     this.setState({ storeList: this.state.storeList.concat(storeList) })

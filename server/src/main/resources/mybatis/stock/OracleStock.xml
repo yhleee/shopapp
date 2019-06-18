@@ -10,7 +10,7 @@
             ,Z1.RD_NM_SIGUNGU_ADDR address
             ,Z1.RD_NM_DTL_ADDR1 addressDetail
             ,Z1.BIZPLC_PHONE_NO phoneNumber
-            ,ROUND(Z1.DISTANCE * 1000,-1)||'M' distance
+            ,ROUND(Z1.DISTANCE * 1000,-1)||'m' distance
             ,Z2.USFL_STK_QTY remainStock
             ,Z1.LAT lat
             ,Z1.LNG lng
@@ -30,10 +30,15 @@
                          WHERE STR_CD = 'DB67') T2
                     ,TB_SA_BIZPLC_M T3 /* 사업장 마스터 */
                WHERE T1.STR_CD = T3.BIZPLC_CD
+    ]]>
+                 <if test="address != null and address != ''">
+                   AND T3.RD_NM_SIGUNGU_ADDR LIKE '%' || #{address} || '%'
+                 </if>
+    <![CDATA[
                  AND NVL(T3.CLSTR_YMD,'29991231') > TO_CHAR(SYSDATE,'YYYYMMDD') /* 폐점일자 */
                  AND NVL(T3.SAL_CLS_YMD,'29991231') > TO_CHAR(SYSDATE,'YYYYMMDD') /* 영업일자 */) Z1,
              TB_ST_STR_SKU_ARSLT_L Z2  /* 매장 실재고 */
-       WHERE DISTANCE < 2
+       WHERE DISTANCE < #{distance}
          AND Z1.STR_CD = Z2.STR_CD
          AND Z2.RNP_YMD = '20190502'
          AND Z2.GDS_CD = #{goodsCode}
