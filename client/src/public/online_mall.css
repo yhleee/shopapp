@@ -1,0 +1,125 @@
+.star_area {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    letter-spacing: -1px;
+    word-spacing: -0.5px;
+    font-family: 'AppleSDGothicNeo', 'Roboto', 'montserratlight', sans-serif;
+    color: #666;
+    user-select: none;
+}
+.star_area .total {
+    margin-top: -3px;
+    margin-bottom: 3px;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    list-style: none;
+}
+.star_area .total em {
+    font-style: normal;
+    font-family: 'montserratregular';
+}
+.star_area .num {
+    margin-bottom: 7px;
+    color: #000;
+    font-weight: bold;
+}
+.star_area .num > strong {
+    font-size: 36px;
+    font-family: 'montserratregular';
+    font-weight: normal;
+}
+.star_area .star_list {
+    text-align: center;
+    list-style: none;
+}
+.star_area .star_list li {
+    position: relative;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+}
+.product_rating_area .inner .star_area .star_list li > span.rating {
+    position: absolute;
+    z-index: 4;
+    top: 0px;
+    left: 0px;
+    display: block;
+    width: 100%;
+    height: 13px;
+    background-color: #ff8942;
+}
+.product_rating_area .inner .star_area .star_list li img {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    border: 0;
+    vertical-align: top;
+    color: #666;
+}
+
+
+.poll_sample .poll_type1 dt {
+    float: left;
+}
+.poll_sample .poll_type1 dt > span {
+    display: block;
+    width: 70px;
+    height: 28px;
+    line-height: 26px;
+    font-size: 13px;
+    color: #00c4b5;
+    border: 1px solid #00c4b5;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.poll_sample .poll_type1 dd {
+    position: relative;
+    margin-left: 80px;
+    font-size: 13px;
+    color: #555;
+    line-height: 28px;
+}
+.poll_sample .poll_type1 dd span.txt {
+    position: relative;
+    z-index: 8;
+    padding-right: 10px;
+    background-color: #fff;
+}
+.poll_sample .poll_type1 dd em.per {
+    position: absolute;
+    z-index: 8;
+    top: 0px;
+    right: 0px;
+    padding-left: 10px;
+    color: #888;
+    background-color: #fff;
+    font-style: normal;
+    font-family: 'montserratregular';
+}
+.poll_sample .poll_type1 dd em.per span {
+    font-family: 'montserratregular';
+}
+.poll_sample .poll_type1 dd:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dashed #e6e6e6;
+}
