@@ -10,13 +10,12 @@ import 'moment/locale/ko'
 const { hot } = require('react-hot-loader')
 
 const App: React.SFC<RouteComponentProps<any>> = ({ location }) => {
-  const showMenuLayout = location && location.search && location.search.indexOf(MENU_LAYOUT_PARAM) > 0
+  const pathName = location.pathname
+  const showLayout = pathName.indexOf('/app/manage') > -1
   return (
     <>
-      {ifElse(showMenuLayout)(
-        <MenuLayout>
-          <Routes />
-        </MenuLayout>,
+      {ifElse(showLayout)(
+        <Routes />,
         <Layout>
           <Routes />
         </Layout>,

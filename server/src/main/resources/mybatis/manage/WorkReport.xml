@@ -1,0 +1,72 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.manage.WorkReportMapper">
+
+   <select id="selectWorkReport" parameterType="kr.co.oliveyoung.shopapp.feature.manage.WorkReportCriteria"
+           resultType="kr.co.oliveyoung.shopapp.feature.manage.WorkReport">
+       SELECT
+            no,
+            type,
+            task,
+            detail,
+            owner,
+            schedule,
+            state,
+            etc,
+            remove
+        FROM TB_TEAM_WORK_REPORT
+        WHERE remove = 'N'
+        <if test="task != null">
+            AND task = #{task}
+        </if>
+        <if test="type != null">
+            AND type = #{type}
+        </if>
+        <if test="owner != null">
+            AND owner = #{owner}
+        </if>
+        <if test="state != null">
+            AND state = #{state}
+        </if>
+        <if test="schedule != null">
+            AND schedule = #{schedule}
+        </if>
+   </select>
+
+    <insert id="insertWorkReport" parameterType="kr.co.oliveyoung.shopapp.feature.manage.WorkReport">
+        INSERT INTO TB_TEAM_WORK_REPORT
+        (
+            type,
+            task,
+            detail,
+            owner,
+            schedule,
+            state,
+            etc
+        )
+        VALUES (
+            #{type},
+            #{task},
+            #{detail},
+            #{owner},
+            #{schedule},
+            #{state},
+            #{etc}
+        )
+    </insert>
+
+    <update id="updateWorkReport" parameterType="kr.co.oliveyoung.shopapp.feature.manage.WorkReport">
+        UPDATE TB_TEAM_WORK_REPORT
+        SET type = #{type},
+            task = #{task},
+            detail = #{detail},
+            owner = #{owner},
+            schedule = #{schedule},
+            state = #{state},
+            etc = #{etc}
+            <if test="delete != null">
+            , delete = #{delete}
+            </if>
+        WHERE no = #{no}
+    </update>
+
+</mapper>

@@ -34,6 +34,8 @@ export const ProductDetail = createLoadable(() => import('./Product/product_deta
 export const RankingProductList = createLoadable(() => import('./Ranking/ranking_product_list'))
 export const ProductCompareList = createLoadable(() => import('./Product/product_compare'))
 
+export const WorkReportManage = createLoadable(() => import('./Manage/work_report'))
+
 export const PageNotFound = createLoadable(() => import('./Error/PageNotFound'))
 
 const Routes = () => {
@@ -62,6 +64,7 @@ const Routes = () => {
         <Route path="/app/product/detail/:goodsCode" component={ProductDetail} />
         <Route path="/app/product/compare/list" component={ProductCompareList} />
 
+        <Route path="/app/manage/work/report" component={WorkReportManage} />
         <Route component={PageNotFound} />
       </Switch>
     </>
