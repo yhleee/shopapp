@@ -7,4 +7,5 @@ export interface Brand {
 export interface BrandParams {
   brandCode: string
   brandName: string
+  checked: boolean
 }
