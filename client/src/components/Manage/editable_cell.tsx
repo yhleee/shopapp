@@ -57,6 +57,10 @@ export class EditableCell extends React.Component<Props, OwnState> {
     })
   }
 
+  checkRequired = title => {
+    return ['구분', '업무', '추진 경과 [상세]', '담당자', '일정', '완료 여부'].includes(title)
+  }
+
   renderCell = form => {
     this.form = form
     const { children, dataIndex, record, title } = this.props
@@ -66,12 +70,12 @@ export class EditableCell extends React.Component<Props, OwnState> {
         {form.getFieldDecorator(dataIndex, {
           rules: [
             {
-              required: true,
-              message: `${title} is required.`,
+              required: this.checkRequired(title),
+              message: `"${title}"는(은) 필수항목 입니다.`,
             },
           ],
           initialValue: record[dataIndex],
-        })(<TextArea ref={this.input} onPressEnter={this.save} onBlur={this.save} />)}
+        })(<TextArea ref={this.input} onBlur={this.save} autoFocus={true} />)}
       </Form.Item>
     ) : (
       <div
@@ -86,8 +90,12 @@ export class EditableCell extends React.Component<Props, OwnState> {
 
   render() {
     const { editable, dataIndex, title, record, index, handleSave, children, ...restProps } = this.props
+    const replaceRestProps = {
+      className: restProps['className'],
+      onClick: restProps['onClick'],
+    }
     return (
-      <td {...restProps}>
+      <td {...replaceRestProps}>
         {editable ? <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer> : children}
       </td>
     )

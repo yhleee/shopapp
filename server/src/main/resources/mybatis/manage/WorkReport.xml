@@ -63,8 +63,8 @@
             schedule = #{schedule},
             state = #{state},
             etc = #{etc}
-            <if test="delete != null">
-            , delete = #{delete}
+            <if test="remove != null">
+            , remove = #{remove}
             </if>
         WHERE no = #{no}
     </update>

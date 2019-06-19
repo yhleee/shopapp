@@ -1,9 +1,8 @@
 import * as React from 'react'
 import * as s from './work_report.css'
-import { Table, Divider, Tag, Form, InputNumber, Input } from 'antd'
-import { getWorkReportList } from 'common/services/manage'
-import { EditableCell, EditableFormRow } from './editable_table'
-import Button from 'antd/lib/button'
+import { Table, Divider, Button, message } from 'antd'
+import { getWorkReportList, upsertWorkReport } from 'common/services/manage'
+import { EditableCell, EditableFormRow } from './editable_cell'
 
 export enum WorkReportType {
   COMMON = '일상',
@@ -24,7 +23,7 @@ export interface WorkReportItem {
   schedule: string
   state: WorkReportState
   etc: string
-  remove: string
+  remove: any
 }
 
 interface OwnProps {}
@@ -35,6 +34,7 @@ interface OwnState {
   ownerFilters: Filter[]
   taskFilters: Filter[]
   scheduleFilters: Filter[]
+  showSaveNewButton: boolean
 }
 
 interface Filter {
@@ -55,6 +55,7 @@ class WorkReport extends React.Component<Props, OwnState> {
       ownerFilters: [],
       taskFilters: [],
       scheduleFilters: [],
+      showSaveNewButton: false,
     }
   }
 
@@ -145,7 +146,7 @@ class WorkReport extends React.Component<Props, OwnState> {
         datasource.push({
           ...item,
           remove: (
-            <Button href="javascript:void(0)" onClick={this.handleDelete} type="danger">
+            <Button href="javascript:void(0)" onClick={this.handleDelete(item.no)} type="danger">
               D
             </Button>
           ),
@@ -188,13 +189,34 @@ class WorkReport extends React.Component<Props, OwnState> {
         scheduleFilters,
         list: datasource,
         listCount: list.length,
+        showSaveNewButton: false,
       })
     }
   }
 
-  handleDelete = no => {
+  handleDelete = no => async () => {
     const list = [...this.state.list]
-    this.setState({ list: list.filter(item => item.no !== no) })
+    if (!no) {
+      this.setState({
+        list: list.filter(item => item.no !== no),
+        showSaveNewButton: false,
+      })
+      return
+    }
+    const filterList = list.filter(item => item.no === no)
+    if (filterList && filterList.length > 0) {
+      const removeItem = filterList[0]
+      const response = await upsertWorkReport({
+        ...removeItem,
+        remove: 'Y',
+      })
+      if (response && response.status === 200) {
+        message.success('삭제 되었습니다.')
+        this.generateList()
+      }
+      return
+    }
+    message.error('리스트 상에 등록된 내용이 없습니다.')
   }
 
   handleAdd = () => {
@@ -208,27 +230,75 @@ class WorkReport extends React.Component<Props, OwnState> {
       schedule: null,
       state: null,
       etc: null,
-      remove: 'N',
+      remove: (
+        <Button href="javascript:void(0)" onClick={this.handleDelete(null)} type="danger">
+          D
+        </Button>
+      ),
     }
     this.setState({
       list: [...list, newData],
       listCount: listCount + 1,
+      showSaveNewButton: true,
     })
   }
 
-  handleSave = row => {
-    const newData = [...this.state.list]
-    const index = newData.findIndex(item => row.no === item.no)
-    const item = newData[index]
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
+  handleUpdate = async row => {
+    if (row.no === null) {
+      const newData = [...this.state.list]
+      const index = newData.findIndex(item => row.no === item.no)
+      const item = newData[index]
+      newData.splice(index, 1, {
+        ...item,
+        ...row,
+      })
+      this.setState({ list: newData })
+      return
+    }
+    this.handleSave(row)
+  }
+
+  handleNewRowSave = async () => {
+    const dataList = [...this.state.list]
+    const row = dataList.filter(data => data.no === null)
+    if (!row || row.length === 0) {
+      message.warn('새로운 데이터가 없습니다.')
+      return
+    }
+    row.forEach(async item => {
+      await this.handleSave(item)
     })
-    this.setState({ list: newData })
+  }
+
+  validateData = (data: WorkReportItem) => {
+    return (
+      data.type !== null &&
+      data.task !== null &&
+      data.detail !== null &&
+      data.owner !== null &&
+      data.schedule !== null &&
+      data.state !== null
+    )
+  }
+
+  handleSave = async item => {
+    // const newData = [...this.state.list]
+    // const index = newData.findIndex(item => row.no === item.no)
+    // const item = newData[index]
+    item.remove = 'N'
+    if (!this.validateData(item)) {
+      message.error('필수항목을 모두 입력 해 주세요.')
+      return
+    }
+    const updateRes = await upsertWorkReport(item)
+    if (updateRes && (updateRes.status === 200 || updateRes.status === 201)) {
+      message.success('갱신 되었습니다.')
+      await this.generateList()
+    }
   }
 
   render() {
-    const { list } = this.state
+    const { list, showSaveNewButton } = this.state
     const components = {
       body: {
         row: EditableFormRow,
@@ -246,7 +316,7 @@ class WorkReport extends React.Component<Props, OwnState> {
           editable: col.editable,
           dataIndex: col.dataIndex,
           title: col.title,
-          handleSave: this.handleSave,
+          handleSave: this.handleUpdate,
         }),
       }
     })
@@ -267,8 +337,17 @@ class WorkReport extends React.Component<Props, OwnState> {
           rowClassName={() => 'editable-row'}
         />
         <div style={{ padding: '20px 20px', width: '100%', textAlign: 'right' }}>
-          <Button href="javascript:void(0)" onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
-            Add a row
+          <Button
+            href="javascript:void(0)"
+            onClick={this.handleNewRowSave}
+            type="primary"
+            style={{ marginBottom: 16, display: `${showSaveNewButton ? 'block' : 'none'}` }}
+          >
+            새로운 데이터 저장
+          </Button>
+          &nbsp;
+          <Button href="javascript:void(0)" onClick={this.handleAdd} type="default" style={{ marginBottom: 16 }}>
+            신규 데이터 추가
           </Button>
         </div>
       </div>
