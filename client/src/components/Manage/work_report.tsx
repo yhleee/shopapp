@@ -3,6 +3,12 @@ import * as s from './work_report.css'
 import { Table, Divider, Button, message } from 'antd'
 import { getWorkReportList, upsertWorkReport } from 'common/services/manage'
 import { EditableCell, EditableFormRow } from './editable_cell'
+import ReactExport from 'react-export-excel'
+import { weekNumberByMonth } from 'common/utils/stringUtils'
+
+const ExcelFile = ReactExport.ExcelFile
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
 
 export enum WorkReportType {
   COMMON = '일상',
@@ -231,7 +237,7 @@ class WorkReport extends React.Component<Props, OwnState> {
       state: null,
       etc: null,
       remove: (
-        <Button href="javascript:void(0)" onClick={this.handleDelete(null)} type="danger">
+        <Button href="javascript:void(0)" size={'small'} onClick={this.handleDelete(null)} type="danger">
           D
         </Button>
       ),
@@ -297,6 +303,19 @@ class WorkReport extends React.Component<Props, OwnState> {
     }
   }
 
+  generateSheetDatas = () => {
+    const dataSource = this.state.list
+    const datas: WorkReportItem[] = []
+    dataSource.filter(data => data.no !== null).forEach((data, index) => {
+      datas.push({
+        ...data,
+        remove: 'N',
+        detail: data.detail.replace('\n', '\r\n'),
+      })
+    })
+    return datas
+  }
+
   render() {
     const { list, showSaveNewButton } = this.state
     const components = {
@@ -320,6 +339,28 @@ class WorkReport extends React.Component<Props, OwnState> {
         }),
       }
     })
+
+    const weekOfMonthInfo = weekNumberByMonth(new Date())
+    const weekOfMonth = `${weekOfMonthInfo.year}년${weekOfMonthInfo.month}월${weekOfMonthInfo.weekNo}주차`
+
+    const excelDatas = []
+    list.forEach(data => {
+      excelDatas.push([
+        { value: data.type, style: { alignment: { vertical: 'center' } } },
+        { value: data.task, style: { alignment: { vertical: 'center' } } },
+        { value: data.detail, style: { alignment: { wrapText: true, vertical: 'center' } } },
+        { value: data.owner, style: { alignment: { vertical: 'center' } } },
+        { value: data.schedule, style: { alignment: { vertical: 'center' } } },
+        { value: data.state, style: { alignment: { vertical: 'center' } } },
+        { value: data.etc, style: { alignment: { wrapText: true, vertical: 'center' } } },
+      ])
+    })
+    const multiDataSet = [
+      {
+        columns: ['구분', '업무', '추진 경과 [상세]', '담당자', '일정', '완료 여부', '비고'],
+        data: excelDatas,
+      },
+    ]
 
     return (
       <div style={{ padding: '20px 10px' }}>
@@ -349,6 +390,17 @@ class WorkReport extends React.Component<Props, OwnState> {
           <Button href="javascript:void(0)" onClick={this.handleAdd} type="default" style={{ marginBottom: 16 }}>
             신규 데이터 추가
           </Button>
+          &nbsp;
+          <ExcelFile
+            element={
+              <Button type="default" href="javascript:void(0)">
+                엑셀 다운로드
+              </Button>
+            }
+            filename={`정보전략팀_주간보고_${weekOfMonth}`}
+          >
+            <ExcelSheet dataSet={multiDataSet} name={weekOfMonth} />
+          </ExcelFile>
         </div>
       </div>
     )

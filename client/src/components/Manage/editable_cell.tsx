@@ -75,7 +75,13 @@ export class EditableCell extends React.Component<Props, OwnState> {
             },
           ],
           initialValue: record[dataIndex],
-        })(<TextArea ref={this.input} onBlur={this.save} autoFocus={true} />)}
+        })(
+          title === '추진 경과 [상세]' || title === '비고' ? (
+            <TextArea ref={this.input} onBlur={this.save} autoFocus={true} />
+          ) : (
+            <Input ref={this.input} onBlur={this.save} autoFocus={true} />
+          ),
+        )}
       </Form.Item>
     ) : (
       <div
