@@ -2,8 +2,7 @@ package kr.co.oliveyoung.shopapp.services.api.notice;
 
 import kr.co.oliveyoung.shopapp.common.enums.ResponseResult;
 import kr.co.oliveyoung.shopapp.common.model.ApiResponseMessage;
-import kr.co.oliveyoung.shopapp.common.utils.JsonUtils;
-import kr.co.oliveyoung.shopapp.feature.notice.ShopNotice;
+import kr.co.oliveyoung.shopapp.feature.notice.StoreNotice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequestMapping("/notice/shop/")
 @RestController
-public class ShopNoticeController {
+public class StoreNoticeController {
 
     @Autowired
-    private ShopNoticeService service;
+    private StoreNoticeService service;
 
     @GetMapping("/{storeCode}")
-    public ApiResponseMessage shopNotice(HttpServletResponse response, @PathVariable("storeCode" ) String storeCode) {
-        ShopNotice notice = service.getShopNotice(storeCode);
+    public ApiResponseMessage storeNotice(HttpServletResponse response, @PathVariable("storeCode" ) String storeCode) {
+        StoreNotice notice = service.getStoreNotice(storeCode);
         if (notice == null) {
             response.setStatus(204);
             return null;
@@ -30,16 +29,13 @@ public class ShopNoticeController {
     }
 
     @RequestMapping(value = "/insert", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ApiResponseMessage addShopNotice(HttpServletResponse response, @RequestBody ShopNotice params) {
+    public ApiResponseMessage addStoreNotice(HttpServletResponse response, @RequestBody StoreNotice params) {
         try {
-            log.info("------------------------------------");
-            log.info(JsonUtils.objectToJson(params));
-            log.info("------------------------------------");
             if (params.getStrCd() == null || params.getText() == null) {
                 response.setStatus(400);
                 return null;
             }
-            service.addShopNotice(params.getStrCd(), params.getText(), params.getWrtrUsrId());
+            service.addStoreNotice(params.getStrCd(), params.getText(), params.getRegUsrId());
             response.setStatus(201);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
