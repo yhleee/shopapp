@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Form, Input } from 'antd'
 import { styling } from 'common/utils'
 import * as s from './work_report.css'
+import { Resizable } from 'react-resizable'
 
 const { TextArea } = Input
 const EditableContext = React.createContext({})
@@ -86,7 +87,7 @@ export class EditableCell extends React.Component<Props, OwnState> {
     ) : (
       <div
         className="editable-cell-value-wrap"
-        style={{ paddingRight: 5, whiteSpace: 'pre-wrap' }}
+        style={{ paddingRight: 5, whiteSpace: 'pre-wrap', fontSize: '12px' }}
         onClick={this.toggleEdit}
       >
         {children}
@@ -101,9 +102,23 @@ export class EditableCell extends React.Component<Props, OwnState> {
       onClick: restProps['onClick'],
     }
     return (
-      <td {...replaceRestProps}>
+      <td {...replaceRestProps} style={{ padding: '2px' }}>
         {editable ? <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer> : children}
       </td>
     )
   }
+}
+
+export const ResizeableTitle = props => {
+  const { onResize, width, ...restProps } = props
+
+  if (!width) {
+    return <th {...restProps} />
+  }
+
+  return (
+    <Resizable width={width} height={0} onResize={onResize}>
+      <th {...restProps} />
+    </Resizable>
+  )
 }

@@ -1,14 +1,14 @@
 import * as React from 'react'
-import * as s from './work_report.css'
 import { Table, Divider, Button, message } from 'antd'
 import { getWorkReportList, upsertWorkReport } from 'common/services/manage'
-import { EditableCell, EditableFormRow } from './editable_cell'
+import { EditableCell, EditableFormRow, ResizeableTitle } from './editable_cell'
 import ReactExport from 'react-export-excel'
 import { weekNumberByMonth } from 'common/utils/stringUtils'
+import ReactToPrint from 'react-to-print'
 
 const ExcelFile = ReactExport.ExcelFile
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
+// const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
 
 export enum WorkReportType {
   COMMON = '일상',
@@ -29,7 +29,7 @@ export interface WorkReportItem {
   schedule: string
   state: WorkReportState
   etc: string
-  remove: any
+  remove?: any
 }
 
 interface OwnProps {}
@@ -52,6 +52,7 @@ type Props = OwnProps
 
 class WorkReport extends React.Component<Props, OwnState> {
   columns: Object[]
+  contentsWrapEl: React.RefObject<HTMLDivElement>
 
   constructor(props) {
     super(props)
@@ -63,6 +64,7 @@ class WorkReport extends React.Component<Props, OwnState> {
       scheduleFilters: [],
       showSaveNewButton: false,
     }
+    this.contentsWrapEl = React.createRef()
   }
 
   getColumns = () => {
@@ -124,13 +126,13 @@ class WorkReport extends React.Component<Props, OwnState> {
         editable: true,
         required: false,
       },
-      {
-        title: '삭제',
-        dataIndex: 'remove',
-        key: 'remove',
-        editable: false,
-        required: false,
-      },
+      // {
+      //   title: '삭제',
+      //   dataIndex: 'remove',
+      //   key: 'remove',
+      //   editable: false,
+      //   required: false,
+      // },
     ]
   }
 
@@ -151,11 +153,11 @@ class WorkReport extends React.Component<Props, OwnState> {
       list.forEach((item, index) => {
         datasource.push({
           ...item,
-          remove: (
-            <Button href="javascript:void(0)" onClick={this.handleDelete(item.no)} type="danger">
-              D
-            </Button>
-          ),
+          // remove: (
+          //   <Button href="javascript:void(0)" onClick={this.handleDelete(item.no)} type="danger">
+          //     D
+          //   </Button>
+          // ),
         })
 
         owners[item.owner] = owners[item.owner] ? owners[item.owner] + 1 : 1
@@ -236,11 +238,11 @@ class WorkReport extends React.Component<Props, OwnState> {
       schedule: null,
       state: null,
       etc: null,
-      remove: (
-        <Button href="javascript:void(0)" size={'small'} onClick={this.handleDelete(null)} type="danger">
-          D
-        </Button>
-      ),
+      // remove: (
+      //   <Button href="javascript:void(0)" size={'small'} onClick={this.handleDelete(null)} type="danger">
+      //     D
+      //   </Button>
+      // ),
     }
     this.setState({
       list: [...list, newData],
@@ -319,6 +321,9 @@ class WorkReport extends React.Component<Props, OwnState> {
   render() {
     const { list, showSaveNewButton } = this.state
     const components = {
+      header: {
+        cell: ResizeableTitle,
+      },
       body: {
         row: EditableFormRow,
         cell: EditableCell,
@@ -357,26 +362,55 @@ class WorkReport extends React.Component<Props, OwnState> {
     })
     const multiDataSet = [
       {
-        columns: ['구분', '업무', '추진 경과 [상세]', '담당자', '일정', '완료 여부', '비고'],
+        columns: [
+          {
+            title: '구분',
+          },
+          {
+            title: '업무',
+          },
+          {
+            title: '추진 경과 [상세]',
+          },
+          {
+            title: '담당자',
+          },
+          {
+            title: '일정',
+          },
+          {
+            title: '완료 여부',
+          },
+          {
+            title: '비고',
+          },
+        ],
         data: excelDatas,
       },
     ]
 
     return (
-      <div style={{ padding: '20px 10px' }}>
-        <div>
-          <div style={{ display: 'table-cell' }}>
-            <h2>■ 정보전략팀 업무보고</h2>
+      <>
+        <div style={{ padding: '20px 10px' }} ref={this.contentsWrapEl}>
+          <div style={{ display: 'table', width: '100%' }}>
+            <div style={{ display: 'table-cell', width: '50%' }}>
+              <h2>■ 정보전략팀 업무보고</h2>
+            </div>
+            <div style={{ display: 'table-cell', width: '50%', textAlign: 'right' }}>
+              <h3>{weekOfMonth}</h3>
+            </div>
           </div>
+          <Table
+            components={components}
+            columns={columns}
+            dataSource={list}
+            pagination={false}
+            bordered={true}
+            rowClassName={() => 'editable-row'}
+            size="small"
+            // useFixedHeader={true}
+          />
         </div>
-        <Divider style={{ marginTop: '-10px' }} />
-        <Table
-          components={components}
-          columns={columns}
-          dataSource={list}
-          pagination={false}
-          rowClassName={() => 'editable-row'}
-        />
         <div style={{ padding: '20px 20px', width: '100%', textAlign: 'right' }}>
           <Button
             href="javascript:void(0)"
@@ -401,8 +435,17 @@ class WorkReport extends React.Component<Props, OwnState> {
           >
             <ExcelSheet dataSet={multiDataSet} name={weekOfMonth} />
           </ExcelFile>
+          &nbsp;
+          <ReactToPrint
+            trigger={() => (
+              <Button icon="printer" href="javascript:void(0)" type="default" style={{ marginBottom: 16 }}>
+                프린트
+              </Button>
+            )}
+            content={() => this.contentsWrapEl.current}
+          />
         </div>
-      </div>
+      </>
     )
   }
 }
