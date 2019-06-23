@@ -29,7 +29,9 @@ export interface SearchForm {
   categoryId?: string
   categoryName?: string
   brand?: string
+  brandName?: string
   benefit?: string
+  benefitName?: string
   startValue?: number
   endValue?: number
 }
