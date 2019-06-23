@@ -88,8 +88,10 @@ class SearchCondition extends React.Component<Props, OwnState> {
   async componentDidMount() {
     this.props.searchConditionParams.searchForm.searchword = ''
     this.props.searchConditionParams.searchForm.categoryId = ''
-    this.props.searchConditionParams.searchForm.benefit = ''
     this.props.searchConditionParams.searchForm.brand = ''
+    this.props.searchConditionParams.searchForm.brandName = ''
+    this.props.searchConditionParams.searchForm.benefit = ''
+    this.props.searchConditionParams.searchForm.benefitName = ''
     this.props.searchConditionParams.searchForm.startValue = 0
     this.props.searchConditionParams.searchForm.endValue = 200000
 
@@ -137,18 +139,23 @@ class SearchCondition extends React.Component<Props, OwnState> {
 
   handleBrandForm = (brandParams: BrandParams) => {
     const searchConditionParams = this.props.searchConditionParams
-    console.log(`callBack Code = ${brandParams.brandCode}`)
-    console.log(`callBack Name = ${brandParams.brandName}`)
-    console.log(`callBack checked = ${brandParams.checked}`)
     if (brandParams.checked) {
       if (searchConditionParams.searchForm.brand === '') {
         searchConditionParams.searchForm.brand = `${brandParams.brandCode},`
+        searchConditionParams.searchForm.brandName = `${brandParams.brandName},`
       } else {
         searchConditionParams.searchForm.brand = `${searchConditionParams.searchForm.brand}${brandParams.brandCode},`
+        searchConditionParams.searchForm.brandName = `${searchConditionParams.searchForm.brandName}${
+          brandParams.brandName
+        },`
       }
     } else {
       searchConditionParams.searchForm.brand = searchConditionParams.searchForm.brand.replace(
         `${brandParams.brandCode},`,
+        ``,
+      )
+      searchConditionParams.searchForm.brandName = searchConditionParams.searchForm.brandName.replace(
+        `${brandParams.brandName},`,
         ``,
       )
     }
@@ -186,15 +193,15 @@ class SearchCondition extends React.Component<Props, OwnState> {
           {/* 카테고리 선택 영역(다중 선택 불가) */}
           <FormCategory type={SearchPage.SEARCH} handleParams={this.handleCategoryForm} />
 
-          {/* 브랜드 선택 영역(다중 선택 가능) */}
-          <p style={{ fontSize: 25 }}>브랜드</p>
-          {brandSliceList.map((brand, index) => (
-            <FormTagPanel key={index} callback={this.handleBrandForm} brandList={brand} />
-          ))}
-
-          {/* 혜택 영역(다중 선택 가능) */}
-          <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
-            <SubMenu title={<p style={{ fontSize: 25, height: '80px' }}>혜택</p>}>
+          <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, marginBottom: 200 }}>
+            <SubMenu title={<p style={{ fontSize: 25, marginBottom: 30 }}>브랜드</p>}>
+              {/* 브랜드 선택 영역(다중 선택 가능) */}
+              {brandSliceList.map((brand, index) => (
+                <FormTagPanel key={index} callback={this.handleBrandForm} brandList={brand} />
+              ))}
+            </SubMenu>
+            <SubMenu title={<p style={{ fontSize: 25 }}>혜택</p>}>
+              {/* 혜택 영역(다중 선택 가능) */}
               <li style={{ textAlign: 'center' }}>
                 <MyTag key="benefit_all">전체</MyTag>
                 <MyTag key="benefit_coupon">쿠폰상품</MyTag>
@@ -207,20 +214,8 @@ class SearchCondition extends React.Component<Props, OwnState> {
                 <MyTag key="benefit_today">오늘드림</MyTag>
               </li>
             </SubMenu>
-          </Menu>
-
-          <Menu
-            mode="inline"
-            style={{
-              width: '100%',
-              height: 'auto',
-              fontSize: 30,
-              marginBottom: 200,
-              marginTop: 20,
-              backgroundColor: '#e4ffaf',
-            }}
-          >
             <SubMenu title={<span style={{ fontSize: 25 }}>가격대</span>}>
+              {/* 가격대 선택 영역(시작,종료 값) */}
               <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
                 <Slider
                   range={true}

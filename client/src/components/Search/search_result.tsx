@@ -62,7 +62,7 @@ class SearchResult extends React.Component<Props, OwnState> {
           )}
           {this.props.searchConditionParams.searchForm.brand ? (
             <>
-              <span>브랜드 : {this.props.searchConditionParams.searchForm.brand}</span>
+              <span>브랜드 : {this.props.searchConditionParams.searchForm.brandName}</span>
               <br />
             </>
           ) : (
@@ -70,7 +70,7 @@ class SearchResult extends React.Component<Props, OwnState> {
           )}
           {this.props.searchConditionParams.searchForm.benefit ? (
             <>
-              <span>혜택 : {this.props.searchConditionParams.searchForm.benefit}</span>
+              <span>혜택 : {this.props.searchConditionParams.searchForm.benefitName}</span>
               <br />
             </>
           ) : (
