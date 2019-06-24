@@ -74,3 +74,15 @@
   background: #c2dd8d;
   text-align: center;
 }
+
+.header_wrap .survey_end {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 20px;
+}
+
+.header_wrap .survey_end .end_btn {
+  height: 50px;
+  font-size: 25px;
+}

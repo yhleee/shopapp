@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { RootState } from 'common/reducer'
 import { fetchLayoutTitle, LayoutTitleState, updateLayoutTile } from './ducks/LayoutTitle'
 import { DynamicCx } from 'common/types'
 import { styling } from 'common/utils'
 import { Drawer } from 'antd'
+import { History } from 'history'
 import * as s from './Layout.scss'
 import PageNotFound from '../Error/PageNotFound'
 import { sclog } from 'common/clickLog'
@@ -14,6 +15,7 @@ import { fetchUserInfo, resetUserInfo, UserInfoState } from './ducks/UserInfo'
 interface OwnProps {
   cx?: DynamicCx
   children?: any
+  history?: History
 }
 
 interface StateProps {
@@ -73,6 +75,12 @@ class Layout extends React.Component<Props, OwnState> {
     window && window.history.back()
   }
 
+  endButtonHandler = () => {
+    if (confirm('피부 분석을 중단 하시겠어요?')) {
+      console.log('ok')
+    }
+  }
+
   render() {
     const { cx, children, layoutTitle } = this.props
     return (
@@ -86,7 +94,19 @@ class Layout extends React.Component<Props, OwnState> {
             )}
           </div>
           {layoutTitle && layoutTitle.title && <div className={cx('back_button')} onClick={this.backButtonHandler} />}
-          <div className={cx('menu')} onClick={this.toggleMenu} />
+
+          {layoutTitle && layoutTitle.title && layoutTitle.title === '셀프 문진' ? (
+            <div className={cx('survey_end')}>
+              <button
+                className={cx('end_btn')}
+                onClick={() => (confirm('피부 분석을 중단 하시겠어요?') ? this.props.history.push('/app/home') : <></>)}
+              >
+                분석 종료
+              </button>
+            </div>
+          ) : (
+            <div className={cx('menu')} onClick={this.toggleMenu} />
+          )}
           <Drawer title="MENU" placement="right" closable={false} onClose={this.closeMenu} visible={this.state.visible}>
             <div className={cx('menu_list')}>
               <p>
@@ -134,4 +154,4 @@ export default connect<StateProps, DispatchProps, OwnProps>(
     fetchUserInfo,
     resetUserInfo,
   },
-)(styling(s)(Layout))
+)(styling(s)(withRouter(Layout)))
