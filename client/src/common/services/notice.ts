@@ -10,7 +10,7 @@ export const putShopNotice = async (storeCode: string, text: string, userId: str
   const params: ShopNotice = {
     text,
     strCd: storeCode,
-    wrtrUsrId: userId,
+    regUsrId: userId,
     modUsrId: userId,
   }
   const response = await axios.put('/api/notice/shop/insert', params)

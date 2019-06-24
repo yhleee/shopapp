@@ -8,15 +8,15 @@ import java.util.Date;
 
 @Alias("shopNotice")
 @Data
-public class ShopNotice implements Serializable  {
+public class StoreNotice implements Serializable  {
     private static final long serialVersionUID = -2323024886137605959L;
 
-    private Long id;
+    private Long noticeNo;
     private String strCd;
     private String text;
-    private Date wrtYmdt;
-    private String wrtrUsrId;
-    private Date modYmdt;
+    private String regUsrId;
+    private Date regDt;
+    private Date modDt;
     private String modUsrId;
     private String delYn;
 }
