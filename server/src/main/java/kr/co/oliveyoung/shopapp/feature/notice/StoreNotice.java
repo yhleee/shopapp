@@ -13,7 +13,9 @@ public class StoreNotice implements Serializable  {
 
     private Long noticeNo;
     private String strCd;
+    private String clsText;
     private String text;
+    private String noticeDt;
     private String regUsrId;
     private Date regDt;
     private Date modDt;
