@@ -42,4 +42,17 @@
              memoryStoreEvictionPolicy="LRU"
     />
 
+    <cache name="searchProductOnline"
+           maxElementsInMemory="10000"
+           diskSpoolBufferSizeMB="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="300"
+           overflowToDisk="true"
+           maxElementsOnDisk="100000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
 </ehcache>

@@ -144,3 +144,20 @@ export enum SearchPage {
   RANKING = 'ranking',
   SEARCH = 'search',
 }
+
+export enum OnlineMallGoodsSort {
+  POPULAR = 'RNK/DESC',
+  RECENT = 'DATE/DESC',
+  SALE_COUNT = 'SALE_QTY/DESC',
+  PRICE_ASC = 'SALE_PRC/ASC',
+  PRICE_DESC = 'SALE_PRC/DESC',
+}
+
+export enum OnlineMallBenefit {
+  COUPON = 'CPN_YN',
+  DISCOUNT = 'DSCNT_YN',
+  PRESENT = 'PRST_YN',
+  FREE_DELIVERY = 'FREE_DLV_YN',
+  ONE_PLUS_ONE = 'ASSOC_PROMT_STD_CNT_1',
+  TWO_PLUS_ONE = 'ASSOC_PROMT_STD_CNT_2',
+}

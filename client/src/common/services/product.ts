@@ -1,5 +1,5 @@
 import { axios } from 'common/utils'
-import { Product } from 'common/types/entities/product'
+import { Product, ProductSearchParam } from 'common/types/entities/product'
 
 export const getProductDetailHtml = async (goodsCode: string) => {
   const response = await axios.get(`/api/product/detail/parser/${goodsCode}`)
@@ -49,3 +49,9 @@ const dummyProducts: Product[] = [
     rank: 3,
   },
 ]
+
+export const productSearchOnlineMall = async (params: ProductSearchParam) => {
+  const response = await axios.post('/api/product/online/search', params)
+  console.log(response)
+  return response && response.data
+}
