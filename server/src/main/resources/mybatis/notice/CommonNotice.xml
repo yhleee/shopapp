@@ -1,0 +1,59 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.notice.CommonNoticeMapper">
+
+    <select id="selectCommNotice"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.CommonNotice"
+            resultType="kr.co.oliveyoung.shopapp.feature.notice.CommonNotice"
+    >
+        SELECT *
+        FROM
+        (
+            SELECT    B.ITEM_ID AS itemId
+                    , 'NOTICE>'||(SELECT BOARD_NAME FROM BIZPORTAL.IKEP4_BD_BOARD WHERE BOARD_ID = B.BOARD_ID) AS clsText
+                    , B.TITLE AS title
+                    , TO_CHAR(B.REGIST_DATE,'YYYY-MM-DD') AS regDt
+            FROM BIZPORTAL.IKEP4_BD_ITEM B
+            WHERE 1=1
+            AND B.BOARD_ID IN
+                                (
+                                 100004600428
+                                ,100002101205
+                                ,100002101200
+                                ,100002745982
+                                ,100002101215
+                                ,100002101210
+                                ,100002201079
+                                )
+            AND PERMIT_STATUS = 1
+            AND ITEM_DELETE = 0
+            AND (START_DATE <![CDATA[<=]]>  SYSDATE)
+            AND (END_DATE IS NULL OR END_DATE <![CDATA[>]]> SYSDATE)
+            ORDER BY B.REGIST_DATE DESC
+        )
+        WHERE ROWNUM <![CDATA[<=]]> 5
+    </select>
+
+    <select id="selectCommonNoticeDetail"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.CommonNotice"
+            resultType="kr.co.oliveyoung.shopapp.feature.notice.CommonNotice"
+    >
+        SELECT    B.ITEM_ID AS itemId
+                , B.ITEM_SEQ_ID AS itemSeqId
+                , B.TITLE AS title
+                , B.TEXT_CONTENTS AS textContents
+                , B.HIT_COUNT AS hitCnt
+                , B.ATTACH_FILE_COUNT AS attachFileCnt
+                , B.IMAGE_FILE_ID AS imageFileId
+                , C.FILE_REAL_NAME AS fileRealNm
+                , CASE WHEN C.FILE_ID IS NOT NULL THEN 'https://oybiz.cj.net/BIZPORTAL/support/fileupload/downloadFile.do?fileId='||C.FILE_ID END AS fileLink
+                , B.REGIST_DATE AS regDate
+                , B.REGISTER_NAME AS regNm
+                , B.UPDATE_DATE AS modDate
+                , B.UPDATER_ID AS modNm
+    FROM BIZPORTAL.IKEP4_BD_ITEM B, BIZPORTAL.IKEP4_DM_FILE C
+    WHERE 1=1
+    AND B.IMAGE_FILE_ID = C.FILE_ID(+)
+    AND B.ITEM_ID = #{itemId}
+    </select>
+
+</mapper>
