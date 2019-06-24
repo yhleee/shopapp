@@ -40,7 +40,7 @@ repositories {
     maven { url 'http://packages.confluent.io/maven/' }
     maven { url 'http://nexus.saas.hand-china.com/content/repositories/rdc' }
 //    maven { url 'http://central.maven.org/maven2/' }
-//    maven { url 'https://repo1.maven.org/maven2/' }
+    maven { url 'https://repo1.maven.org/maven2/' }
 }
 
 jacoco {
@@ -160,6 +160,8 @@ dependencies {
     // ehcache 설정
     compile 'org.springframework.boot:spring-boot-starter-cache:2.1.4.RELEASE'
     compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.6'
+
+    compile 'commons-lang:commons-lang:2.6'
 }
 
 bootJar {

@@ -13,6 +13,7 @@ public class ApiResponseMessage implements Serializable {
     private String redirectUrl;
     private Object contents;
     private String key;
+    private Object params;
 
     public ApiResponseMessage() {}
     public ApiResponseMessage(ResponseResult result, String message, String redirectUrl) {

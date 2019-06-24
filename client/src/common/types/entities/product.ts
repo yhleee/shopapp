@@ -1,3 +1,5 @@
+import { OnlineMallBenefit, OnlineMallGoodsSort } from '../enum/searchOptions'
+
 export interface Product {
   id: string
   rank?: number
@@ -25,4 +27,18 @@ export interface ProductCompareInfo {
 
 export interface ProductDetailInfo extends ProductCompareInfo {
   html: string
+}
+
+export interface ProductSearchParam {
+  query: string
+  startCouont: number
+  displayCateId: string
+  cateId1: string
+  cateId2: string
+  cateId3: string
+  sale_below_price: number
+  sale_over_price: number
+  goods_sort: OnlineMallGoodsSort
+  brandCheck: string[]
+  benefitCheck: OnlineMallBenefit[]
 }
