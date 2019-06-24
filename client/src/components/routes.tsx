@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { Alert, Spin } from 'antd'
 import Loadable from 'react-loadable'
 
-const Loading: React.SFC<any> = props => {
+const Loading: React.FC<any> = props => {
   return (
     <Spin tip="불러오는 중...">
       <Alert message="데이터를 불러오고 있어요!" description="가끔 서버가 응답을 하지 않으면... 하아..." type="info" />
