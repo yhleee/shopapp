@@ -16,6 +16,7 @@ public class securityUtils {
             int len$ = bin.length;
 
             for(int i$ = 0; i$ < len$; ++i$) {
+
                 byte b = arr$[i$];
                 String t = Integer.toHexString(b);
                 if (t.length() < 2) {

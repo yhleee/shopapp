@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.notice.CommonNoticeMapper">
+
+    <select id="selectCommNotice"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+            resultType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+    >
+        SELECT *
+        FROM
+        (
+            SELECT  'NOTICE>'||(SELECT BOARD_NAME FROM BIZPORTAL.IKEP4_BD_BOARD WHERE BOARD_ID = B.BOARD_ID) AS clsText
+                    ,B.TITLE AS text
+                    ,TO_CHAR(B.REGIST_DATE,'YYYY-MM-DD') AS noticeDt
+            FROM BIZPORTAL.IKEP4_BD_ITEM B
+            WHERE 1=1
+            AND B.BOARD_ID IN
+                                (
+                                 100004600428
+                                ,100002101205
+                                ,100002101200
+                                ,100002745982
+                                ,100002101215
+                                ,100002101210
+                                ,100002201079
+                                )
+            AND PERMIT_STATUS = 1
+            AND ITEM_DELETE = 0
+            AND (START_DATE <![CDATA[<=]]>  SYSDATE)
+            AND (END_DATE IS NULL OR END_DATE <![CDATA[>]]> SYSDATE)
+            ORDER BY B.REGIST_DATE DESC
+        )
+        WHERE ROWNUM <![CDATA[<=]]> 5
+    </select>
+
+</mapper>

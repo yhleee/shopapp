@@ -6,7 +6,9 @@ import kr.co.oliveyoung.shopapp.feature.notice.StoreNotice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/notice/shop/")
@@ -42,5 +44,17 @@ public class StoreNoticeController {
             response.setStatus(500);
         }
         return null;
+    }
+
+    @GetMapping("/common")
+    public ApiResponseMessage storeCommonNotice(HttpServletResponse response) {
+        List<StoreNotice> notice = service.getCommonNotice();
+        if (notice == null) {
+            response.setStatus(204);
+            return null;
+        }
+        ApiResponseMessage result = new ApiResponseMessage(ResponseResult.SUCCESS, null, null);
+        result.setContents(notice);
+        return result;
     }
 }
