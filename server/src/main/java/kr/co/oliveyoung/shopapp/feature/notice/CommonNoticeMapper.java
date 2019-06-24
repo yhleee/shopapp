@@ -7,5 +7,6 @@ import java.util.List;
 @OracleMapper
 public interface CommonNoticeMapper {
 
-    List<StoreNotice> selectCommNotice(StoreNotice params);
+    List<CommonNotice> selectCommNotice(CommonNotice params);
+    CommonNotice selectCommonNoticeDetail(CommonNotice params);
 }

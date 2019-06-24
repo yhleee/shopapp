@@ -1,5 +1,6 @@
 package kr.co.oliveyoung.shopapp.services.api.notice;
 
+import kr.co.oliveyoung.shopapp.feature.notice.CommonNotice;
 import kr.co.oliveyoung.shopapp.feature.notice.CommonNoticeMapper;
 import kr.co.oliveyoung.shopapp.feature.notice.StoreNotice;
 import kr.co.oliveyoung.shopapp.feature.notice.StoreNoticeMapper;
@@ -25,9 +26,15 @@ public class StoreNoticeService {
         return mapper.selectTbShpNotice(params);
     }
 
-    List<StoreNotice> getCommonNotice() {
-        StoreNotice params = new StoreNotice();
+    List<CommonNotice> getCommonNotice() {
+        CommonNotice params = new CommonNotice();
         return cMapper.selectCommNotice(params);
+    }
+
+    CommonNotice getCommonNoticeDetail(String noticeId) {
+        CommonNotice params = new CommonNotice();
+        params.setItemId(noticeId);
+        return cMapper.selectCommonNoticeDetail(params);
     }
 
     void addStoreNotice(String storeCode, String text, String userId) {
