@@ -3,3 +3,9 @@ export interface Brand {
   name: string
   imageUrl?: string
 }
+
+export interface BrandParams {
+  brandCode: string
+  brandName: string
+  checked: boolean
+}

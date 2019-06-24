@@ -13,7 +13,10 @@ import {
 } from './ducks/searchConditionParams'
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
-
+import { CategoryFormResult } from '../../common/types/entities/search'
+import { getSearchBrandList } from '../../common/services/search'
+import { BrandParams } from '../../common/types/entities/brand'
+import FormTagPanel from '../common/FormTag/FormTagPanel'
 const SubMenu = Menu.SubMenu
 const { CheckableTag } = Tag
 
@@ -39,7 +42,10 @@ interface DispatchProps {
   updateSearchConditionParams: typeof updateSearchConditionParams
 }
 
-interface OwnState {}
+interface OwnState {
+  brandList: any[]
+  brandSliceList: any[]
+}
 
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -59,18 +65,42 @@ class SearchCondition extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      checked: false,
+      brandList: [],
+      brandSliceList: [],
     }
   }
 
-  componentDidMount() {
+  genBrandArray = (brandList: BrandParams[]) => {
+    let counter = 0
+    const brandSliceList = []
+    brandList.map((brand, index) => {
+      if (index !== 0 && (index % 25 === 0 || index === brandList.length - 1)) {
+        const sliceArr = brandList.slice(counter * 25, index)
+        if (sliceArr !== null) {
+          brandSliceList.push(sliceArr)
+        }
+        counter = counter + 1
+      }
+    })
+    return brandSliceList
+  }
+
+  async componentDidMount() {
     this.props.searchConditionParams.searchForm.searchword = ''
-    this.props.searchConditionParams.searchForm.category = ''
-    this.props.searchConditionParams.searchForm.benefit = ''
+    this.props.searchConditionParams.searchForm.categoryId = ''
     this.props.searchConditionParams.searchForm.brand = ''
+    this.props.searchConditionParams.searchForm.brandName = ''
+    this.props.searchConditionParams.searchForm.benefit = ''
+    this.props.searchConditionParams.searchForm.benefitName = ''
     this.props.searchConditionParams.searchForm.startValue = 0
     this.props.searchConditionParams.searchForm.endValue = 200000
-    console.log(`1 = ${this.props.searchConditionParams.searchForm.searchword}`)
+
+    const brand = await getSearchBrandList('00')
+
+    this.setState({
+      brandList: brand,
+      brandSliceList: this.genBrandArray(brand),
+    })
   }
 
   onPriceRangeChange = ([startVal, endVal]) => {
@@ -88,10 +118,53 @@ class SearchCondition extends React.Component<Props, OwnState> {
     this.props.history.push('/app/search/result')
   }
 
-  handleCategoryForm = () => {}
+  handleCategoryForm = (categorySearchParams: CategoryFormResult) => {
+    const searchConditionParams = this.props.searchConditionParams
+
+    if (categorySearchParams.thirdCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.thirdCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.thirdCategoryName
+    } else if (categorySearchParams.secondCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.secondCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.secondCategoryName
+    } else if (categorySearchParams.firstCategoryId != null) {
+      searchConditionParams.searchForm.categoryId = categorySearchParams.firstCategoryId
+      searchConditionParams.searchForm.categoryName = categorySearchParams.firstCategoryName
+    } else {
+      searchConditionParams.searchForm.categoryId = ''
+      searchConditionParams.searchForm.categoryName = ''
+    }
+    this.props.updateSearchConditionParams(searchConditionParams)
+  }
+
+  handleBrandForm = (brandParams: BrandParams) => {
+    const searchConditionParams = this.props.searchConditionParams
+    if (brandParams.checked) {
+      if (searchConditionParams.searchForm.brand === '') {
+        searchConditionParams.searchForm.brand = `${brandParams.brandCode},`
+        searchConditionParams.searchForm.brandName = `${brandParams.brandName},`
+      } else {
+        searchConditionParams.searchForm.brand = `${searchConditionParams.searchForm.brand}${brandParams.brandCode},`
+        searchConditionParams.searchForm.brandName = `${searchConditionParams.searchForm.brandName}${
+          brandParams.brandName
+        },`
+      }
+    } else {
+      searchConditionParams.searchForm.brand = searchConditionParams.searchForm.brand.replace(
+        `${brandParams.brandCode},`,
+        ``,
+      )
+      searchConditionParams.searchForm.brandName = searchConditionParams.searchForm.brandName.replace(
+        `${brandParams.brandName},`,
+        ``,
+      )
+    }
+    this.props.updateSearchConditionParams(searchConditionParams)
+  }
 
   render() {
     const { cx } = this.props
+    const { brandSliceList } = this.state
 
     return (
       <>
@@ -117,91 +190,18 @@ class SearchCondition extends React.Component<Props, OwnState> {
             }}
           />
 
-          {/* 카테고리 선택 영역 */}
+          {/* 카테고리 선택 영역(다중 선택 불가) */}
           <FormCategory type={SearchPage.SEARCH} handleParams={this.handleCategoryForm} />
 
-          <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
-            <SubMenu title={<p style={{ fontSize: 25 }}>브랜드</p>}>
-              <Carousel autoplay={true}>
-                <div>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>닥터자르트</MyTag>
-                    <MyTag>하다라보</MyTag>
-                    <MyTag>한율</MyTag>
-                    <MyTag>크리니크</MyTag>
-                    <MyTag>오리진스</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>닥터자르트</MyTag>
-                    <MyTag>하다라보</MyTag>
-                    <MyTag>한율</MyTag>
-                    <MyTag>크리니크</MyTag>
-                    <MyTag>오리진스</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                </div>
-                <div>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이1</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>닥터자르트2</MyTag>
-                    <MyTag>하다라보</MyTag>
-                    <MyTag>한율</MyTag>
-                    <MyTag>크리니크</MyTag>
-                    <MyTag>오리진스</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이3</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>닥터자르트4</MyTag>
-                    <MyTag>하다라보</MyTag>
-                    <MyTag>한율</MyTag>
-                    <MyTag>크리니크</MyTag>
-                    <MyTag>오리진스</MyTag>
-                  </li>
-                  <li style={{ textAlign: 'center' }}>
-                    <MyTag>아이소이</MyTag>
-                    <MyTag>녹스</MyTag>
-                    <MyTag>피지오겔</MyTag>
-                    <MyTag>마몽드</MyTag>
-                    <MyTag>비욘드</MyTag>
-                  </li>
-                </div>
-              </Carousel>
+          <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, marginBottom: 200 }}>
+            <SubMenu title={<p style={{ fontSize: 25, marginBottom: 30 }}>브랜드</p>}>
+              {/* 브랜드 선택 영역(다중 선택 가능) */}
+              {brandSliceList.map((brand, index) => (
+                <FormTagPanel key={index} callback={this.handleBrandForm} brandList={brand} />
+              ))}
             </SubMenu>
-          </Menu>
-          <Menu mode="inline" style={{ width: '100%', fontSize: 30, marginTop: 20, backgroundColor: '#e4ffaf' }}>
-            <SubMenu title={<p style={{ fontSize: 25, height: '80px' }}>혜택</p>}>
+            <SubMenu title={<p style={{ fontSize: 25 }}>혜택</p>}>
+              {/* 혜택 영역(다중 선택 가능) */}
               <li style={{ textAlign: 'center' }}>
                 <MyTag key="benefit_all">전체</MyTag>
                 <MyTag key="benefit_coupon">쿠폰상품</MyTag>
@@ -214,20 +214,8 @@ class SearchCondition extends React.Component<Props, OwnState> {
                 <MyTag key="benefit_today">오늘드림</MyTag>
               </li>
             </SubMenu>
-          </Menu>
-
-          <Menu
-            mode="inline"
-            style={{
-              width: '100%',
-              height: 'auto',
-              fontSize: 30,
-              marginBottom: 200,
-              marginTop: 20,
-              backgroundColor: '#e4ffaf',
-            }}
-          >
             <SubMenu title={<span style={{ fontSize: 25 }}>가격대</span>}>
+              {/* 가격대 선택 영역(시작,종료 값) */}
               <Menu.Item style={{ height: 'auto', marginRight: 50, fontSize: 30 }}>
                 <Slider
                   range={true}

@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ProductDetailParserController {
 
+    @Cacheable(value = "getProductPidFromBarcode", key = "#key")
     @GetMapping("/product/barcode/{barcode}")
-    public ApiResponseMessage getProductPidFromBarcode(HttpServletResponse response, @PathVariable("barcode") String barcode) {
-        String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + barcode;
+    public ApiResponseMessage getProductPidFromBarcode(HttpServletResponse response, @PathVariable("barcode") String key) {
+        String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + key;
         String barcodeHtml = requestUrl(barcodeUrl);
         Document document = Jsoup.parse(barcodeHtml);
         String goodsCode = null;
@@ -40,20 +42,21 @@ public class ProductDetailParserController {
         return parseProductDetail(response, goodsCode);
     }
 
+    @Cacheable(value = "parseProductDetail", key = "#key")
     @GetMapping("/product/detail/parser/{goodsCode}")
-    public ApiResponseMessage parseProductDetail(HttpServletResponse response, @PathVariable("goodsCode") String goodsCode) {
-        String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + goodsCode;
-        String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + goodsCode;
-        String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + goodsCode;
-        String reviewUrl = "https://m.oliveyoung.co.kr/m/goods/getGdasSummaryAjax.do?goodsNo=" + goodsCode;
+    public ApiResponseMessage parseProductDetail(HttpServletResponse response, @PathVariable("goodsCode") String key) {
+        String productUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetail.do?goodsNo=" + key;
+        String productDetailUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDesc.do?goodsNo=" + key;
+        String goodsInfoUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsArtcAjax.do?goodsNo=" + key;
+        String reviewUrl = "https://m.oliveyoung.co.kr/m/goods/getGdasSummaryAjax.do?goodsNo=" + key;
 
-        if (goodsCode == null) {
+        if (key == null) {
             response.setStatus(400);
             return new ApiResponseMessage(ResponseResult.FAIL, "상품번호가 없습니다.", null);
         }
 
         ProductDetailInfo result = new ProductDetailInfo();
-        result.setGoodsCode(goodsCode);
+        result.setGoodsCode(key);
         Document document = null;
         try {
             String html = requestUrl(productUrl);
@@ -104,7 +107,7 @@ public class ProductDetailParserController {
 //            message = new ApiResponseMessage(ResponseResult.FAIL, "상품 상세가 존재하지 않습니다.", null);
             response.setStatus(204);
         } else {
-            message = new ApiResponseMessage(ResponseResult.SUCCESS, null, null);
+            message = new ApiResponseMessage(ResponseResult.SUCCESS, key);
             message.setContents(result);
         }
         return message;

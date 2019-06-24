@@ -1,44 +1,42 @@
 package kr.co.oliveyoung.shopapp.services.api.notice;
 
-import kr.co.oliveyoung.shopapp.feature.notice.ShopNotice;
-import kr.co.oliveyoung.shopapp.feature.notice.ShopNoticeMapper;
+import kr.co.oliveyoung.shopapp.feature.notice.StoreNotice;
+import kr.co.oliveyoung.shopapp.feature.notice.StoreNoticeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @Slf4j
-public class ShopNoticeService {
+public class StoreNoticeService {
 
     @Autowired
-    private ShopNoticeMapper mapper;
+    private StoreNoticeMapper mapper;
 
-    ShopNotice getShopNotice(String storeCode) {
-        ShopNotice params = new ShopNotice();
+    StoreNotice getStoreNotice(String storeCode) {
+        StoreNotice params = new StoreNotice();
         params.setStrCd(storeCode);
         return mapper.selectTbShpNotice(params);
     }
 
-    void addShopNotice(String storeCode, String text, String userId) {
-        ShopNotice params = new ShopNotice();
+    void addStoreNotice(String storeCode, String text, String userId) {
+        StoreNotice params = new StoreNotice();
         params.setStrCd(storeCode);
         params.setText(text);
         params.setModUsrId(userId);
-        params.setWrtrUsrId(userId);
+        params.setRegUsrId(userId);
         mapper.insertTbShpNotice(params);
     }
 
-    void modifyShopNotice(String text, String userId) {
-        ShopNotice params = new ShopNotice();
+    void modifyStoreNotice(String text, String userId) {
+        StoreNotice params = new StoreNotice();
         params.setText(text);
         params.setModUsrId(userId);
         mapper.updateTbShpNotice(params);
     }
 
-    void removeShopNotice(String userId) {
-        ShopNotice params = new ShopNotice();
+    void removeStoreNotice(String userId) {
+        StoreNotice params = new StoreNotice();
         params.setModUsrId(userId);
         params.setDelYn("Y");
         mapper.updateTbShpNotice(params);

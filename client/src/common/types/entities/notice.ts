@@ -10,7 +10,7 @@ export interface ShopNotice {
   id?: number
   strCd: string
   text?: string
-  wrtrUsrId?: string
+  regUsrId?: string
   modUsrId?: string
   delYn?: string
 }

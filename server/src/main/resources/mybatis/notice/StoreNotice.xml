@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.notice.StoreNoticeMapper">
+
+    <select id="selectTbShpNotice"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+            resultType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+    >
+        SELECT * FROM TB_STR_NOTICE
+        WHERE STR_CD = #{strCd}
+        AND DEL_YN = 'N'
+        ORDER BY NOTICE_NO DESC
+        LIMIT 1
+    </select>
+    <insert id="insertTbShpNotice"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+    >
+        INSERT INTO TB_STR_NOTICE (
+            STR_CD,
+            TEXT,
+            REG_USR_ID,
+            MOD_USR_ID
+        )
+        VALUES (
+            #{strCd},
+            #{text},
+            #{regUsrId},
+            #{modUsrId}
+        )
+    </insert>
+    <update id="updateTbShpNotice"
+            parameterType="kr.co.oliveyoung.shopapp.feature.notice.StoreNotice"
+    >
+        UPDATE TB_SHP_NOTICE
+        SET
+            <if test="text != null">TEXT = #{text},</if>
+            <if test="delYn != null">DEL_YN = #{delYn},</if>
+            MOD_USR_ID = #{modUsrId}
+        WHERE NOTICE_NO = #{noticeNo}
+    </update>
+
+</mapper>

@@ -27,29 +27,17 @@ interface DispatchProps {
 
 type Props = OwnProps & StateProps & DispatchProps
 
-interface OwnState {
-  searchWord: string
-  distance: string
-  address: string
-}
+interface OwnState {}
 
 class StockSearch extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
-    const { goodsCode } = this.props
-    this.state = {
-      searchWord: goodsCode || null,
-      distance: '0',
-      address: '',
-    }
   }
 
   componentDidMount() {
-    const { params } = this.props.match && this.props.match
-    if (params) {
-      const goodsCode = params['goodsCode']
-      this.setState({ searchWord: goodsCode })
-    }
+    this.props.stockSearchParams.stock.address = ''
+    this.props.stockSearchParams.stock.distance = '30'
+    this.props.stockSearchParams.stock.goodsCode = ''
   }
 
   onProductInputChange = e => {
@@ -80,8 +68,8 @@ class StockSearch extends React.Component<Props, OwnState> {
           <div className={cx('title')}>거리(km) / 구</div>
           <Row>
             <Col span={12}>
-              <select className={cx('select-distance')} onChange={this.handleChange} defaultValue="0">
-                <option className={cx('option')} value="0">
+              <select className={cx('select-distance')} onChange={this.handleChange} defaultValue="30">
+                <option className={cx('option')} value="30">
                   전체
                 </option>
                 <option className={cx('option')} value="1">
@@ -110,13 +98,12 @@ class StockSearch extends React.Component<Props, OwnState> {
             </Col>
           </Row>
           {/* 검색어 입력 영역 */}
-          <Divider>상품</Divider>
-          <div className={cx('title')}>상품</div>
+          <div className={cx('title')}>상품코드</div>
           <Input
-            placeholder="검색어를 입력해주세요"
+            placeholder="상품코드를 입력해주세요"
             suffix={
               <Icon
-                onClick={() => (window.location.href = '/app/search/barcode')}
+                onClick={() => (window.location.href = '/app/stock/barcode')}
                 type="barcode"
                 style={{ color: 'rgba(0,0,0,.45)', paddingRight: 20, fontSize: 50 }}
               />

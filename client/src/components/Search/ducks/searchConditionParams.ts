@@ -7,9 +7,12 @@ export interface SearchConditionParamsState {
 const initialState: SearchConditionParamsState = {
   searchForm: {
     searchword: '',
-    category: '',
+    categoryId: '',
+    categoryName: '',
     brand: '',
+    brandName: '',
     benefit: '',
+    benefitName: '',
     startValue: 0,
     endValue: 200000,
   },
