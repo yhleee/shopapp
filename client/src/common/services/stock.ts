@@ -5,7 +5,7 @@ export const getStoreStockList = async (stockSearchForm: StockSearchForm) => {
   const response = await axios.get(
     `/api/stock/stores/list?goodsCode=${stockSearchForm.goodsCode}&distance=${stockSearchForm.distance}&address=${
       stockSearchForm.address
-    }`,
+    }&storeCode=${stockSearchForm.storeCode}`,
   )
   return response && response.data
 }

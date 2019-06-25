@@ -22,6 +22,8 @@ export const Example = createLoadable(() => import('./Example/Example'))
 export const TestAxios = createLoadable(() => import('./test/naverSelectiveList'))
 export const Home = createLoadable(() => import('./Home/home'))
 export const Survey = createLoadable(() => import('./Survey/survey'))
+export const SurveyPage = createLoadable(() => import('./Survey/survey_list'))
+export const SurveyLoading = createLoadable(() => import('./Survey/survey_loading'))
 export const Ranking = createLoadable(() => import('./Ranking'))
 export const RankingSearch = createLoadable(() => import('./Ranking/ranking_search'))
 export const SearchResult = createLoadable(() => import('./Search/search_result'))
@@ -48,6 +50,8 @@ const Routes = () => {
         <Route path="/app/example" component={Example} />
         <Route path="/app/test/axios" component={TestAxios} />
         <Route path="/app/home" component={Home} />
+        <Route path="/app/survey/page/:page" component={SurveyPage} />
+        <Route path="/app/survey/loading" component={SurveyLoading} />
         <Route path="/app/survey" component={Survey} />
         <Route path="/app/ranking/products" component={RankingProductList} />
         <Route path="/app/ranking/search/:searchType/:brandName" component={RankingSearch} />

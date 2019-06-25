@@ -12,4 +12,5 @@ export interface StockSearchForm {
   goodsCode: string
   distance: string
   address: string
+  storeCode: string
 }

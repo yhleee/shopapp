@@ -27,7 +27,7 @@
                 FROM TB_SA_BIZPLC_ADD_L T1
                     ,(	SELECT *
                           FROM TB_SA_BIZPLC_ADD_L
-                         WHERE STR_CD = 'DB67') T2
+                         WHERE STR_CD = #{storeCode}) T2
                     ,TB_SA_BIZPLC_M T3 /* 사업장 마스터 */
                WHERE T1.STR_CD = T3.BIZPLC_CD
     ]]>
