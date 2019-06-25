@@ -34,10 +34,6 @@
   font-size: 15px;
 }
 
-
-
-
-
 .footer-wrap {
   position: fixed;
   bottom: 0px;
@@ -52,4 +48,20 @@
 
 .footer-wrap .search-button {
   width: 100%;
+}
+
+.div-area {
+  display: block;
+  margin-left : 40px;
+  margin-right: 40px;
+  margin-top: 200px;
+  background-color: rgb(242,242,242);
+  text-align: center;
+  padding: 50px;
+}
+.div-area .loading-text {
+  display: block;
+  margin-top: 50px;
+  font-size: 30px;
+  text-align: center;
 }

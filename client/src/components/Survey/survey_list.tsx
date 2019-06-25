@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { Steps, List, Radio } from 'antd'
+import { Steps } from 'antd'
 import { DynamicCx } from '../../common/types'
 import { SurveyParamsState } from './ducks/surveyParams'
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
 import { styling } from '../../common/utils'
 import { History } from 'history'
-import * as s from '../Stock/stock.scss'
+import * as s from './survey.scss'
+import { getSurveyQuestions } from '../../common/services/survey'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -20,13 +21,12 @@ interface StateProps {
 interface DispatchProps {}
 
 interface OwnState {
-  current: number
+  page: number
 }
 
 type Props = OwnProps & StateProps & DispatchProps
 
 const Step = Steps.Step
-const RadioGroup = Radio.Group
 
 const steps = [
   {
@@ -96,40 +96,50 @@ class SurveyList extends React.Component<Props, OwnState> {
   constructor(props) {
     super(props)
     this.state = {
-      current: 0,
+      page: 0,
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(this.props.surveyParams.survey.age)
     console.log(this.props.surveyParams.survey.gender)
+
+    // const surveyQuestions = await getSurveyQuestions('1')
   }
 
   next = () => {
-    const current = this.state.current + 1
-    this.setState({ current })
+    const page = this.state.page + 1
+    this.setState({ page })
   }
 
   prev() {
-    const current = this.state.current - 1
-    this.setState({ current })
+    const page = this.state.page - 1
+    this.setState({ page })
+  }
+
+  goResultPage = () => {
+    this.props.history.push('/app/survey/loading')
   }
 
   render() {
-    const { current } = this.state
+    const { page } = this.state
+    const { cx } = this.props
 
     return (
       <>
-        <Steps current={current}>{steps.map(item => <Step key={item.title} title={item.title} />)}</Steps>
+        <Steps current={page}>{steps.map(item => <Step key={item.title} title={item.title} />)}</Steps>
         <div className="steps-content">
-          <p style={{ fontSize: '60px', textAlign: 'center' }}>{steps[current].subtitle}</p>
+          <p style={{ fontSize: '60px', textAlign: 'center' }}>{steps[page].subtitle}</p>
+
+          {/*
           <List
             size="large"
             itemLayout="horizontal"
-            dataSource={steps[current].questions}
+            dataSource={steps[page].questions}
             renderItem={item => (
               <List.Item>
-                <List.Item.Meta title={item.title} />
+                <List.Item.Meta title={item.title} style={{display: 'block'}}/>
+
                 <RadioGroup name={item.number} defaultValue={null}>
                   <Radio value={1}>1</Radio>
                   <Radio value={2}>2</Radio>
@@ -140,6 +150,10 @@ class SurveyList extends React.Component<Props, OwnState> {
               </List.Item>
             )}
           />
+          */}
+        </div>
+        <div className={cx('footer-wrap')} onClick={this.goResultPage}>
+          <div className={cx('search-button')}>다음</div>
         </div>
       </>
     )

@@ -37,9 +37,9 @@ class SurveyLogin extends React.Component<Props, OwnState> {
   componentDidMount() {
     this.props.surveyParams.survey.age = 0
     this.props.surveyParams.survey.gender = 'n'
-    this.props.surveyParams.survey.score1 = 0
-    this.props.surveyParams.survey.score2 = 0
-    this.props.surveyParams.survey.score3 = 0
+    this.props.surveyParams.survey.score1 = []
+    this.props.surveyParams.survey.score2 = []
+    this.props.surveyParams.survey.score3 = []
   }
 
   handleAgeChange = e => {
@@ -115,6 +115,7 @@ class SurveyLogin extends React.Component<Props, OwnState> {
     )
   }
 }
+
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     surveyParams: state.surveyParams,

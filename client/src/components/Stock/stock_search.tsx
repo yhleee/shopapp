@@ -8,6 +8,7 @@ import { History } from 'history'
 import { StockSearchParamsState, resetStockSearchParams, updateStockSearchParams } from './ducks/stockSearchParams'
 import { connect } from 'react-redux'
 import { RootState } from '../../common/reducer'
+import { UserInfoState } from '../Layout/ducks/UserInfo'
 
 interface OwnProps {
   cx?: DynamicCx
@@ -18,6 +19,7 @@ interface OwnProps {
 
 interface StateProps {
   stockSearchParams: StockSearchParamsState
+  userInfo: UserInfoState
 }
 
 interface DispatchProps {
@@ -38,6 +40,7 @@ class StockSearch extends React.Component<Props, OwnState> {
     this.props.stockSearchParams.stock.address = ''
     this.props.stockSearchParams.stock.distance = '30'
     this.props.stockSearchParams.stock.goodsCode = ''
+    this.props.stockSearchParams.stock.storeCode = this.props.userInfo.storeCode
   }
 
   onProductInputChange = e => {
@@ -129,6 +132,7 @@ class StockSearch extends React.Component<Props, OwnState> {
 export default connect<StateProps, DispatchProps, OwnProps>(
   (state: RootState) => ({
     stockSearchParams: state.stockSearchParams,
+    userInfo: state.userInfo,
   }),
   {
     resetStockSearchParams,

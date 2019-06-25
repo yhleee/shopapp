@@ -75,12 +75,6 @@ class Layout extends React.Component<Props, OwnState> {
     window && window.history.back()
   }
 
-  endButtonHandler = () => {
-    if (confirm('피부 분석을 중단 하시겠어요?')) {
-      console.log('ok')
-    }
-  }
-
   render() {
     const { cx, children, layoutTitle } = this.props
     return (

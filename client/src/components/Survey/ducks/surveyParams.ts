@@ -8,9 +8,9 @@ const initialState: SurveyParamsState = {
   survey: {
     age: 0,
     gender: 'n',
-    score1: 0,
-    score2: 0,
-    score3: 0,
+    score1: [],
+    score2: [],
+    score3: [],
   },
 }
 

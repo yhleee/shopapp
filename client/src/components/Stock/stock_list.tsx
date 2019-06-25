@@ -53,10 +53,6 @@ class StockList extends React.Component<Props, OwnState> {
       this.props.stockSearchParamsState.stock.distance = '30'
     }
 
-    console.log(`goods = ${this.props.stockSearchParamsState.stock.goodsCode}`)
-    console.log(`distance = ${this.props.stockSearchParamsState.stock.distance}`)
-    console.log(`address = ${this.props.stockSearchParamsState.stock.address}`)
-
     const storeList = await getStoreStockList(this.props.stockSearchParamsState.stock)
     this.setState({ storeList: this.state.storeList.concat(storeList) })
   }
