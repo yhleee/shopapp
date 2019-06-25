@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 import java.io.Serializable;
 import java.util.Date;
 
-@Alias("shopNotice")
+@Alias("commonNotice")
 @Data
 public class CommonNotice implements Serializable  {
 

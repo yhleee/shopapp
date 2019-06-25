@@ -1,0 +1,147 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.oliveyoung.shopapp.feature.rank.RankMapper">
+
+    <select id="selectRankList"
+            parameterType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+            resultType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+    >
+        SELECT T1.*
+        FROM
+        (
+            SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+            FROM
+            (
+                SELECT 'CAT' AS type, GDS_CD AS code , GDS_NM AS name, BRND_CD as brdCd, BRND_NM as brdNm, GDS_SCLS_CD as gdsClsCd, GDS_SCLS_NM as gdsClsNm, SUM(SEL_QTY) AS sumQty, SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_GDS_L
+                WHERE SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                AND GDS_LCLS_CD = 01
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT 5
+            ) Z, (SELECT @VRANK :=0) AS R
+        ) T1
+        UNION ALL
+        SELECT T2.*
+        FROM
+        (
+            SELECT @VRANK := @VRANK + 1 AS RANK, Z.*
+            FROM
+            (
+                SELECT 'MEM' AS TYPE, GDS_CD , GDS_NM, BRND_CD, BRND_NM, GDS_SCLS_CD, GDS_SCLS_NM, SUM(SEL_QTY), SUM(SEL_AMT)
+                FROM TB_RANK_MEM_GDS_L
+                WHERE SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                AND GENDER = 'F'
+                AND AGE_GROUP = 20
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT 5
+            ) Z, (SELECT @VRANK :=0) AS R
+        ) T2
+        UNION ALL
+        SELECT T3.*
+        FROM
+        (
+            SELECT @VRANK := @VRANK + 1 AS RANK, X.*
+            FROM
+            (
+                SELECT 'BRD', GDS_CD, GDS_NM, BRND_CD, BRND_NM, GDS_SCLS_CD, GDS_SCLS_NM, SUM(SEL_QTY), SUM(SEL_AMT)
+                FROM TB_RANK_GDS_L
+                WHERE SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                AND GDS_LCLS_CD = 01
+                GROUP BY BRND_CD, BRND_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_AMT) DESC
+                LIMIT 5
+            ) X, (SELECT @VRANK :=0) AS R
+        ) T3
+    </select>
+
+    <select id="selectCategoryList"
+            parameterType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+            resultType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+    >
+        <choose>
+            <when test="strCd == 'all'">
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                    SELECT    GDS_CD AS gdsCd
+                            , GDS_NM AS gdsNm
+                            , BRND_CD AS brdCd
+                            , BRND_NM AS brdNm
+                            , GDS_SCLS_CD AS gdsClsCd
+                            , GDS_SCLS_NM AS gdsClsNm
+                            , SUM(SEL_QTY) AS sumQty
+                            , SUM(SEL_AMT) AS sumAmt
+                    FROM TB_RANK_GDS_L
+                    WHERE 1=1
+                    <choose>
+                        <when test="period == 'month'">
+                            AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                        </when>
+                        <when test="period == 'week'">
+                            AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                        </when>
+                        <otherwise>
+                            AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                        </otherwise>
+                    </choose>
+                    <if test="lcd != null and lcd != '' ">
+                        AND GDS_LCLS_CD = #{lcd}
+                    </if>
+                    <if test="mcd != null and mcd != '' ">
+                        AND GDS_MCLS_CD = #{mcd}
+                    </if>
+                    <if test="scd != null and scd != '' ">
+                        AND GDS_SCLS_CD = #{scd}
+                    </if>
+                    GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                    ORDER BY SUM(SEL_QTY) DESC
+                    LIMIT #{start}, #{end}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </when>
+            <otherwise>
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                SELECT    STR_CD AS strCd
+                        , STR_NM AS strNm
+                        , GDS_CD AS gdsCd
+                        , GDS_NM AS gdsNm
+                        , BRND_CD AS brdCd
+                        , BRND_NM AS brdNm
+                        , GDS_SCLS_CD AS gdsClsCd
+                        , GDS_SCLS_NM AS gdsClsNm
+                        , SUM(SEL_QTY) AS sumQty
+                        , SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_STR_GDS_L
+                WHERE 1=1
+                <choose>
+                    <when test="period == 'month'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <when test="period == 'week'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <otherwise>
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </otherwise>
+                </choose>
+                <if test="lcd != null and lcd != '' ">
+                    AND GDS_LCLS_CD = #{lcd}
+                </if>
+                <if test="mcd != null and mcd != '' ">
+                    AND GDS_MCLS_CD = #{mcd}
+                </if>
+                <if test="scd != null and scd != '' ">
+                    AND GDS_SCLS_CD = #{scd}
+                </if>
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT #{start}, #{end}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </otherwise>
+        </choose>
+
+    </select>
+
+</mapper>
