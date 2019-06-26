@@ -2,6 +2,7 @@ package kr.co.oliveyoung.shopapp.services.api.product;
 
 import kr.co.oliveyoung.shopapp.common.enums.ResponseResult;
 import kr.co.oliveyoung.shopapp.common.model.ApiResponseMessage;
+import kr.co.oliveyoung.shopapp.common.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -28,7 +29,7 @@ public class ProductDetailParserController {
     @GetMapping("/product/barcode/{barcode}")
     public ApiResponseMessage getProductPidFromBarcode(HttpServletResponse response, @PathVariable("barcode") String key) {
         String barcodeUrl = "https://m.oliveyoung.co.kr/m/goods/getGoodsDetailBarcode.do?itemNo=" + key;
-        String barcodeHtml = requestUrl(barcodeUrl);
+        String barcodeHtml = HttpUtils.requestMobileUrl(barcodeUrl);
         Document document = Jsoup.parse(barcodeHtml);
         String goodsCode = null;
         try {
@@ -59,17 +60,17 @@ public class ProductDetailParserController {
         result.setGoodsCode(key);
         Document document = null;
         try {
-            String html = requestUrl(productUrl);
+            String html = HttpUtils.requestMobileUrl(productUrl);
             document = Jsoup.parse(html);
             // create result info
             setProductElementInfos(result, document);
             transformProductPage(document);
             // append product detail
-            String productDetailHtml = requestUrl(productDetailUrl);
+            String productDetailHtml = HttpUtils.requestMobileUrl(productDetailUrl);
             Elements tabCont = document.body().getElementsByClass("line_tab_cont");
             tabCont.get(0).children().get(0).before(productDetailHtml);
             // append goods info
-            String goodsInfoHtml = requestUrl(goodsInfoUrl);
+            String goodsInfoHtml = HttpUtils.requestMobileUrl(goodsInfoUrl);
             tabCont.get(1).children().get(0).before(goodsInfoHtml);
             document.body().getElementsByClass("listBuyInfo").get(0).remove();
             try {
@@ -84,7 +85,7 @@ public class ProductDetailParserController {
                 }
             } catch (Exception e) {}
             // append review
-            String reviewHtml = requestUrl(reviewUrl);
+            String reviewHtml = HttpUtils.requestMobileUrl(reviewUrl);
             Document reviewDocument = Jsoup.parse(reviewHtml);
             removeUnusedReviewElements(reviewDocument);
             document.body().getElementById("gdasWrap").append(reviewDocument.outerHtml());
@@ -184,39 +185,6 @@ public class ProductDetailParserController {
         } catch (Exception e) {
             log.error("탭 메뉴 조작 중 에러", e);
         }
-    }
-
-    private void setMobileHeader(GetMethod method) {
-        method.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
-        method.setRequestHeader("Host", "m.oliveyoung.co.kr");
-        method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
-    }
-
-    private String requestUrl(String url) {
-        try {
-            HttpClientParams httpParams = new HttpClientParams();
-            httpParams.setConnectionManagerClass(SimpleHttpConnectionManager.class);
-            HttpClient client = new HttpClient(httpParams);
-            GetMethod method = null;
-            try {
-                method = new GetMethod(url);
-                setMobileHeader(method);
-                int code = client.executeMethod(method);
-                String response = IOUtils.toString(method.getResponseBodyAsStream(), "UTF-8");
-                if (code != 200) {
-                    throw new Exception("unexcepted result: " + code + " " + response);
-                }
-                return response;
-            } catch (Exception e) {
-            } finally {
-                if (method != null) {
-                    method.releaseConnection();
-                }
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return null;
     }
 
     private String style = "<style>\n" +

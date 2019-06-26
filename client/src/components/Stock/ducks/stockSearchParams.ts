@@ -9,6 +9,7 @@ const initialState: StockSearchParamsState = {
     goodsCode: '',
     distance: '',
     address: '',
+    storeCode: '',
   },
 }
 
