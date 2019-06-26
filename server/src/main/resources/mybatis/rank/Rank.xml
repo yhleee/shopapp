@@ -96,7 +96,7 @@
                     </if>
                     GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
                     ORDER BY SUM(SEL_QTY) DESC
-                    LIMIT #{start}, #{end}
+                    LIMIT #{start}, #{limit}
                 ) Z, (SELECT @VRANK :=0) AS R
             </when>
             <otherwise>
@@ -126,6 +126,9 @@
                         AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
                     </otherwise>
                 </choose>
+
+                AND STR_CD = #{strCd}
+
                 <if test="lcd != null and lcd != '' ">
                     AND GDS_LCLS_CD = #{lcd}
                 </if>
@@ -137,7 +140,184 @@
                 </if>
                 GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
                 ORDER BY SUM(SEL_QTY) DESC
-                LIMIT #{start}, #{end}
+                LIMIT #{start}, #{limit}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="selectMemberList"
+            parameterType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+            resultType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+    >
+        <choose>
+            <when test="strCd == 'all'">
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                SELECT    GDS_CD AS gdsCd
+                        , GDS_NM AS gdsNm
+                        , BRND_CD AS brdCd
+                        , BRND_NM AS brdNm
+                        , GDS_SCLS_CD AS gdsClsCd
+                        , GDS_SCLS_NM AS gdsClsNm
+                        , SUM(SEL_QTY) AS sumQty
+                        , SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_MEM_GDS_L
+                WHERE 1=1
+                <choose>
+                    <when test="period == 'month'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <when test="period == 'week'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <otherwise>
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </otherwise>
+                </choose>
+                <if test="lcd != null and lcd != '' ">
+                    AND GDS_LCLS_CD = #{lcd}
+                </if>
+                <if test="mcd != null and mcd != '' ">
+                    AND GDS_MCLS_CD = #{mcd}
+                </if>
+                <if test="scd != null and scd != '' ">
+                    AND GDS_SCLS_CD = #{scd}
+                </if>
+                <if test="age != null and age != '' ">
+                    AND AGE_GROUP = #{age}
+                </if>
+                <if test="gender != null and gender != '' ">
+                    AND GENDER = #{gender}
+                </if>
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT #{start}, #{limit}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </when>
+            <otherwise>
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                SELECT    GDS_CD AS gdsCd
+                        , GDS_NM AS gdsNm
+                        , BRND_CD AS brdCd
+                        , BRND_NM AS brdNm
+                        , GDS_SCLS_CD AS gdsClsCd
+                        , GDS_SCLS_NM AS gdsClsNm
+                        , SUM(SEL_QTY) AS sumQty
+                        , SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_STR_MEM_GDS_L
+                WHERE 1=1
+                <choose>
+                    <when test="period == 'month'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <when test="period == 'week'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <otherwise>
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </otherwise>
+                </choose>
+
+                AND STR_CD = #{strCd}
+
+                <if test="lcd != null and lcd != '' ">
+                    AND GDS_LCLS_CD = #{lcd}
+                </if>
+                <if test="mcd != null and mcd != '' ">
+                    AND GDS_MCLS_CD = #{mcd}
+                </if>
+                <if test="scd != null and scd != '' ">
+                    AND GDS_SCLS_CD = #{scd}
+                </if>
+                <if test="age != null and age != '' ">
+                    AND AGE_GROUP = #{age}
+                </if>
+                <if test="gender != null and gender != '' ">
+                    AND GENDER = #{gender}
+                </if>
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT #{start}, #{limit}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="selectBrandList"
+            parameterType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+            resultType="kr.co.oliveyoung.shopapp.feature.rank.Rank"
+    >
+        <choose>
+            <when test="strCd == 'all'">
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                SELECT    GDS_CD AS gdsCd
+                        , GDS_NM AS gdsNm
+                        , BRND_CD AS brdCd
+                        , BRND_NM AS brdNm
+                        , GDS_SCLS_CD AS gdsClsCd
+                        , GDS_SCLS_NM AS gdsClsNm
+                        , SUM(SEL_QTY) AS sumQty
+                        , SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_GDS_L
+                WHERE 1=1
+                <choose>
+                    <when test="period == 'month'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <when test="period == 'week'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <otherwise>
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </otherwise>
+                </choose>
+                AND BRND_CD = #{brdCd}
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT #{start}, #{limit}
+                ) Z, (SELECT @VRANK :=0) AS R
+            </when>
+            <otherwise>
+                SELECT @VRANK := @VRANK + 1 AS rank, Z.*
+                FROM
+                (
+                SELECT    STR_CD AS strCd
+                        , STR_NM AS strNm
+                        , GDS_CD AS gdsCd
+                        , GDS_NM AS gdsNm
+                        , BRND_CD AS brdCd
+                        , BRND_NM AS brdNm
+                        , GDS_SCLS_CD AS gdsClsCd
+                        , GDS_SCLS_NM AS gdsClsNm
+                        , SUM(SEL_QTY) AS sumQty
+                        , SUM(SEL_AMT) AS sumAmt
+                FROM TB_RANK_STR_GDS_L
+                WHERE 1=1
+                <choose>
+                    <when test="period == 'month'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <when test="period == 'week'">
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </when>
+                    <otherwise>
+                        AND SLBIZ_YMD BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), '%Y%m%d') AND DATE_FORMAT(NOW(), '%Y%m%d')
+                    </otherwise>
+                </choose>
+
+                AND STR_CD = #{strCd}
+                AND BRND_CD = #{brdCd}
+                GROUP BY GDS_CD, GDS_NM, GDS_SCLS_CD, GDS_SCLS_NM
+                ORDER BY SUM(SEL_QTY) DESC
+                LIMIT #{start}, #{limit}
                 ) Z, (SELECT @VRANK :=0) AS R
             </otherwise>
         </choose>

@@ -9,4 +9,6 @@ public interface RankMapper {
 
     List<Rank> selectRankList();
     List<Rank> selectCategoryList(Rank param);
+    List<Rank> selectMemberList(Rank param);
+    List<Rank> selectBrandList(Rank param);
 }

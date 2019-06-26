@@ -40,7 +40,8 @@ mybatis:
     useGeneratedKeys: true
     defaultExecutorType: REUSE
     aggressiveLazyLoading: false
-    default-statement-timeout: 5
+    default-statement-timeout: 30
+    map-underscore-to-camel-case: true
 
 
 server:
@@ -61,7 +62,7 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -74,7 +75,7 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -87,7 +88,7 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -100,7 +101,7 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -113,7 +114,7 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T
 ---
@@ -126,6 +127,6 @@ spring:
       password: TAblet52()
   mysql:
     datasource:
-      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=5000&amp;connectTimeout=5000
+      jdbcUrl: jdbc:mysql://116.121.31.99:3306/tablet_app?socketTimeout=30000&amp;connectTimeout=30000
       username: tabletAdmin
       password: 1q2w3e4r%T

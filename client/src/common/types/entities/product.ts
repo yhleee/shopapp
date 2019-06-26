@@ -9,6 +9,19 @@ export interface Product {
   linkUrl: string
   price: number
   volume?: string
+
+  code: string
+  name: string
+  strCd: string
+  strNm: string
+  gdsCd: string
+  gdsNm: string
+  brdCd: string
+  brdNm: string
+  gdsClsCd: string
+  gdsClsNm: string
+  sumQty: number
+  sumAmt: number
 }
 
 export interface ProductCompareInfo {
