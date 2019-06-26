@@ -50,7 +50,8 @@
                 , B.REGISTER_NAME AS regNm
                 , B.UPDATE_DATE AS modDate
                 , B.UPDATER_ID AS modNm
-    FROM BIZPORTAL.IKEP4_BD_ITEM B, BIZPORTAL.IKEP4_DM_FILE C
+    FROM BIZPORTAL.IKEP4_BD_ITEM B
+        , BIZPORTAL.IKEP4_DM_FILE C
     WHERE 1=1
     AND B.IMAGE_FILE_ID = C.FILE_ID(+)
     AND B.ITEM_ID = #{itemId}
