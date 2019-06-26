@@ -48,12 +48,17 @@ class Ranking extends React.Component<Props, OwnState> {
   async componentDidMount() {
     this.props.updateLayoutTile('RANKING')
     const productList = await getProductList(null)
-    if (productList) {
+    console.log(productList)
+    if (productList.contents) {
       this.setState({
-        categoryProductList: productList,
-        brandProductList: productList,
-        ageProductList: productList,
+        categoryProductList: productList.contents.categoryProductList,
+        brandProductList: productList.contents.brandProductList,
+        ageProductList: productList.contents.ageProductList,
       })
+
+      // console.log(" categoryProductList :: " + this.state.categoryProductList.toString());
+      // console.log(" brandProductList :: " + this.state.brandProductList.toString());
+      // console.log(" ageProductList :: " + this.state.ageProductList.toString());
     }
   }
 

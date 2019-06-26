@@ -12,15 +12,26 @@ export const getProductDetailHtmlByBarcode = async (barcode: string) => {
 }
 
 export const getProductList = async (params: any) => {
-  const response = await getProductDummyList()
-  return response && response
+  // const response = await getProductDummyList()
+  // return response && response
+  const response = await axios.get('/api/rank/mainList')
+  console.log(response)
+  return response.data
 }
 
 const getProductDummyList = () => {
   return dummyProducts
 }
 
-const dummyProducts: Product[] = [
+const dummyProducts: ({
+  brandName: string
+  price: number
+  imageUrl: string
+  linkUrl: string
+  rank: number
+  id: string
+  productName: string
+})[] = [
   {
     id: 'A000000125206',
     brandName: '삼성',

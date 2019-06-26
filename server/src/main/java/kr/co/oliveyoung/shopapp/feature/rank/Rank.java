@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Alias("rank")
 @Data
@@ -12,11 +13,13 @@ public class Rank implements Serializable  {
 
     // Input
     private int start;
-    private int end;
+    private int limit;
     private String period;
     private String lcd;
     private String mcd;
     private String scd;
+    private String age;
+    private String gender;
 
     // OutPut
     private int rank;
@@ -33,4 +36,8 @@ public class Rank implements Serializable  {
     private String gdsClsNm;
     private long sumQty;
     private long sumAmt;
+
+    private List<Rank> categoryProductList;
+    private List<Rank> brandProductList;
+    private List<Rank> ageProductList;
 }

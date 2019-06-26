@@ -41,9 +41,9 @@ class ProductList extends React.Component<Props, {}> {
                 <Img src={product.imageUrl} />
               </div>
               <div className={cx('product_desc')}>
-                {product.brandName}
+                {product.brdNm}
                 <br />
-                {product.productName}
+                {product.name}
               </div>
               <div className={cx('product_price')}>
                 {product.volume && `${product.volume}/`}
