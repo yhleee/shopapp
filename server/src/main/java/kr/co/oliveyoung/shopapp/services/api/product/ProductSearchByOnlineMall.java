@@ -6,6 +6,8 @@ import kr.co.oliveyoung.shopapp.common.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,17 +32,8 @@ public class ProductSearchByOnlineMall {
     public ApiResponseMessage searchProductOnline (HttpServletResponse response, @RequestBody ProductSearchCriteria params) {
         ApiResponseMessage message = new ApiResponseMessage();
         message.setParams(params);
-        String encodeQuery = params.getQuery();
-        try {
-            encodeQuery = URLEncoder.encode(params.getQuery(), "UTF-8");
-        } catch (Exception e) {}
-        PostMethod method = new PostMethod("https://m.oliveyoung.co.kr/m/search/mSearchMainAjax.do?query=" + encodeQuery);
-        method.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
-        method.setRequestHeader("Host", "m.oliveyoung.co.kr");
-        method.setRequestHeader("Accept", "*/*");
-        method.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        method.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        String html = HttpUtils.requestUrl(method);
+        String url = "https://m.oliveyoung.co.kr/m/search/mSearchMainAjax.do";
+        String html = HttpUtils.requestForm(url, getNameValuePairs(params));
         Document document = Jsoup.parse(html);
         Elements goodsList = document.getElementsByClass("goods");
         List<ProductListItem> products = Generics.list();
@@ -62,5 +55,23 @@ public class ProductSearchByOnlineMall {
         }
         message.setContents(products);
         return message;
+    }
+
+    public List<NameValuePair> getNameValuePairs(ProductSearchCriteria criteria) {
+        List<NameValuePair> params = Generics.list();
+        params.add(new BasicNameValuePair("query", criteria.getQuery()));
+        params.add(new BasicNameValuePair("startCount", String.valueOf(criteria.getStartCount())));
+        params.add(new BasicNameValuePair("displayCateId", criteria.getDisplayCateId()));
+        params.add(new BasicNameValuePair("cateId1", criteria.getCateId1()));
+        params.add(new BasicNameValuePair("cateId2", criteria.getCateId2()));
+        params.add(new BasicNameValuePair("cateId3", criteria.getCateId3()));
+        params.add(new BasicNameValuePair("sale_below_price", criteria.getSale_below_price()));
+        params.add(new BasicNameValuePair("sale_over_price", criteria.getSale_over_price()));
+        params.add(new BasicNameValuePair("goods_sort", criteria.getGoods_sort()));
+        params.add(new BasicNameValuePair("brandCheck", criteria.getBrandCheck()));
+        params.add(new BasicNameValuePair("benefitCheck", criteria.getBenefitCheck()));
+        params.add(new BasicNameValuePair("quickYn", criteria.getQuickYn()));
+        params.add(new BasicNameValuePair("typeChk", criteria.getTypeChk()));
+        return params;
     }
 }

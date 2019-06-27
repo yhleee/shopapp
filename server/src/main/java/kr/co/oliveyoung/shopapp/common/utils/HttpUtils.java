@@ -1,12 +1,23 @@
 package kr.co.oliveyoung.shopapp.common.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.Consts;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
+import java.util.List;
+
+@Slf4j
 public class HttpUtils {
     public static String requestMobileUrl(String url) {
         GetMethod method = new GetMethod(url);
@@ -36,6 +47,25 @@ public class HttpUtils {
             }
         } catch (Exception e) {
             return null;
+        }
+        return null;
+    }
+
+    public static String requestForm(String url, List<NameValuePair> params) {
+        HttpPost httpPost = new HttpPost(url);
+        try {
+            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params);
+            httpPost.setEntity(formEntity);
+            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36");
+            httpPost.setHeader("Host", "m.oliveyoung.co.kr");
+            httpPost.setHeader("Accept", "*/*");
+            httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.setHeader("X-Requested-With", "XMLHttpRequest");
+            org.apache.http.client.HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpResponse response = httpClient.execute(httpPost);
+            return EntityUtils.toString(response.getEntity());
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
         return null;
     }

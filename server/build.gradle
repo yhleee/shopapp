@@ -162,6 +162,9 @@ dependencies {
     compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.6'
 
     compile 'commons-lang:commons-lang:2.6'
+    compile 'org.apache.httpcomponents:httpclient:4.3.2'
+    // json
+    compile group: 'org.json', name: 'json', version: '20180813'
 }
 
 bootJar {
