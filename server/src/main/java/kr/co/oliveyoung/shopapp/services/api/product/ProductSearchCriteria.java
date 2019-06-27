@@ -1,15 +1,19 @@
 package kr.co.oliveyoung.shopapp.services.api.product;
 
+import kr.co.oliveyoung.shopapp.common.utils.Generics;
 import lombok.Data;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class ProductSearchCriteria implements Serializable {
 
     private static final long serialVersionUID = -8548175962923700252L;
     private String query;
-    private Integer startCouont;
+    private Integer startCount;
     private String displayCateId;
     private String cateId1;
     private String cateId2;
