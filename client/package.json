@@ -125,7 +125,7 @@
     "istanbul": "^0.4.5",
     "jest": "^22.0.4",
     "lint-staged": "^7.0.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.13.1",
     "npm-run-all": "^4.1.2",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
